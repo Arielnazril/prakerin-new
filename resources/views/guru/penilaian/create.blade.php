@@ -55,7 +55,7 @@
                     <span class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">3</span>
                     Catatan Revisi (Opsional)
                 </h3>
-                <textarea name="catatan" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contoh: Perbaiki Bab 3 bagian metodologi..."></textarea>
+                <textarea name="catatan" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Contoh: Tuliskan catatan revisi, masukan, atau saran perbaikan jika diperlukan."></textarea>
             </div>
 
             <div class="pt-6 border-t border-gray-100 flex justify-end">

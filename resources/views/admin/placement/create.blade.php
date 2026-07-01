@@ -46,7 +46,7 @@
                                 @endforeach
                             </select>
                             @if ($siswas->isEmpty())
-                                <p class="text-xs text-red-500 mt-1">* Semua siswa sudah punya tempat magang.</p>
+                                <p class="text-xs text-red-500 mt-1">* Belum ada Siswa Yang Daftar</p>
                             @endif
                         </div>
 
