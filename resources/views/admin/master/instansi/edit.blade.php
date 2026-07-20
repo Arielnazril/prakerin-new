@@ -3,53 +3,137 @@
 @section('page_title', 'Edit Data Industri')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
-    <div class="mb-6 flex items-center">
-        <a href="{{ route('admin.instansi.index') }}" class="mr-4 text-gray-500 hover:text-gray-700">
-            <i class="fas fa-arrow-left text-xl"></i>
-        </a>
-        <h2 class="text-2xl font-bold text-gray-800">Edit Perusahaan</h2>
+<div class="max-w-4xl mx-auto animate-fade-in px-4 sm:px-0">
+    {{-- HEADER SECTION --}}
+    <div class="mb-8 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('admin.instansi.index') }}" 
+               class="group flex h-11 w-11 items-center justify-center rounded-2xl bg-white border border-slate-200/80 text-slate-500 shadow-sm hover:shadow-md hover:border-amber-300 hover:text-amber-600 transition-all duration-300 transform hover:-translate-x-1">
+                <i class="fas fa-arrow-left text-base transition-transform group-hover:scale-110"></i>
+            </a>
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+                    Edit Perusahaan
+                    <span class="relative flex h-3 w-3 ml-2 mt-1">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                    </span>
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-medium">Perbarui detail profil informasi mitra industri sekolah secara akurat.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-        <form action="{{ route('admin.instansi.update', $instansi->id) }}" method="POST" class="p-8">
+    {{-- FORM CONTAINER --}}
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/40 border border-slate-100 overflow-hidden relative">
+        
+        {{-- Banner Dekoratif Gradien --}}
+        <div class="h-2 w-full bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500"></div>
+
+        <form action="{{ route('admin.instansi.update', $instansi->id) }}" method="POST" class="p-6 sm:p-10 space-y-8">
             @csrf
             @method('PUT')
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div class="col-span-1 md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Nama Perusahaan</label>
-                    <input type="text" name="nama_perusahaan" value="{{ $instansi->nama_perusahaan }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                
+                {{-- Nama Perusahaan --}}
+                <div class="col-span-1 md:col-span-2 space-y-2">
+                    <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">
+                        Nama Perusahaan <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors duration-300">
+                            <i class="fas fa-building text-sm"></i>
+                        </span>
+                        <input type="text" name="nama_perusahaan" value="{{ $instansi->nama_perusahaan }}" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-300 shadow-sm" 
+                            placeholder="Masukkan nama resmi instansi / perusahaan..." required>
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Email Perusahaan</label>
-                    <input type="email" name="email_perusahaan" value="{{ $instansi->email_perusahaan }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                {{-- Email Perusahaan --}}
+                <div class="space-y-2">
+                    <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">
+                        Email Perusahaan
+                    </label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors duration-300">
+                            <i class="fas fa-envelope text-sm"></i>
+                        </span>
+                        <input type="email" name="email_perusahaan" value="{{ $instansi->email_perusahaan }}" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-300 shadow-sm"
+                            placeholder="contoh@perusahaan.com">
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Nomor Telepon</label>
-                    <input type="text" name="telepon" value="{{ $instansi->telepon }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                {{-- Nomor Telepon --}}
+                <div class="space-y-2">
+                    <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">
+                        Nomor Telepon
+                    </label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors duration-300">
+                            <i class="fas fa-phone text-sm"></i>
+                        </span>
+                        <input type="text" name="telepon" value="{{ $instansi->telepon }}" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-300 shadow-sm"
+                            placeholder="(021) 1234567 atau 0812...">
+                    </div>
                 </div>
 
-                <div class="col-span-1 md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Alamat Lengkap</label>
-                    <textarea name="alamat" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>{{ $instansi->alamat }}</textarea>
+                {{-- Alamat Lengkap --}}
+                <div class="col-span-1 md:col-span-2 space-y-2">
+                    <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">
+                        Alamat Lengkap <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative group flex items-start">
+                        <span class="absolute top-4 left-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors duration-300">
+                            <i class="fas fa-map-marker-alt text-sm"></i>
+                        </span>
+                        <textarea name="alamat" rows="3" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-300 shadow-sm resize-none leading-relaxed" 
+                            placeholder="Tuliskan alamat lengkap jalan, nomor, kota, dan kode pos..." required>{{ $instansi->alamat }}</textarea>
+                    </div>
                 </div>
 
-                <div class="col-span-1 md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Website</label>
-                    <input type="url" name="website" value="{{ $instansi->website }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                {{-- Website --}}
+                <div class="col-span-1 md:col-span-2 space-y-2">
+                    <label class="block text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">
+                        Situs Website
+                    </label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-amber-500 transition-colors duration-300">
+                            <i class="fas fa-globe text-sm"></i>
+                        </span>
+                        <input type="url" name="website" value="{{ $instansi->website }}" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-300 shadow-sm"
+                            placeholder="https://www.perusahaan.com">
+                    </div>
                 </div>
             </div>
 
-            <div class="flex justify-end pt-4 border-t border-gray-100">
-                <a href="{{ route('admin.instansi.index') }}" class="px-6 py-2.5 rounded-lg border border-gray-300 text-gray-600 font-bold hover:bg-gray-50 mr-3 transition">Batal</a>
-                <button type="submit" class="px-6 py-2.5 rounded-lg bg-yellow-500 text-white font-bold hover:bg-yellow-600 shadow-lg transition">
-                    <i class="fas fa-save mr-2"></i> Update Data
+            {{-- FOOTER / ACTION BUTTONS --}}
+            <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 border-t border-slate-100 mt-8">
+                <a href="{{ route('admin.instansi.index') }}" 
+                    class="w-full sm:w-auto px-6 py-3.5 rounded-2xl border border-slate-200 text-slate-600 font-bold text-xs uppercase tracking-wider hover:bg-slate-50 hover:text-slate-800 active:bg-slate-100 transition duration-200 text-center flex items-center justify-center">
+                    <i class="fas fa-times mr-2 text-sm opacity-70"></i> Batal
+                </a>
+                
+                <button type="submit" 
+                    class="w-full sm:w-auto flex items-center justify-center bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black py-3.5 px-8 rounded-2xl text-xs uppercase tracking-wider shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 active:scale-[0.98] transition-all duration-200 cursor-pointer">
+                    <i class="fas fa-save mr-2.5 text-sm"></i> Simpan Perubahan
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+{{-- Animasi Tambahan --}}
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+</style>
 @endsection

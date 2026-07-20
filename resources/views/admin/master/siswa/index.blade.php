@@ -3,124 +3,370 @@
 @section('page_title', 'Manajemen Data Siswa')
 
 @section('content')
-<div class="space-y-8">
+<div class="space-y-8 selection:bg-blue-600 selection:text-white px-2 sm:px-0 select-none font-sans antialiased">
 
+    {{-- TABEL PENDAFTARAN BARU (BUTUH VERIFIKASI) - TAMPILAN TERBARU & MODERN --}}
     @if($siswaPending->count() > 0)
-    <div class="bg-red-50 rounded-xl shadow border border-red-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-red-100 flex justify-between items-center bg-white">
-            <div class="flex items-center text-red-600">
-                <i class="fas fa-exclamation-circle text-xl mr-2 animate-pulse"></i>
-                <h3 class="font-bold text-lg">Pendaftaran Baru (Butuh Verifikasi)</h3>
+    <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-rose-100/80">
+        {{-- Header Card --}}
+        <div class="px-6 py-5 border-b border-rose-100/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-rose-50/80 via-white to-rose-50/20">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 bg-rose-500/10 rounded-2xl flex items-center justify-center border border-rose-200/50 text-rose-600 shadow-sm shrink-0">
+                    <i class="fas fa-user-plus text-lg animate-pulse"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-slate-800 text-base tracking-tight">Pendaftaran Baru (Butuh Verifikasi)</h3>
+                    <p class="text-xs text-slate-500 mt-0.5 font-medium">Siswa pendaftar baru yang memerlukan persetujuan akun administrator</p>
+                </div>
             </div>
-            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                {{ $siswaPending->count() }} Siswa
-            </span>
-        </div>
-        <table class="w-full text-left border-collapse">
-            <thead class="bg-red-100 text-red-800 uppercase text-xs font-bold">
-                <tr>
-                    <th class="px-6 py-3">Waktu Daftar</th>
-                    <th class="px-6 py-3">Nama Siswa</th>
-                    <th class="px-6 py-3">NIS</th>
-                    <th class="px-6 py-3">Jurusan</th>
-                    <th class="px-6 py-3 text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-red-100 bg-white">
-                @foreach($siswaPending as $siswa)
-                <tr>
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        {{ $siswa->created_at->diffForHumans() }}
-                    </td>
-                    <td class="px-6 py-4 font-bold text-gray-800">{{ $siswa->name }}</td>
-                    <td class="px-6 py-4">{{ $siswa->nomor_identitas }}</td>
-                    <td class="px-6 py-4">{{ $siswa->jurusan->kode_jurusan ?? '-' }}</td>
-                    <td class="px-6 py-4 flex justify-center space-x-2">
-                        <form action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-700 shadow flex items-center">
-                                <i class="fas fa-check mr-1"></i> Terima
-                            </button>
-                        </form>
 
-                        <form action="{{ route('admin.siswa.destroy', $siswa->id) }}" method="POST" onsubmit="return confirm('Tolak dan hapus pendaftaran ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-700 shadow flex items-center">
-                                <i class="fas fa-times mr-1"></i> Tolak
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-red-600 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-sm shadow-rose-500/20 uppercase tracking-wider border border-rose-400/30">
+                    <i class="fas fa-clock text-[10px] animate-pulse"></i> {{ $siswaPending->count() }} Perlu Tindakan
+                </span>
+            </div>
+        </div>
+
+        {{-- Table Content --}}
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[650px]">
+                <thead class="bg-slate-50/70 text-slate-400 uppercase text-[10px] font-extrabold tracking-widest border-b border-slate-100">
+                    <tr>
+                        <th class="px-6 py-3.5">Waktu Daftar</th>
+                        <th class="px-6 py-3.5">Nama Siswa</th>
+                        <th class="px-6 py-3.5">NIS</th>
+                        <th class="px-6 py-3.5">Jurusan</th>
+                        <th class="px-6 py-3.5 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 bg-white">
+                    @foreach($siswaPending as $siswa)
+                    <tr class="hover:bg-rose-50/20 transition-colors duration-200 group">
+                        {{-- Waktu Daftar --}}
+                        <td class="px-6 py-4 text-xs text-slate-500 font-medium">
+                            <div class="inline-flex items-center bg-slate-50 group-hover:bg-white px-3 py-1 rounded-lg border border-slate-200/60 group-hover:border-rose-200 transition-colors shadow-2xs">
+                                <i class="far fa-clock mr-1.5 text-rose-500 text-xs"></i>
+                                <span>{{ $siswa->created_at->diffForHumans() }}</span>
+                            </div>
+                        </td>
+
+                        {{-- Nama Siswa & Avatar Icon --}}
+                        <td class="px-6 py-4 font-bold text-slate-800 group-hover:text-rose-600 transition-colors duration-150 text-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-red-500 text-white font-black text-xs flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                                    {{ substr($siswa->name, 0, 1) }}
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="tracking-wide text-slate-800 group-hover:text-rose-600 font-bold transition-colors">{{ $siswa->name }}</span>
+                                    <span class="text-[10px] text-slate-400 font-normal">Pendaftar Barusan</span>
+                                </div>
+                            </div>
+                        </td>
+
+                        {{-- NIS dengan Tombol Salin --}}
+                        <td class="px-6 py-4 text-slate-600 font-mono text-xs font-semibold">
+                            <div class="inline-flex items-center gap-1.5 bg-slate-50 group-hover:bg-white px-2.5 py-1 rounded-md border border-slate-200/80 shadow-2xs">
+                                <span>{{ $siswa->nomor_identitas }}</span>
+                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
+                                    <i class="far fa-copy text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                        {{-- Jurusan --}}
+                        <td class="px-6 py-4">
+                            <span class="bg-rose-50 text-rose-700 group-hover:bg-rose-100/80 px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-rose-200/60 uppercase tracking-wider shadow-2xs">
+                                {{ $siswa->jurusan->kode_jurusan ?? '-' }}
+                            </span>
+                        </td>
+
+                        {{-- Tombol Aksi --}}
+                        <td class="px-6 py-4">
+                            <div class="flex justify-center items-center gap-2">
+                                <form action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-emerald-600 shadow-sm hover:shadow-emerald-500/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+                                        <i class="fas fa-check mr-1.5 text-[10px]"></i> Terima
+                                    </button>
+                                </form>
+
+                                <button type="button" onclick="openDeleteModal({{ $siswa->id }}, '{{ $siswa->name }}', 'pending')" class="bg-rose-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-rose-600 shadow-sm hover:shadow-rose-500/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+                                    <i class="fas fa-times mr-1.5 text-[10px]"></i> Tolak
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     @endif
 
-    <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-        <div class="px-6 py-6 border-b border-gray-100 flex justify-between items-center">
+    {{-- TABEL SISWA AKTIF --}}
+    <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200/70 overflow-hidden">
+        {{-- HEADER DAN INPUT PENCARIAN --}}
+        <div class="px-6 py-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/30">
             <div>
-                <h2 class="text-xl font-bold text-gray-800">Data Siswa Aktif</h2>
-                <p class="text-sm text-gray-500">Daftar siswa yang sudah resmi terdaftar di sistem.</p>
+                <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">Data Siswa Aktif</h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Daftar siswa yang sudah resmi terdaftar di sistem.</p>
             </div>
-            <div class="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm">
-                Total: {{ $siswaAktif->count() }} Siswa
+            
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                {{-- Komponen Input Pencarian Baru --}}
+                <div class="relative min-w-[260px]">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                        <i class="fas fa-search text-slate-400 text-xs"></i>
+                    </span>
+                    <input type="text" id="siswaSearchInput" placeholder="Cari nama atau NIS siswa..." 
+                        class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white outline-none transition-all duration-200 placeholder:text-slate-400">
+                </div>
+
+                {{-- INFORMASI TOTAL SISWA AKTIF --}}
+                <div class="bg-blue-50/80 text-blue-700 border border-blue-100 px-4 py-2 rounded-xl font-bold text-xs text-center whitespace-nowrap shadow-2xs flex items-center justify-center gap-1.5">
+                    <i class="fas fa-users text-blue-500 text-xs"></i>
+                    <span>Total: {{ $siswaAktif->count() }} Siswa</span>
+                </div>
             </div>
         </div>
 
-        <table class="w-full text-left border-collapse">
-            <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-semibold">
-                <tr>
-                    <th class="px-6 py-4">No</th>
-                    <th class="px-6 py-4">Nama Siswa</th>
-                    <th class="px-6 py-4">NIS</th>
-                    <th class="px-6 py-4">Jurusan</th>
-                    <th class="px-6 py-4">Email / Kontak</th>
-                    <th class="px-6 py-4 text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-                @forelse($siswaAktif as $index => $siswa)
-                <tr class="hover:bg-gray-50 transition">
-                    <td class="px-6 py-4 text-gray-400 text-sm">{{ $index + 1 }}</td>
-                    <td class="px-6 py-4 font-bold text-gray-800">
-                        {{ $siswa->name }}
-                        <span class="block text-[10px] font-normal text-green-600">● Akun Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 font-mono text-sm">{{ $siswa->nomor_identitas }}</td>
-                    <td class="px-6 py-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded">
-                            {{ $siswa->jurusan->kode_jurusan ?? '-' }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        {{ $siswa->email }} <br>
-                        <span class="text-xs text-gray-400">{{ $siswa->no_hp ?? '-' }}</span>
-                    </td>
-                    <td class="px-6 py-4 flex justify-center space-x-2">
-                        <a href="{{ route('admin.siswa.edit', $siswa->id) }}" class="bg-yellow-100 text-yellow-600 p-2 rounded-lg hover:bg-yellow-200 transition" title="Edit Data">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form action="{{ route('admin.siswa.destroy', $siswa->id) }}" method="POST" onsubmit="return confirm('Yakin hapus siswa aktif ini? Logbook dan nilainya akan ikut terhapus.');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-100 text-red-600 p-2 rounded-lg hover:bg-red-200 transition" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="px-6 py-8 text-center text-gray-400 bg-gray-50">
-                        Belum ada data siswa aktif. Silakan verifikasi pendaftaran baru.
-                    </td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[700px]">
+                <thead class="bg-slate-50/80 text-slate-400 uppercase text-[10px] font-extrabold tracking-widest border-b border-slate-100">
+                    <tr>
+                        <th class="px-6 py-3.5">No</th>
+                        <th class="px-6 py-3.5">Nama Siswa</th>
+                        <th class="px-6 py-3.5">NIS</th>
+                        <th class="px-6 py-3.5">Jurusan</th>
+                        <th class="px-6 py-3.5">Email / Kontak</th>
+                        <th class="px-6 py-3.5 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="siswaTableBody" class="divide-y divide-slate-100 bg-white">
+                    @forelse($siswaAktif as $index => $siswa)
+                    <tr class="siswa-row hover:bg-slate-50/60 transition-colors duration-150">
+                        <td class="px-6 py-4 text-slate-400 text-xs font-medium index-cell">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4 font-bold text-slate-800 name-cell">
+                            <span class="text-sm text-slate-800 tracking-wide">{{ $siswa->name }}</span>
+                            <span class="flex items-center gap-1 text-[10px] font-medium text-emerald-600 mt-0.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Akun Aktif
+                            </span>
+                        </td>
+                        
+                        {{-- NIS dengan Tombol Salin --}}
+                        <td class="px-6 py-4 font-mono text-xs font-semibold text-slate-600 nis-cell">
+                            <div class="inline-flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200/70">
+                                <span>{{ $siswa->nomor_identitas }}</span>
+                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
+                                    <i class="far fa-copy text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
 
+                        <td class="px-6 py-4">
+                            <span class="bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                                {{ $siswa->jurusan->kode_jurusan ?? '-' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-xs text-slate-500">
+                            <div class="flex items-center mb-1 text-slate-600 font-medium">
+                                <i class="fas fa-envelope text-slate-400 mr-2 w-3.5 text-center"></i>
+                                {{ $siswa->email }}
+                            </div>
+                            <div class="flex items-center text-slate-500">
+                                <i class="fas fa-phone text-slate-400 mr-2 w-3.5 text-center"></i>
+                                <span class="text-slate-600">{{ $siswa->no_hp ?? '-' }}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center space-x-2">
+                                <a href="{{ route('admin.siswa.edit', $siswa->id) }}" class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white rounded-xl transition-all duration-200 shadow-2xs border border-amber-200/50 cursor-pointer" title="Edit Data">
+                                    <i class="fas fa-edit text-xs"></i>
+                                </a>
+                                <button type="button" onclick="openDeleteModal({{ $siswa->id }}, '{{ $siswa->name }}', 'aktif')" class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white rounded-xl transition-all duration-200 shadow-2xs border border-rose-200/50 cursor-pointer" title="Hapus">
+                                    <i class="fas fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr id="emptyPlaceholderRow">
+                        <td colspan="6" class="px-6 py-12 text-center text-slate-400 bg-slate-50/50">
+                            <div class="flex flex-col items-center justify-center space-y-2">
+                                <i class="fas fa-user-slash text-3xl text-slate-300"></i>
+                                <p class="text-sm font-medium">Belum ada data siswa aktif. Silakan verifikasi pendaftaran baru.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+
+                    {{-- Baris Cadangan untuk pesan jika hasil pencarian kosong --}}
+                    <tr id="noResultRow" class="hidden">
+                        <td colspan="6" class="px-6 py-10 text-center text-slate-400 bg-slate-50/30 italic text-sm">
+                            <i class="fas fa-search mr-1.5 opacity-60"></i> Tidak ditemukan data siswa yang cocok dengan kata kunci pencarian.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<!-- Modal Kustom Konfirmasi Hapus / Tolak -->
+<div id="deleteCustomModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center transition-all duration-300 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden">
+        <!-- Banner Top Line -->
+        <div class="h-2 w-full bg-gradient-to-r from-red-500 via-rose-500 to-red-600"></div>
+        
+        <div class="p-6 text-center space-y-4">
+            <!-- Icon Alert Animatif -->
+            <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-sm border border-rose-100 animate-bounce">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 id="modalTitle" class="font-extrabold text-slate-900 tracking-tight text-lg">Konfirmasi Hapus Data</h3>
+                <p class="text-sm text-slate-500 leading-relaxed">
+                    Apakah Anda yakin ingin <span id="modalActionText" class="font-medium text-slate-700">menghapus</span> data dari siswa bernama <span id="modalTargetName" class="font-bold text-slate-900"></span>?
+                    <span id="modalAlertNote" class="block mt-2 text-xs text-rose-600 bg-rose-50 p-3 rounded-xl border border-rose-100/80 font-medium text-left"></span>
+                </p>
+            </div>
+        </div>
+        
+        <form id="deleteCustomForm" method="POST" class="px-6 pb-6 text-sm bg-white">
+            @csrf
+            @method('DELETE')
+            
+            <div class="flex items-center justify-center gap-3 pt-2">
+                <button type="button" onclick="closeDeleteModal()" class="w-full px-5 py-3 text-xs font-bold text-slate-500 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition-all tracking-wider uppercase cursor-pointer text-center">
+                    Batal
+                </button>
+                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-3 rounded-xl font-bold hover:from-red-700 hover:to-rose-700 shadow-md hover:shadow-red-600/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wider uppercase cursor-pointer flex items-center justify-center gap-2">
+                    <i class="fas fa-trash text-xs"></i> Hapus
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Animasi Modal -->
+<style>
+    @keyframes modalIn {
+        from { opacity: 0; transform: scale(0.96) translateY(12px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+</style>
+
+{{-- SCRIPT PENCARIAN & SALIN CLIENT-SIDE --}}
+<script>
+    // FUNGSI UNTUK SALIN NIS KE CLIPBOARD
+    function copyToClipboard(text, btnElement) {
+        if (!text || text === '-') return;
+
+        navigator.clipboard.writeText(text).then(() => {
+            const icon = btnElement.querySelector('i');
+            
+            // Ubah tampilan icon menjadi ceklis hijau
+            icon.className = 'fas fa-check text-emerald-500 text-xs';
+            btnElement.setAttribute('title', 'Tersalin!');
+
+            // Kembalikan ke icon awal setelah 1.5 detik
+            setTimeout(() => {
+                icon.className = 'far fa-copy text-xs';
+                btnElement.setAttribute('title', 'Salin NIS');
+            }, 1500);
+        }).catch(err => {
+            console.error('Gagal menyalin teks: ', err);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('siswaSearchInput');
+        const tableBody = document.getElementById('siswaTableBody');
+        
+        if (searchInput && tableBody) {
+            const rows = tableBody.getElementsByClassName('siswa-row');
+            const noResultRow = document.getElementById('noResultRow');
+            const emptyPlaceholderRow = document.getElementById('emptyPlaceholderRow');
+
+            searchInput.addEventListener('input', function () {
+                const filter = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                // Jika tabel dari database memang kosong sejak awal, lewati fungsi pencarian
+                if (emptyPlaceholderRow) return;
+
+                for (let i = 0; i < rows.length; i++) {
+                    const nameCell = rows[i].getElementsByClassName('name-cell')[0];
+                    const nisCell = rows[i].getElementsByClassName('nis-cell')[0];
+                    
+                    if (nameCell || nisCell) {
+                        const nameText = nameCell.textContent || nameCell.innerText;
+                        const nisText = nisCell.textContent || nisCell.innerText;
+
+                        if (nameText.toLowerCase().indexOf(filter) > -1 || nisText.toLowerCase().indexOf(filter) > -1) {
+                            rows[i].classList.remove('hidden');
+                            visibleCount++;
+                            
+                            // Menata ulang penomoran dinamis agar urutan tetap 1, 2, 3 sesuai hasil filter
+                            const indexCell = rows[i].getElementsByClassName('index-cell')[0];
+                            if (indexCell) {
+                                indexCell.textContent = visibleCount;
+                            }
+                        } else {
+                            rows[i].classList.add('hidden');
+                        }
+                    }
+                }
+
+                // Menampilkan notifikasi "Tidak ditemukan" jika pencarian nihil
+                if (visibleCount === 0 && filter !== '') {
+                    noResultRow.classList.remove('hidden');
+                } else {
+                    noResultRow.classList.add('hidden');
+                }
+            });
+        }
+    });
+
+    // SISTEM PENGATURAN MODAL KUSTOM
+    function openDeleteModal(id, name, type) {
+        const modal = document.getElementById('deleteCustomModal');
+        const form = document.getElementById('deleteCustomForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalActionText = document.getElementById('modalActionText');
+        const modalTargetName = document.getElementById('modalTargetName');
+        const modalAlertNote = document.getElementById('modalAlertNote');
+
+        // Isi nama target
+        modalTargetName.innerText = name;
+
+        // Bedakan keterangan & rute tujuan berdasarkan jenis tombol yang diklik
+        if (type === 'pending') {
+            modalTitle.innerText = "Konfirmasi Tolak Pendaftaran";
+            modalActionText.innerText = "menolak serta menghapus pendaftaran";
+            modalAlertNote.innerHTML = "<i class='fas fa-info-circle mr-1'></i> Berkas pendaftaran awal siswa ini akan dihapus permanen dari antrean verifikasi.";
+            
+            // Masukkan route detroy pendaftaran pending
+            let url = "{{ route('admin.siswa.destroy', ':id') }}";
+            form.action = url.replace(':id', id);
+        } else {
+            modalTitle.innerText = "Konfirmasi Hapus Siswa Aktif";
+            modalActionText.innerText = "menghapus akun beserta data permanen";
+            modalAlertNote.innerHTML = "<i class='fas fa-info-circle mr-1'></i> Tindakan ini berbahaya! Logbook harian dan seluruh akumulasi nilai siswa terkait akan ikut terhapus dari basis data.";
+            
+            // Masukkan route destroy akun aktif
+            let url = "{{ route('admin.siswa.destroy', ':id') }}";
+            form.action = url.replace(':id', id);
+        }
+
+        // Munculkan Modal
+        modal.classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteCustomModal').classList.add('hidden');
+    }
+</script>
 @endsection

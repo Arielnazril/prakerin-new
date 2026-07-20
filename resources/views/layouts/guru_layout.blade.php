@@ -46,9 +46,9 @@
                 <div class="flex items-center space-x-4">
                     <div class="text-right hidden md:block">
                         <div class="text-sm font-bold text-gray-800">{{ Auth::user()->name }}</div>
-                        <div class="text-xs text-blue-600 uppercase font-bold">GURU PEMBIMBING</div>
+                        <div class="text-xs text-[--color-primary-light] uppercase font-bold tracking-wide">GURU PEMBIMBING</div>
                     </div>
-                    <div class="h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-[--color-primary-dark] text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20 transform hover:scale-105 transition duration-200">
                         {{ substr(Auth::user()->name, 0, 1) }}
                     </div>
                 </div>
@@ -56,9 +56,14 @@
 
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 md:p-6 lg:p-8">
                 @if(session('success'))
-                    <div class="mb-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-sm">
-                        <p class="font-bold">Sukses</p>
-                        <p>{{ session('success') }}</p>
+                    <div class="mb-6 bg-blue-50 border-l-4 border-[--color-primary-light] text-blue-800 p-4 rounded-xl shadow-sm flex items-start gap-3">
+                        <div class="bg-blue-100 text-[--color-primary-light] p-1.5 rounded-lg shrink-0 mt-0.5">
+                            <i class="fas fa-check-circle text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">Sukses</p>
+                            <p class="text-xs text-blue-700/90 mt-0.5">{{ session('success') }}</p>
+                        </div>
                     </div>
                 @endif
 

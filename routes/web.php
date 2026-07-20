@@ -66,14 +66,18 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-
         Route::get('/logbook', [LogbooksController::class, 'index'])->name('logbook.history');
         Route::get('/logbook/create', [LogbooksController::class, 'create'])->name('logbook.create');
         Route::post('/logbook', [LogbooksController::class, 'store'])->name('logbook.store');
         Route::get('/logbook/{id}/edit', [LogbooksController::class, 'edit'])->name('logbook.edit');
         Route::put('/logbook/{id}', [LogbooksController::class, 'update'])->name('logbook.update');
         Route::delete('/logbook/{id}', [LogbooksController::class, 'destroy'])->name('logbook.destroy');
+        
+        // Transkrip & Cetak Sertifikat
         Route::get('/transkrip', [\App\Http\Controllers\Siswa\TranskripController::class, 'index'])->name('transkrip.index');
+        
+        // Baris ini yang ditambahkan:
+        Route::get('/sertifikat/cetak/{id}', [\App\Http\Controllers\Siswa\TranskripController::class, 'cetakSertifikat'])->name('sertifikat.cetak');
     });
 
     // =================================================================
@@ -113,6 +117,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
         Route::put('/penilaian/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
     });
+
+    
 
     // Profile Routes (Bawaan Breeze - Opsional)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

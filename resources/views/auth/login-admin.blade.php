@@ -5,41 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk Administrator | e-Prakerin</title>
     <link rel="icon" type="image/png" href="{{ asset('img/logo_smk.png') }}">
+    <!-- Menambahkan Google Fonts Plus Jakarta Sans agar tipografi terlihat lebih premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
                     colors: {
                         'primary-blue': '#1e3a8a',
                         'secondary-blue': '#2563eb',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }
                 }
             }
         }
     </script>
+    <style>
+        /* Animasi tambahan untuk efek shake pada error */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .animate-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-primary-blue via-secondary-blue to-blue-500 h-screen flex items-center justify-center font-sans">
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 min-h-screen flex items-center justify-center font-sans px-4 sm:px-6 relative overflow-hidden selection:bg-red-500 selection:text-white">
 
-    <div class="w-full max-w-md bg-white rounded-xl shadow-2xl p-8 border-t-8 border-red-600">
+    <!-- Dekorasi Background Elegan (Dipercantik dengan animasi pulse lambat & filter saturasi) -->
+    <div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[130px] pointer-events-none animate-pulse-slow"></div>
+    <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse-slow [animation-delay:2s]"></div>
 
-        {{-- LOGO ADMIN (DITAMBAHKAN) --}}
-        <div class="flex justify-center mb-4">
-            <div class="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center border border-blue-100">
+    <!-- Container Card Utama -->
+    <div class="w-full max-w-md bg-white/[0.97] backdrop-blur-xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-8 sm:p-10 border border-white/40 relative group overflow-hidden transition-all duration-500 hover:shadow-[0_35px_70px_-10px_rgba(239,68,68,0.15)]">
+        
+        <!-- Garis Aksen Atas yang Diperhalus (Glow Effect saat Hover) -->
+        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 via-red-600 to-amber-500 transition-all duration-500 group-hover:h-2.5"></div>
+
+        {{-- LOGO ADMIN --}}
+        <div class="flex justify-center mb-6 mt-2">
+            <div class="w-24 h-24 rounded-2xl bg-white shadow-xl shadow-slate-200/50 flex items-center justify-center border border-slate-100/80 transform group-hover:scale-105 group-hover:rotate-1 transition-all duration-500 relative ring-4 ring-slate-50">
                 <img src="{{ asset('img/logo_smk.png') }}" alt="Logo SMK"
-                     class="w-12 h-12 object-contain">
+                     class="w-16 h-16 object-contain animate-float">
             </div>
         </div>
 
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-extrabold text-gray-800">ADMINISTRATOR</h2>
-            <p class="text-gray-500 text-sm mt-2">Sistem Informasi Manajemen PKL</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 tracking-wider uppercase sm:text-3xl bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">ADMINISTRATOR</h2>
+            <div class="flex items-center justify-center gap-3 mt-3">
+                <span class="h-[2px] w-6 bg-gradient-to-r from-transparent to-red-500 rounded"></span>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Sistem Informasi Manajemen Prakerin</p>
+                <span class="h-[2px] w-6 bg-gradient-to-l from-transparent to-red-500 rounded"></span>
+            </div>
         </div>
 
         @if ($errors->any())
-            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm">
-                <strong class="font-bold">Akses Ditolak!</strong>
-                <span class="block">{{ $errors->first() }}</span>
+            <div class="mb-6 bg-red-50/90 border-l-4 border-red-500 text-red-900 p-4 rounded-2xl relative text-sm shadow-sm border border-red-100 animate-shake">
+                <div class="flex gap-3">
+                    <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <div>
+                        <strong class="font-bold block text-red-950">Akses Ditolak!</strong>
+                        <span class="text-red-700 font-medium">{{ $errors->first() }}</span>
+                    </div>
+                </div>
             </div>
         @endif
 
@@ -47,31 +94,56 @@
             @csrf
 
             <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">USERNAME ADMIN</label>
-                <input type="text" name="username" required autofocus
-                    class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all"
-                    placeholder="Masukkan username admin">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2.5">USERNAME ADMIN</label>
+                <div class="relative group/input">
+                    <!-- Icon SVG untuk Username -->
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-red-500 transition-colors duration-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </div>
+                    <input type="text" name="username" required autofocus
+                        class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500 focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
+                        placeholder="Masukkan username admin">
+                </div>
             </div>
 
             <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1">PASSWORD</label>
-                <input type="password" name="password" required
-                    class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all"
-                    placeholder="••••••••">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2.5">PASSWORD</label>
+                <div class="relative group/input">
+                    <!-- Icon SVG untuk Password -->
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-red-500 transition-colors duration-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <input type="password" name="password" required
+                        class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500 focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
+                        placeholder="••••••••">
+                </div>
             </div>
 
-            <button type="submit"
-                class="w-full py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-red-700 transition duration-300 shadow-lg transform hover:-translate-y-1">
-                MASUK KE PANEL ADMIN
-            </button>
+            <div class="pt-2">
+                <button type="submit"
+                    class="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-red-600 transition-all duration-300 shadow-xl shadow-slate-900/10 hover:shadow-red-600/20 transform hover:-translate-y-0.5 active:translate-y-0 tracking-widest text-xs uppercase relative overflow-hidden group/btn">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></span>
+                    MASUK KE PANEL ADMIN
+                </button>
+            </div>
         </form>
 
-        <div class="mt-8 text-center border-t pt-4">
-            <a href="{{ route('login') }}" class="text-sm text-gray-200 hover:text-white transition">
-                &larr; Kembali ke Halaman Utama
+        <div class="mt-8 text-center border-t border-slate-100 pt-6">
+            <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-red-600 font-bold uppercase tracking-wider transition-colors duration-200 group/link">
+                <span class="transform group-hover/link:-translate-x-1.5 transition-transform duration-300">&larr;</span> Kembali ke Halaman Utama
             </a>
         </div>
     </div>
 
+    <!-- Keyframe Shimmer Efek pada Tombol jika Diperlukan -->
+    <style>
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+    </style>
 </body>
 </html>

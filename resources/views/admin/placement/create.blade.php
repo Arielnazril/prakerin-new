@@ -3,129 +3,190 @@
 @section('page_title', 'Plotting Magang Baru')
 
 @section('content')
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
 
-        <div class="mb-6 flex items-center">
-            <a href="{{ route('admin.placement.index') }}" class="mr-4 text-gray-500 hover:text-gray-700 transition">
-                <i class="fas fa-arrow-left text-xl"></i>
-            </a>
-            <div>
-                <h2 class="text-2xl font-bold text-gray-800">Form Plotting Siswa</h2>
-                <p class="text-sm text-gray-500">Hubungkan siswa dengan tempat magang dan pembimbingnya.</p>
+        <!-- Header / Breadcrumb Section -->
+        <div class="mb-8 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="{{ route('admin.placement.index') }}" 
+                   class="flex items-center justify-center w-11 h-11 rounded-2xl bg-white text-slate-500 hover:text-blue-600 shadow-sm border border-slate-200/80 hover:border-blue-200 hover:bg-blue-50/50 transition-all duration-300 group">
+                    <i class="fas fa-arrow-left text-base transition-transform group-hover:-translate-x-1"></i>
+                </a>
+                <div>
+                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">Form Plotting Siswa</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">Hubungkan siswa dengan tempat magang dan pembimbingnya secara terintegrasi.</p>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+        <!-- Main Card Form -->
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-200/80">
 
-            <div class="h-1 w-full bg-gray-100">
-                <div class="h-1 bg-[--color-primary-dark] w-1/3"></div>
+            <!-- Decorative Top Progress Bar -->
+            <div class="h-1.5 w-full bg-slate-100">
+                <div class="h-1.5 bg-[--color-primary-dark] w-1/3 rounded-r-full"></div>
             </div>
 
-            <form action="{{ route('admin.placement.store') }}" method="POST" class="p-8 space-y-8">
+            <form action="{{ route('admin.placement.store') }}" method="POST" class="p-6 sm:p-10 space-y-10">
                 @csrf
 
-                <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800 border-b pb-2 flex items-center">
-                        <span
-                            class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
-                        Data Siswa & Waktu
-                    </h3>
+                <!-- SECTION 1: DATA SISWA & WAKTU -->
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-base font-bold text-slate-800 flex items-center tracking-wide">
+                            <span class="bg-blue-50 text-blue-600 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-blue-50/50">1</span>
+                            Data Siswa & Masa Magang
+                        </h3>
+                    </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Pilih Siswa (Yang Belum
-                                Magang)</label>
-                            <select name="siswa_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-gray-50"
-                                required>
-                                <option value="" disabled selected>-- Cari Nama Siswa --</option>
-                                @foreach ($siswas as $siswa)
-                                    <option value="{{ $siswa->id }}">
-                                        {{ $siswa->name }} ({{ $siswa->jurusan->kode_jurusan ?? 'No Jurusan' }})
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Pilih Siswa (Yang Belum Magang)</label>
+                            <div class="relative rounded-xl shadow-xs group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                    <i class="fas fa-graduation-cap text-sm"></i>
+                                </div>
+                                <select name="siswa_id"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-slate-50/50 focus:bg-white font-semibold text-slate-700 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    required>
+                                    <option value="" disabled selected>-- Cari dan Pilih Nama Siswa --</option>
+                                    @foreach ($siswas as $siswa)
+                                        <option value="{{ $siswa->id }}">
+                                            {{ $siswa->name }} ({{ $siswa->jurusan->kode_jurusan ?? 'No Jurusan' }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
                             @if ($siswas->isEmpty())
-                                <p class="text-xs text-red-500 mt-1">* Belum ada Siswa Yang Daftar</p>
+                                <div class="flex items-center space-x-2 mt-2.5 text-red-600 bg-red-50/80 px-4 py-3 rounded-xl border border-red-100/80 animate-pulse">
+                                    <i class="fas fa-exclamation-circle text-xs"></i>
+                                    <p class="text-xs font-medium">* Belum ada data siswa yang mendaftar atau tersedia.</p>
+                                </div>
                             @endif
                         </div>
 
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Mulai</label>
-                            <input type="date" name="tanggal_mulai"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                required>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Tanggal Mulai</label>
+                            <div class="relative rounded-xl shadow-xs group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                    <i class="fas fa-calendar-alt text-sm"></i>
+                                </div>
+                                <input type="date" name="tanggal_mulai"
+                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-slate-50/50 focus:bg-white text-slate-700 font-semibold transition-all duration-200 text-sm cursor-pointer"
+                                    required>
+                            </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Selesai</label>
-                            <input type="date" name="tanggal_selesai"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                required>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Tanggal Selesai</label>
+                            <div class="relative rounded-xl shadow-xs group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                    <i class="fas fa-calendar-check text-sm"></i>
+                                </div>
+                                <input type="date" name="tanggal_selesai"
+                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-slate-50/50 focus:bg-white text-slate-700 font-semibold transition-all duration-200 text-sm cursor-pointer"
+                                    required>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800 border-b pb-2 flex items-center">
-                        <span
-                            class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span>
-                        Lokasi & Pembimbing
-                    </h3>
+                <!-- SECTION 2: LOKASI & PEMBIMBING -->
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h3 class="text-base font-bold text-slate-800 flex items-center tracking-wide">
+                            <span class="bg-blue-50 text-blue-600 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-blue-50/50">2</span>
+                            Lokasi Penempatan & Pembimbing
+                        </h3>
+                    </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Perusahaan / Instansi</label>
-                            <select id="instansi_select" name="instansi_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
-                                required onchange="filterMentors()">
-                                <option value="" disabled selected>-- Pilih Perusahaan --</option>
-                                @foreach ($instansis as $instansi)
-                                    <option value="{{ $instansi->id }}">{{ $instansi->nama_perusahaan }}</option>
-                                @endforeach
-                            </select>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Perusahaan / Instansi</label>
+                            <div class="relative rounded-xl shadow-xs group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                    <i class="fas fa-building text-sm"></i>
+                                </div>
+                                <select id="instansi_select" name="instansi_id"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-slate-50/50 focus:bg-white font-semibold text-slate-700 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    required onchange="filterMentors()">
+                                    <option value="" disabled selected>-- Pilih Perusahaan --</option>
+                                    @foreach ($instansis as $instansi)
+                                        <option value="{{ $instansi->id }}">{{ $instansi->nama_perusahaan }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Guru Pembimbing Sekolah</label>
-                            <select name="guru_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
-                                required>
-                                <option value="" disabled selected>-- Pilih Guru --</option>
-                                @foreach ($gurus as $guru)
-                                    <option value="{{ $guru->id }}">{{ $guru->name }}</option>
-                                @endforeach
-                            </select>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Guru Pembimbing Sekolah</label>
+                            <div class="relative rounded-xl shadow-xs group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                    <i class="fas fa-chalkboard-teacher text-sm"></i>
+                                </div>
+                                <select name="guru_id"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-slate-50/50 focus:bg-white font-semibold text-slate-700 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    required>
+                                    <option value="" disabled selected>-- Pilih Guru Pembimbing --</option>
+                                    @foreach ($gurus as $guru)
+                                        <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-span-1 md:col-span-2">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Mentor Lapangan</label>
-
-                            <select id="mentor_select" name="mentor_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-gray-100 cursor-not-allowed"
-                                disabled>
-
-                                <option value="" selected>-- Menyusul (Belum Ada Mentor) --</option>
-
-                                @foreach ($mentors as $mentor)
-                                    <option value="{{ $mentor->id }}" data-instansi="{{ $mentor->instansi_id }}"
-                                        class="mentor-option hidden">
-                                        {{ $mentor->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <p class="text-xs text-gray-500 mt-1" id="mentor_hint">Pilih perusahaan dulu. Jika mentor belum
-                                tahu, biarkan kosong.</p>
+                            <label class="block text-xs font-black uppercase tracking-wider text-slate-600 mb-2">Mentor Lapangan (DUDI)</label>
+                            <div class="relative rounded-xl shadow-xs">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400" id="mentor_icon">
+                                    <i class="fas fa-user-shield text-sm text-slate-400"></i>
+                                </div>
+                                <select id="mentor_select" name="mentor_id"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200 rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed font-semibold transition-all duration-300 appearance-none text-sm"
+                                    disabled>
+                                    <option value="" selected>-- Menyusul (Belum Ada Mentor) --</option>
+                                    @foreach ($mentors as $mentor)
+                                        <option value="{{ $mentor->id }}" data-instansi="{{ $mentor->instansi_id }}">
+                                            {{ $mentor->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- Dynamic Hint Box -->
+                            <div id="mentor_hint_container" class="mt-3 p-4 rounded-xl bg-slate-50 border border-slate-200/80 flex items-start space-x-3 transition-all duration-300">
+                                <div class="mt-0.5 text-blue-500" id="hint_icon_wrapper">
+                                    <i class="fas fa-info-circle text-sm" id="hint_icon"></i>
+                                </div>
+                                <p class="text-xs text-slate-500 font-medium leading-relaxed" id="mentor_hint">
+                                    Silakan tentukan pilihan Perusahaan / Instansi terlebih dahulu untuk memunculkan daftar Mentor Lapangan yang bertugas.
+                                </p>
+                            </div>
                         </div>
-
                     </div>
                 </div>
 
-                <div class="flex justify-end pt-6 border-t border-gray-100">
+                <!-- ACTION BUTTONS -->
+                <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 border-t border-slate-100">
+                    <a href="{{ route('admin.placement.index') }}" 
+                       class="w-full sm:w-auto text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold py-3.5 px-8 rounded-xl transition duration-200 text-xs uppercase tracking-wider">
+                        Batal
+                    </a>
                     <button type="submit"
-                        class="bg-[--color-primary-dark] text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-900 shadow-xl transition transform hover:-translate-y-1">
-                        <i class="fas fa-save mr-2"></i> Simpan Penempatan
+                        class="w-full sm:w-auto bg-[--color-primary-dark] text-white font-extrabold py-3.5 px-10 rounded-xl hover:bg-blue-900 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:shadow-blue-900/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer">
+                        <i class="fas fa-save mr-2 text-sm"></i> Simpan Penempatan
                     </button>
                 </div>
 
@@ -133,51 +194,103 @@
         </div>
     </div>
 
+    <!-- Hidden Master Data Container for JavaScript filtering -->
+    <div id="master_mentors_pool" class="hidden">
+        @foreach ($mentors as $mentor)
+            <div data-id="{{ $mentor->id }}" data-name="{{ $mentor->name }}" data-instansi="{{ $mentor->instansi_id }}"></div>
+        @endforeach
+    </div>
+
     <script>
+        // Simpan data master mentor sejak halaman pertama kali dimuat ke dalam Array Object
+        const masterMentors = [];
+        document.querySelectorAll('#master_mentors_pool div').forEach(el => {
+            masterMentors.push({
+                id: el.getAttribute('data-id'),
+                name: el.getAttribute('data-name'),
+                instansiId: el.getAttribute('data-instansi')
+            });
+        });
+
         function filterMentors() {
             const instansiSelect = document.getElementById('instansi_select');
             const mentorSelect = document.getElementById('mentor_select');
             const mentorHint = document.getElementById('mentor_hint');
+            const mentorHintContainer = document.getElementById('mentor_hint_container');
+            const hintIconWrapper = document.getElementById('hint_icon_wrapper');
+            const hintIcon = document.getElementById('hint_icon');
+            const mentorIcon = document.getElementById('mentor_icon');
+            
             const selectedInstansiId = instansiSelect.value;
-            const mentorOptions = document.querySelectorAll('.mentor-option');
 
-            // 1. Reset Dropdown Mentor
-            mentorSelect.value = "";
+            // 1. Reset dan Aktifkan Dropdown Mentor
+            mentorSelect.innerHTML = "";
             mentorSelect.disabled = false;
-            mentorSelect.classList.remove('bg-gray-100', 'cursor-not-allowed');
-            mentorSelect.classList.add('bg-white');
+            
+            // Efek transisi style ketika diaktifkan
+            mentorSelect.classList.remove('bg-slate-100', 'text-slate-400', 'cursor-not-allowed', 'border-slate-200');
+            mentorSelect.classList.add('bg-slate-50/50', 'focus:bg-white', 'text-slate-700', 'border-slate-200', 'focus:ring-4', 'focus:ring-blue-500/10', 'focus:border-blue-500', 'cursor-pointer');
+            
+            // Perbarui warna icon pada pembungkus absolute
+            const innerIcon = mentorIcon.querySelector('i');
+            if(innerIcon) {
+                innerIcon.classList.remove('text-slate-400');
+                innerIcon.classList.add('text-slate-500');
+            }
 
-            // 2. Loop semua option mentor
-            let countAvailable = 0;
-            mentorOptions.forEach(option => {
-                const mentorInstansi = option.getAttribute('data-instansi');
+            // Tambahkan default option bawaan kamu
+            const defaultOpt = document.createElement('option');
+            defaultOpt.value = "";
+            defaultOpt.selected = true;
+            mentorSelect.appendChild(defaultOpt);
 
-                if (mentorInstansi == selectedInstansiId) {
-                    // Tampilkan jika instansi cocok
-                    option.classList.remove('hidden');
-                    // Hapus attribute disabled jika ada (untuk browser compatibility)
-                    option.disabled = false;
-                    countAvailable++;
-                } else {
-                    // Sembunyikan jika tidak cocok
-                    option.classList.add('hidden');
-                    option.disabled = true; // Supaya tidak bisa dipilih via keyboard
-                }
-            });
+            // Filter data dari master array
+            const filteredMentors = masterMentors.filter(m => m.instansiId == selectedInstansiId);
 
-            // 3. Feedback Text
-            if (countAvailable > 0) {
-                mentorSelect.firstElementChild.textContent = `-- Pilih Salah Satu Mentor (${countAvailable} Tersedia) --`;
-                mentorHint.textContent = "Mentor yang ditampilkan hanya yang bekerja di perusahaan tersebut.";
-                mentorHint.classList.remove('text-red-500');
-                mentorHint.classList.add('text-gray-500');
+            // 2. Terapkan logika penambahan opsi dan feedback visual
+            if (filteredMentors.length > 0) {
+                defaultOpt.textContent = `-- Pilih Salah Satu Mentor (${filteredMentors.length} Tersedia) --`;
+                
+                filteredMentors.forEach(mentor => {
+                    const opt = document.createElement('option');
+                    opt.value = mentor.id;
+                    opt.textContent = mentor.name;
+                    mentorSelect.appendChild(opt);
+                });
+
+                // Tampilan hint sukses/info (Abu-abu/Biru lembut)
+                mentorHint.textContent = "Mentor yang ditampilkan dikunci secara otomatis hanya untuk instansi terpilih.";
+                mentorHintContainer.className = "mt-3 p-4 rounded-xl bg-blue-50/60 border border-blue-100 flex items-start space-x-3 transition-all duration-300";
+                hintIconWrapper.className = "mt-0.5 text-blue-500";
+                hintIcon.className = "fas fa-check-circle text-sm";
             } else {
-                mentorSelect.firstElementChild.textContent = "-- Tidak Ada Mentor di Perusahaan Ini --";
-                mentorHint.textContent =
-                    "Perhatian: Belum ada akun Mentor untuk instansi ini. Silakan buat di menu Master Mentor.";
-                mentorHint.classList.remove('text-gray-500');
-                mentorHint.classList.add('text-red-500');
+                defaultOpt.textContent = "-- Tidak Ada Mentor di Perusahaan Ini --";
+                
+                // Tampilan hint error/warning (Merah lembut) seperti pada instruksi awal kamu
+                mentorHint.textContent = "Perhatian: Belum ada akun Mentor untuk instansi ini. Silakan buat terlebih dahulu di menu Master Mentor.";
+                mentorHintContainer.className = "mt-3 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start space-x-3 transition-all duration-300 animate-shake";
+                hintIconWrapper.className = "mt-0.5 text-red-500";
+                hintIcon.className = "fas fa-exclamation-triangle text-sm";
             }
         }
     </script>
+
+    <!-- Custom inline utility animation css styles -->
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .animate-shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
 @endsection

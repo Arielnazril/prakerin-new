@@ -10,9 +10,9 @@
 
     <style>
         :root {
-            /* Warna Mentor kita buat nuansa Ungu/Indigo biar beda dikit dari Admin (Biru) & Siswa */
-            --color-primary-dark: #4c1d95; /* violet-900 */
-            --color-primary-light: #7c3aed; /* violet-600 */
+            /* Warna Mentor disesuaikan menjadi nuansa Biru Premium */
+            --color-primary-dark: #1e3a8a; /* blue-900 */
+            --color-primary-light: #2563eb; /* blue-600 */
             --sidebar-width: 16rem;
             --sidebar-collapsed-width: 5rem;
         }
@@ -25,7 +25,7 @@
         .collapsed .sidebar-logo { width: 32px; height: 32px; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased overflow-hidden">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-hidden">
 
     <div class="flex h-screen w-full">
 
@@ -33,34 +33,37 @@
 
         <div class="flex-1 flex flex-col h-screen overflow-hidden relative transition-all duration-300" id="main-content">
 
-            <header class="bg-white shadow-sm z-20 h-16 flex items-center justify-between px-6 sticky top-0">
+            {{-- HEADER / NAVBAR --}}
+            <header class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 z-20 h-16 flex items-center justify-between px-6 sticky top-0">
                 <div class="flex items-center">
-                    <button id="sidebar-toggle-btn" class="text-gray-600 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition">
+                    <button id="sidebar-toggle-btn" class="text-gray-500 focus:outline-none p-2 rounded-xl hover:bg-gray-100 text-gray-600 transition-all duration-200 active:scale-95">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h2 class="ml-4 text-lg font-bold text-[--color-primary-dark] hidden md:block">
+                    <h2 class="ml-4 text-lg font-extrabold text-[--color-primary-dark] tracking-tight hidden md:block">
                         @yield('page_title', 'Dashboard Mentor')
                     </h2>
                 </div>
 
+                {{-- USER PROFILE INFO --}}
                 <div class="flex items-center space-x-4">
                     <div class="text-right hidden md:block">
-                        <div class="text-sm font-bold text-gray-800">{{ Auth::user()->name }}</div>
-                        <div class="text-xs text-purple-600 uppercase font-bold">
+                        <div class="text-sm font-extrabold text-gray-800 tracking-tight">{{ Auth::user()->name }}</div>
+                        <div class="text-[10px] text-blue-600 uppercase font-black tracking-wider mt-0.5">
                             {{ Auth::user()->instansi->nama_perusahaan ?? 'Mentor Industri' }}
                         </div>
                     </div>
-                    <div class="h-10 w-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">
+                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center font-black shadow-md shadow-blue-200 border border-blue-400/20 uppercase transform hover:scale-105 transition duration-200">
                         {{ substr(Auth::user()->name, 0, 1) }}
                     </div>
                 </div>
             </header>
 
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 md:p-6 lg:p-8">
+            {{-- MAIN CONTENT CONTAINER --}}
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-4 md:p-6 lg:p-8 custom-scrollbar">
                 @if(session('success'))
-                    <div class="mb-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-sm">
-                        <p class="font-bold">Sukses</p>
-                        <p>{{ session('success') }}</p>
+                    <div class="mb-5 bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 p-4 rounded-xl shadow-sm border border-emerald-100/80 animate-fadeIn flex flex-col gap-0.5">
+                        <p class="font-bold text-sm tracking-tight">Sukses Berhasil</p>
+                        <p class="text-xs text-emerald-700/90 font-medium">{{ session('success') }}</p>
                     </div>
                 @endif
 
@@ -69,6 +72,7 @@
         </div>
     </div>
 
+    {{-- SIDEBAR TOGGLE SCRIPT --}}
     <script>
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('sidebar-toggle-btn');

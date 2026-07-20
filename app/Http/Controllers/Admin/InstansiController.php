@@ -10,8 +10,11 @@ class InstansiController extends Controller
 {
     public function index()
     {
-        $instansis = Instansi::latest()
+        // Mengambil data instansi beserta jumlah siswa magang yang terhubung
+        $instansis = Instansi::withCount('siswa')
+            ->latest()
             ->get();
+            
         return view('admin.master.instansi.index', compact('instansis'));
     }
 

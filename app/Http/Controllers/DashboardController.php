@@ -38,11 +38,13 @@ class DashboardController extends Controller
     // =========================================================================
     private function adminDashboard()
     {
-    
         $totalSiswa = User::where('role', 'siswa')->count();
         $totalGuru = User::where('role', 'guru')->count();
         $totalIndustri = Instansi::count();
         $siswaMagang = Placement::where('status', 'aktif')->count();
+        
+        // KUNCI PERBAIKAN: Mengubah role pencarian menjadi 'industri' agar sinkron dengan database Anda
+        $totalMentor = User::where('role', 'industri')->count(); 
 
         $siswaPending = User::where('role', 'siswa')
             ->where('status_akun', 'pending')
@@ -55,7 +57,8 @@ class DashboardController extends Controller
             'totalGuru',
             'totalIndustri',
             'siswaMagang',
-            'siswaPending'
+            'siswaPending',
+            'totalMentor' // <-- Menyertakan variabel ke dalam compact view
         ));
     }
 
@@ -122,19 +125,28 @@ class DashboardController extends Controller
     {
         $guruId = Auth::id();
 
-        $siswaIds = Placement::where('guru_id', $guruId)
-            ->where('status', 'aktif')
-            ->pluck('siswa_id');
+        // 1. Ambil penempatan (placement) yang berstatus AKTIF milik guru ini
+        $activePlacements = Placement::where('guru_id', $guruId)
+            ->where('status', 'aktif');
 
+        // Mengambil ID siswa aktif untuk keperluan logbook dan total siswa
+        $siswaIds = (clone $activePlacements)->pluck('siswa_id');
         $totalSiswa = $siswaIds->count();
 
-        $placementIds = Placement::where('guru_id', $guruId)->pluck('id');
+        // Mengambil ID placement yang aktif saja
+        $placementIds = (clone $activePlacements)->pluck('id');
+
+        // 2. Hitung siswa yang SUDAH dinilai (Memastikan kolom nilai tidak NULL)
+        // Catatan: Ganti 'nilai_akhir' sesuai dengan nama kolom nilai sekolah di database Anda (misal: 'nilai', 'nilai_sekolah', dll)
         $sudahDinilai = Penilaian::whereIn('placement_id', $placementIds)
             ->where('penilai_id', $guruId)
+            ->whereNotNull('nilai_akhir') // <--- KUNCI PERBAIKAN: Hanya hitung jika nilainya TIDAK KOSONG
             ->count();
 
+        // 3. Hitung yang belum dinilai
         $belumDinilai = $totalSiswa - $sudahDinilai;
 
+        // 4. Mengambil logbook terbaru
         $recentLogbooks = Logbook::whereIn('user_id', $siswaIds)
             ->with('siswa')
             ->latest()
@@ -151,17 +163,40 @@ class DashboardController extends Controller
     {
         $mentorId = Auth::id();
 
-        $siswaMagang = Placement::where('mentor_id', $mentorId)
+        // Mengambil data penempatan siswa bimbingan mentor ini
+        $placements = Placement::where('mentor_id', $mentorId)
             ->with('siswa')
             ->where('status', 'aktif')
             ->get();
 
-        $siswaIds = $siswaMagang->pluck('siswa_id');
+        $siswaIds = $placements->pluck('siswa_id');
 
+        // 1. MENGAKTIFKAN CARD TOTAL SISWA BIMBINGAN
+        $totalSiswa = $siswaIds->count();
+
+        // 2. MENGAKTIFKAN CARD BUTUH VALIDASI
         $logbookPending = Logbook::whereIn('user_id', $siswaIds)
             ->where('status', 'pending')
             ->count();
 
-        return view('industri.dashboard', compact('siswaMagang', 'logbookPending'));
+        // 3. MENGAKTIFKAN CARD TOTAL AKTIVITAS
+        $totalLogbook = Logbook::whereIn('user_id', $siswaIds)
+            ->count();
+
+        // 4. MENGIRIM VARIABEL RECENT LOGBOOKS
+        $recentLogbooks = Logbook::whereIn('user_id', $siswaIds)
+            ->with('siswa') // Memastikan relasi siswa ikut termuat untuk card Aktivitas Logbook
+            ->orderBy('tanggal', 'desc')
+            ->take(5)
+            ->get();
+
+        // Mengirimkan semua variabel ke halaman view industri.dashboard
+        return view('industri.dashboard', compact(
+            'placements', // Diubah agar sinkron dengan variabel $placements di file Blade sebelumnya
+            'logbookPending', 
+            'totalSiswa', 
+            'totalLogbook', 
+            'recentLogbooks'
+        ));
     }
 }
