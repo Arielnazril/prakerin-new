@@ -1,21 +1,26 @@
-<aside id="sidebar" class="bg-[--color-primary-dark] text-white flex flex-col z-30 sidebar-transition h-screen shadow-2xl overflow-hidden fixed lg:static inset-y-0 left-0 border-r border-white/5">
+<aside id="sidebar" class="bg-[--color-primary-dark] text-white flex flex-col z-30 sidebar-transition h-screen shadow-2xl overflow-hidden fixed lg:static inset-y-0 left-0 border-r border-white/5 -translate-x-full lg:translate-x-0 w-64">
 
     {{-- SIDEBAR HEADER --}}
-    <div class="h-16 flex items-center justify-center border-b border-white/10 shadow-xs bg-slate-900/50 backdrop-blur-md relative group/header">
+    <div class="h-16 flex items-center justify-between px-4 sm:px-5 border-b border-white/10 shadow-xs bg-slate-900/50 backdrop-blur-md relative group/header shrink-0">
         {{-- Efek Glow Halus di Header --}}
         <div class="absolute inset-0 bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-transparent opacity-0 group-hover/header:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         
-        <div class="flex items-center space-x-3 px-5 z-10 w-full justify-start sm:justify-center lg:justify-start">
+        <div class="flex items-center space-x-3 z-10 w-full justify-start sm:justify-center lg:justify-start min-w-0 pr-2">
             <div class="bg-white p-1.5 rounded-2xl shadow-md shadow-black/20 flex-shrink-0 sidebar-logo transition-all duration-300 transform group-hover/header:scale-105 group-hover/header:rotate-3 border border-white/20">
                 <img src="{{ asset('img/logo_smk.png') }}" alt="Logo" class="h-6 w-6 object-contain">
             </div>
-            <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap">
-                <h1 class="text-sm font-black tracking-widest leading-none text-white bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">MENTOR</h1>
-                <p class="text-[9px] text-blue-300 font-extrabold uppercase tracking-widest mt-1 opacity-90 flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-xs shadow-emerald-400/50 animate-pulse"></span> Industri Panel
+            <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap min-w-0">
+                <h1 class="text-sm font-black tracking-widest leading-none text-white bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300 truncate">MENTOR</h1>
+                <p class="text-[9px] text-blue-300 font-extrabold uppercase tracking-widest mt-1 opacity-90 flex items-center gap-1.5 truncate">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-xs shadow-emerald-400/50 animate-pulse shrink-0"></span> Industri Panel
                 </p>
             </div>
         </div>
+
+        {{-- TOMBOL PENUTUP (X) KHUSUS TAMPILAN MOBILE --}}
+        <button type="button" onclick="closeSidebarMobile()" class="lg:hidden text-white/70 hover:text-white p-2 rounded-xl hover:bg-white/10 active:scale-95 transition-all duration-200 z-20 shrink-0 focus:outline-none" title="Tutup Sidebar">
+            <i class="fas fa-times text-lg"></i>
+        </button>
     </div>
 
     {{-- SIDEBAR NAVIGATION ITEMS --}}
@@ -61,7 +66,7 @@
     </div>
 
     {{-- SIDEBAR FOOTER (LOGOUT DENGAN MODIFIKASI POP-UP) --}}
-    <div class="p-4 border-t border-white/10 bg-slate-900/40 backdrop-blur-md">
+    <div class="p-4 border-t border-white/10 bg-slate-900/40 backdrop-blur-md shrink-0">
         {{-- Button Pemicu Pop-Up --}}
         <button type="button" onclick="toggleLogoutModal(true)" class="flex items-center justify-center w-full p-2.5 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 active:scale-[0.98] transition-all duration-300 shadow-lg shadow-red-950/40 text-white group overflow-hidden font-extrabold cursor-pointer border border-red-500/30">
             <i class="fas fa-power-off text-sm sidebar-icon transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"></i>
@@ -123,6 +128,19 @@
             setTimeout(() => {
                 modal.classList.add('opacity-0', 'pointer-events-none');
             }, 200);
+        }
+    }
+
+    // Fungsi Penutup Sidebar Mobile
+    function closeSidebarMobile() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobile-overlay');
+        
+        if (sidebar) {
+            sidebar.classList.add('-translate-x-full');
+        }
+        if (overlay) {
+            overlay.classList.add('hidden');
         }
     }
 </script>

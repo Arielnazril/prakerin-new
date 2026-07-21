@@ -34,23 +34,80 @@
 
         <div class="flex-1 flex flex-col h-screen overflow-hidden relative transition-all duration-300" id="main-content">
 
-            <header class="bg-white shadow-sm z-20 h-16 flex items-center justify-between px-6 sticky top-0">
-                <div class="flex items-center">
-                    <button id="sidebar-toggle-btn" class="text-gray-600 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition">
-                        <i class="fas fa-bars text-xl"></i>
+            <header class="bg-white shadow-sm z-20 h-16 sm:h-20 flex items-center justify-between px-3 sm:px-8 py-2 sm:py-3 sticky top-0">
+                <div class="flex items-center min-w-0">
+                    <button id="sidebar-toggle-btn" class="text-gray-600 focus:outline-none p-1.5 sm:p-2 rounded-md hover:bg-gray-100 transition cursor-pointer shrink-0">
+                        <i class="fas fa-bars text-base sm:text-xl"></i>
                     </button>
-                    <h2 class="ml-4 text-lg font-bold text-[--color-primary-dark] hidden md:block">
+                    <h2 class="ml-2 sm:ml-5 text-sm sm:text-lg font-bold text-[--color-primary-dark] truncate">
                         @yield('page_title', 'Dashboard Siswa')
                     </h2>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <div class="text-right hidden md:block">
-                        <div class="text-sm font-bold text-gray-800">{{ Auth::user()->name }}</div>
-                        <div class="text-xs text-[--color-primary-light] uppercase font-bold tracking-wide">SISWA MAGANG</div>
-                    </div>
-                    <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-[--color-primary-dark] text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/20 transform hover:scale-105 transition duration-200">
-                        {{ substr(Auth::user()->name, 0, 1) }}
+                {{-- AREA PROFIL HEADER DENGAN DROPDOWN RUNDOWN (ICON USER PUTIH BERSIH) --}}
+                <div class="relative shrink-0 my-auto" id="user-dropdown-wrapper">
+                    {{-- Button Trigger Profil - Responsif & Proporsional di Mobile --}}
+                    <button type="button" onclick="toggleUserDropdown()" class="flex items-center gap-2 sm:gap-3.5 p-1.5 pl-3 pr-1.5 sm:p-2 sm:pl-4 sm:pr-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white border sm:border-2 border-blue-400/50 shadow-md sm:shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 hover:border-white/80 transition-all duration-300 focus:outline-none cursor-pointer group transform hover:-translate-y-0.5">
+                        <div class="text-right select-none max-w-[90px] xs:max-w-[120px] sm:max-w-none">
+                            <div class="text-[11px] sm:text-sm font-black text-white group-hover:text-blue-100 transition-colors flex items-center justify-end gap-1 sm:gap-2">
+                                <span class="truncate leading-tight">{{ Auth::user()->name }}</span>
+                                <span class="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full bg-white/20 border border-white/40 group-hover:bg-white group-hover:text-blue-700 flex items-center justify-center transition-all duration-300 shrink-0 shadow-xs">
+                                    <i class="fas fa-chevron-down text-[7px] sm:text-[8px] text-white group-hover:text-blue-700 transition-transform duration-300" id="dropdown-chevron"></i>
+                                </span>
+                            </div>
+                            <div class="text-[8px] sm:text-[9px] text-amber-300 font-black tracking-wider sm:tracking-widest uppercase mt-0.5 sm:mt-1 drop-shadow-xs truncate">SISWA MAGANG</div>
+                        </div>
+
+                        {{-- Avatar Icon - Warna Putih Bersih --}}
+                        <div class="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-white text-blue-700 font-black text-xs sm:text-base flex items-center justify-center shadow-md shadow-black/20 transform group-hover:scale-105 group-hover:rotate-3 transition duration-300 shrink-0 border sm:border-2 border-blue-200/80 relative">
+                            {{ substr(Auth::user()->name, 0, 1) }}
+                            {{-- Indikator Titik Aktif Menyala --}}
+                            <span class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 bg-emerald-400 border border-slate-900 sm:border-2 rounded-full shadow-xs animate-pulse"></span>
+                        </div>
+                    </button>
+
+                    {{-- MENU DROPDOWN RUNDOWN (WARNA KONTRAS & POPPING) --}}
+                    <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 sm:mt-3 w-64 sm:w-70 bg-white rounded-xl sm:rounded-2xl shadow-2xl shadow-blue-950/40 border sm:border-2 border-blue-500/30 ring-2 sm:ring-4 ring-blue-500/10 py-0 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 overflow-hidden">
+                        
+                        {{-- Header Info Pengguna - Vibrant Blue Gradient --}}
+                        <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 bg-gradient-to-br from-blue-700 via-indigo-700 to-blue-900 text-white border-b sm:border-b-2 border-blue-500/30 flex items-center gap-2.5 sm:gap-3 relative overflow-hidden">
+                            {{-- Hiasan Aksesori Pattern --}}
+                            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-md pointer-events-none"></div>
+
+                            {{-- Avatar Icon di Dropdown Header - Warna Putih --}}
+                            <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-blue-800 flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-black/20 shrink-0 border sm:border-2 border-white/90">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                            <div class="min-w-0 flex-1 z-10">
+                                <p class="text-[11px] sm:text-xs font-black text-white truncate leading-tight drop-shadow-xs">{{ Auth::user()->name }}</p>
+                                <span class="inline-block mt-0.5 sm:mt-1 px-2 py-0.5 text-[8px] sm:text-[9px] font-black text-amber-900 bg-amber-300 border border-amber-200 rounded-full tracking-wider uppercase shadow-xs">SISWA MAGANG</span>
+                            </div>
+                        </div>
+
+                        {{-- Daftar Item Rundown --}}
+                        <div class="p-1.5 sm:p-2 space-y-1 sm:space-y-1.5 bg-slate-50">
+                            {{-- Menu Halaman Profil --}}
+                            <a href="{{ route('profile.edit') }}" class="flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-slate-700 hover:bg-blue-600 hover:text-white border border-slate-200/80 hover:border-blue-500 shadow-2xs hover:shadow-md hover:shadow-blue-500/30 transition duration-200 gap-2.5 sm:gap-3.5 group">
+                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-blue-100 text-blue-700 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-blue-600 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-blue-200 group-hover:border-transparent">
+                                    <i class="fas fa-id-card text-xs sm:text-sm group-hover:scale-110 transition-transform"></i>
+                                </span>
+                                <div class="flex flex-col">
+                                    <span class="leading-none group-hover:text-white">Profil Saya</span>
+                                    <span class="text-[8px] sm:text-[9px] font-bold text-slate-400 group-hover:text-blue-100 mt-0.5 sm:mt-1">Kelola data akun</span>
+                                </div>
+                            </a>
+
+                            {{-- Menu Pop-up Logout --}}
+                            <button type="button" onclick="triggerLogoutFromDropdown()" class="w-full flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-red-600 hover:bg-red-600 hover:text-white border border-red-100 hover:border-red-500 shadow-2xs hover:shadow-md hover:shadow-red-500/30 transition duration-200 gap-2.5 sm:gap-3.5 text-left group cursor-pointer">
+                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-red-100 text-red-600 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-red-600 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-red-200 group-hover:border-transparent">
+                                    <i class="fas fa-sign-out-alt text-xs sm:text-sm group-hover:scale-110 transition-transform"></i>
+                                </span>
+                                <div class="flex flex-col">
+                                    <span class="leading-none group-hover:text-white">Keluar</span>
+                                    <span class="text-[8px] sm:text-[9px] font-bold text-red-400 group-hover:text-red-100 mt-0.5 sm:mt-1">Selesai sesi login</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -113,6 +170,52 @@
         window.addEventListener('resize', () => {
             initSidebar();
             if (window.innerWidth >= 1024) overlay.classList.add('hidden');
+        });
+
+        // --- PENANGANAN DROPDOWN PROFIL HEADER ---
+        function toggleUserDropdown() {
+            const menu = document.getElementById('user-dropdown-menu');
+            const chevron = document.getElementById('dropdown-chevron');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                    menu.classList.add('opacity-100', 'scale-100');
+                }, 10);
+                if(chevron) chevron.classList.add('rotate-180');
+            } else {
+                closeUserDropdown();
+            }
+        }
+
+        function closeUserDropdown() {
+            const menu = document.getElementById('user-dropdown-menu');
+            const chevron = document.getElementById('dropdown-chevron');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.remove('opacity-100', 'scale-100');
+                menu.classList.add('opacity-0', 'scale-95');
+                if(chevron) chevron.classList.remove('rotate-180');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        function triggerLogoutFromDropdown() {
+            closeUserDropdown();
+            // Memanggil fungsi openLogoutModal() milik file sidebar.blade.php
+            if (typeof openLogoutModal === 'function') {
+                openLogoutModal();
+            }
+        }
+
+        // Menutup Dropdown saat pengguna mengklik di luar area dropdown
+        document.addEventListener('click', function(event) {
+            const wrapper = document.getElementById('user-dropdown-wrapper');
+            if (wrapper && !wrapper.contains(event.target)) {
+                closeUserDropdown();
+            }
         });
     </script>
 </body>
