@@ -96,7 +96,7 @@
                         </div>
 
                         <h2 class="text-2xl lg:text-3xl font-black text-center mb-3 leading-snug tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-blue-50 to-sky-200">
-                            Portal Digital Siswa
+                            Portal Login
                         </h2>
                         <p class="text-slate-300 text-xs sm:text-sm text-center leading-relaxed font-medium opacity-90">
                             Sistem Informasi Manajemen Praktik Kerja Industri Terintegrasi

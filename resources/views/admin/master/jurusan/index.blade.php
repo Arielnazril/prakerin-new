@@ -3,10 +3,10 @@
 @section('page_title', 'Master Data Jurusan')
 
 @section('content')
-<div class="space-y-8 selection:bg-indigo-500 selection:text-white animate-fade-in px-2 sm:px-0 font-sans">
+<div class="space-y-8 selection:bg-indigo-500 selection:text-white animate-fade-in px-2 sm:px-0 font-sans antialiased">
 
-    <!-- Header Section -->
-    <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-10 shadow-2xl shadow-indigo-950/20 border border-slate-800/80">
+    <!-- Header Section Premium -->
+    <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-10 shadow-2xl shadow-indigo-950/30 border border-slate-800/80">
         <!-- Glow Elements Background -->
         <div class="absolute -right-16 -top-16 w-80 h-80 bg-gradient-to-br from-indigo-500/20 to-blue-600/0 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -left-16 -bottom-16 w-80 h-80 bg-gradient-to-tr from-violet-600/20 to-pink-500/0 rounded-full blur-3xl pointer-events-none"></div>
@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-3.5">
-                    <span class="p-3 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 text-indigo-400 rounded-2xl border border-indigo-500/30 backdrop-blur-xl shadow-inner">
+                    <span class="p-3 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 text-indigo-400 rounded-2xl border border-indigo-500/30 backdrop-blur-xl shadow-inner flex items-center justify-center">
                         <i class="fas fa-graduation-cap"></i>
                     </span>
                     Daftar Jurusan
@@ -66,7 +66,7 @@
                             </div>
                         </td>
                         <td class="px-6 py-5">
-                            <span class="inline-flex items-center bg-indigo-50 text-indigo-700 border border-indigo-100 text-xs font-black px-3.5 py-1.5 rounded-xl shadow-2xs tracking-wider uppercase group-hover:bg-indigo-100/80 transition-colors">
+                            <span class="inline-flex items-center bg-indigo-50 text-indigo-700 border border-indigo-100 text-xs font-black font-mono px-3.5 py-1.5 rounded-xl shadow-2xs tracking-wider uppercase group-hover:bg-indigo-100/80 transition-colors">
                                 <i class="fas fa-tag mr-2 opacity-60 text-[10px]"></i> {{ $jurusan->kode_jurusan }}
                             </span>
                         </td>
@@ -106,12 +106,12 @@
 </div>
 
 <!-- Modal Tambah Jurusan -->
-<div id="addModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center transition-all duration-300 p-4">
+<div id="addModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-blue-600"></div>
         
-        <div class="px-7 pt-7 pb-4 flex justify-between items-center bg-white">
+        <div class="px-7 pt-7 pb-4 flex justify-between items-center bg-white border-b border-slate-100/80">
             <div class="space-y-1">
                 <h3 class="font-black text-slate-900 tracking-tight text-xl flex items-center gap-2.5">
                     <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs border border-indigo-100"><i class="fas fa-plus"></i></span>
@@ -135,7 +135,7 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-indigo-600 transition-colors">
                             <i class="fas fa-graduation-cap text-sm"></i>
                         </div>
-                        <input type="text" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition-all duration-200 font-semibold text-slate-800 placeholder:text-slate-400 text-sm" placeholder="Contoh: Rekayasa Perangkat Lunak">
+                        <input type="text" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-600 outline-none transition-all duration-200 font-semibold text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: Rekayasa Perangkat Lunak">
                     </div>
                 </div>
                 
@@ -146,7 +146,7 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-indigo-600 transition-colors">
                             <i class="fas fa-font text-sm"></i>
                         </div>
-                        <input type="text" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-600 outline-none transition-all duration-200 font-semibold text-slate-800 placeholder:text-slate-400 text-sm" placeholder="Contoh: RPL">
+                        <input type="text" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-600 outline-none transition-all duration-200 font-bold font-mono text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: RPL">
                     </div>
                 </div>
             </div>
@@ -164,12 +164,12 @@
 </div>
 
 <!-- Modal Edit Jurusan -->
-<div id="editModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center transition-all duration-300 p-4">
+<div id="editModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600"></div>
         
-        <div class="px-7 pt-7 pb-4 flex justify-between items-center bg-white">
+        <div class="px-7 pt-7 pb-4 flex justify-between items-center bg-white border-b border-slate-100/80">
             <div class="space-y-1">
                 <h3 class="font-black text-slate-900 tracking-tight text-xl flex items-center gap-2.5">
                     <span class="p-2 bg-amber-50 text-amber-500 rounded-xl text-xs border border-amber-100"><i class="fas fa-edit"></i></span>
@@ -194,7 +194,7 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-amber-500 transition-colors">
                             <i class="fas fa-graduation-cap text-sm"></i>
                         </div>
-                        <input type="text" id="edit_nama" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all duration-200 font-semibold text-slate-800 text-sm">
+                        <input type="text" id="edit_nama" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-200 font-semibold text-slate-800 text-sm shadow-2xs">
                     </div>
                 </div>
                 
@@ -205,7 +205,7 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-amber-500 transition-colors">
                             <i class="fas fa-font text-sm"></i>
                         </div>
-                        <input type="text" id="edit_kode" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all duration-200 font-semibold text-slate-800 text-sm">
+                        <input type="text" id="edit_kode" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-amber-500/15 focus:border-amber-500 outline-none transition-all duration-200 font-bold font-mono text-slate-800 text-sm shadow-2xs">
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
 </div>
 
 <!-- Modal Konfirmasi Hapus Jurusan -->
-<div id="deleteModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center transition-all duration-300 p-4">
+<div id="deleteModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-rose-500 via-red-500 to-rose-600"></div>
@@ -259,7 +259,7 @@
     </div>
 </div>
 
-<!-- Animasi Tambahan kustom -->
+<!-- Animasi Kustom -->
 <style>
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(8px); }

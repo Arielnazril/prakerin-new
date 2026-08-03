@@ -31,70 +31,79 @@
     </div>
 
     {{-- KOTAK PENCARIAN & STATISTIK RINGKASAN --}}
-    <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-5">
+<div class="bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-6">
+    
+    <!-- Grid Ringkasan Statistik -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full lg:w-auto">
         
-        <!-- Grid Ringkasan Statistik -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full lg:w-auto">
+        {{-- Statistik Total Semua Siswa --}}
+        <div class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/60 hover:from-slate-100 hover:to-slate-200/50 transition-all duration-300 p-4 rounded-2xl border border-slate-200/70 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
+            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-slate-400/10 rounded-full blur-xl group-hover:bg-slate-500/15 transition-all"></div>
             
-            {{-- Statistik Total Semua Siswa --}}
-            <div class="bg-slate-50 hover:bg-slate-100/80 transition-colors p-3.5 rounded-2xl border border-slate-200/80 flex items-center justify-between group shadow-2xs">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-slate-200/70 text-slate-700 flex items-center justify-center font-bold shadow-inner">
-                        <i class="fas fa-users text-sm"></i>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Siswa</p>
-                        <p class="text-xs font-semibold text-slate-600">Terdaftar</p>
-                    </div>
+            <div class="flex items-center space-x-3.5 relative z-10">
+                <div class="w-11 h-11 rounded-xl bg-white text-slate-700 flex items-center justify-center font-bold shadow-sm border border-slate-200/60 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-users text-sm text-slate-600"></i>
                 </div>
-                <span class="text-xs sm:text-sm font-black bg-white text-slate-800 px-3 py-1 rounded-xl border border-slate-200 shadow-2xs whitespace-nowrap">
-                    {{ $placements->count() }} Siswa
-                </span>
-            </div>
-
-            {{-- Statistik Siswa Aktif --}}
-            <div class="bg-emerald-50/70 hover:bg-emerald-50 transition-colors p-3.5 rounded-2xl border border-emerald-100 flex items-center justify-between group shadow-2xs">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold shadow-inner">
-                        <i class="fas fa-running text-sm"></i>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-600/70">Aktif Magang</p>
-                        <p class="text-xs font-semibold text-emerald-700">Sedang Jalan</p>
-                    </div>
+                <div>
+                    <p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Total Siswa</p>
+                    <p class="text-xs font-bold text-slate-700 mt-0.5">Terdaftar</p>
                 </div>
-                <span class="text-xs sm:text-sm font-black bg-white text-emerald-700 px-3 py-1 rounded-xl border border-emerald-200/80 shadow-2xs whitespace-nowrap">
-                    {{ $placements->where('status', 'aktif')->count() }} Siswa
-                </span>
             </div>
-
-            {{-- Statistik Siswa Selesai --}}
-            <div class="bg-blue-50/70 hover:bg-blue-50 transition-colors p-3.5 rounded-2xl border border-blue-100 flex items-center justify-between group shadow-2xs">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold shadow-inner">
-                        <i class="fas fa-check-circle text-sm"></i>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-blue-600/70">Lulus / Selesai</p>
-                        <p class="text-xs font-semibold text-blue-700">Selesai PKL</p>
-                    </div>
-                </div>
-                <span class="text-xs sm:text-sm font-black bg-white text-blue-700 px-3 py-1 rounded-xl border border-blue-200/80 shadow-2xs whitespace-nowrap">
-                    {{ $placements->where('status', 'selesai')->count() }} Siswa
-                </span>
-            </div>
-
-        </div>
-        
-        <!-- Input Pencarian -->
-        <div class="relative w-full lg:w-80 flex-shrink-0 group">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
-                <i class="fas fa-search text-sm"></i>
+            
+            <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-slate-800 px-3.5 py-1.5 rounded-xl border border-slate-200 shadow-xs whitespace-nowrap">
+                {{ $placements->count() }} Siswa
             </span>
-            <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, atau guru..." 
-                class="w-full pl-11 pr-4 py-3 bg-slate-50/80 focus:bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all duration-200 shadow-2xs">
         </div>
+
+        {{-- Statistik Siswa Aktif --}}
+        <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50/80 to-teal-50/40 hover:from-emerald-100/70 hover:to-teal-100/50 transition-all duration-300 p-4 rounded-2xl border border-emerald-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
+            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
+            
+            <div class="flex items-center space-x-3.5 relative z-10">
+                <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold shadow-xs border border-emerald-200/50 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-running text-sm text-emerald-600"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600/80">Aktif Magang</p>
+                    <p class="text-xs font-bold text-emerald-900 mt-0.5">Sedang Jalan</p>
+                </div>
+            </div>
+            
+            <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-emerald-700 px-3.5 py-1.5 rounded-xl border border-emerald-200/80 shadow-xs whitespace-nowrap">
+                {{ $placements->where('status', 'aktif')->count() }} Siswa
+            </span>
+        </div>
+
+        {{-- Statistik Siswa Selesai --}}
+        <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50/80 to-blue-50/40 hover:from-indigo-100/70 hover:to-blue-100/50 transition-all duration-300 p-4 rounded-2xl border border-indigo-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
+            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all"></div>
+            
+            <div class="flex items-center space-x-3.5 relative z-10">
+                <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold shadow-xs border border-indigo-200/50 group-hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-check-circle text-sm text-indigo-600"></i>
+                </div>
+                <div>
+                    <p class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600/80">Lulus / Selesai</p>
+                    <p class="text-xs font-bold text-indigo-900 mt-0.5">Selesai PKL</p>
+                </div>
+            </div>
+            
+            <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-indigo-700 px-3.5 py-1.5 rounded-xl border border-indigo-200/80 shadow-xs whitespace-nowrap">
+                {{ $placements->where('status', 'selesai')->count() }} Siswa
+            </span>
+        </div>
+
     </div>
+    
+    <!-- Input Pencarian -->
+    <div class="relative w-full lg:w-80 flex-shrink-0 group">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors duration-200">
+            <i class="fas fa-search text-sm"></i>
+        </span>
+        <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, atau guru..." 
+            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
+    </div>
+</div>
 
     <!-- MAIN TABLE SECTION -->
     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">

@@ -57,6 +57,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('placement', PlacementController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::get('/rekap-nilai', [PlacementController::class, 'rekap'])->name('rekap.index');
         Route::post('/rekap-nilai/{id}/finalize', [PlacementController::class, 'finalize'])->name('rekap.finalize');
+
+        // [BARU] Route Perhitungan Penempatan SPK Fuzzy Sugeno - SAW
+        Route::get('/penempatan/kalkulasi', [PlacementController::class, 'calculate'])->name('placement.calculate');
     });
 
     // =================================================================

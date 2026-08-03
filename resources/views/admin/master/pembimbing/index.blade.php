@@ -110,8 +110,8 @@
                         </td>
                         <td class="px-5 py-4 text-slate-600 text-sm font-medium">
                             @if($mentor->no_hp)
-                                <span class="inline-flex items-center gap-1.5 text-slate-700 whitespace-nowrap">
-                                    <i class="fas fa-phone-alt text-xs text-slate-400"></i>
+                                <span class="inline-flex items-center gap-1.5 text-slate-700 whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-xl">
+                                    <i class="fab fa-whatsapp text-emerald-500 text-sm"></i>
                                     {{ $mentor->no_hp }}
                                 </span>
                             @else

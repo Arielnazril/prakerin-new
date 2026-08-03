@@ -8,9 +8,16 @@ use App\Models\User;
 use App\Models\Instansi;
 use Illuminate\Http\Request;
 use App\Models\Penilaian;
+use App\Services\FuzzySawService;
 
 class PlacementController extends Controller
 {
+    protected $fuzzySawService;
+
+    public function __construct(FuzzySawService $fuzzySawService)
+    {
+        $this->fuzzySawService = $fuzzySawService;
+    }
 
     public function index()
     {
@@ -20,13 +27,14 @@ class PlacementController extends Controller
 
     public function create()
     {
-
         $siswaTerdaftar = Placement::pluck('siswa_id')->toArray();
-        $siswas = User::where('role', 'siswa')->whereNotIn('id', $siswaTerdaftar)->get();
+        $siswas = User::where('role', 'siswa')
+            ->where('status_akun', 'aktif')
+            ->whereNotIn('id', $siswaTerdaftar)
+            ->get();
 
         $gurus = User::where('role', 'guru')->get();
         $instansis = Instansi::all();
-
         $mentors = User::where('role', 'industri')->get();
 
         return view('admin.placement.create', compact('siswas', 'gurus', 'instansis', 'mentors'));
@@ -96,7 +104,6 @@ class PlacementController extends Controller
 
     public function destroy($id)
     {
-
         $placement = Placement::findOrFail($id);
 
         User::where('id', $placement->siswa_id)->update(['instansi_id' => null]);
@@ -106,12 +113,8 @@ class PlacementController extends Controller
         return back()->with('success', 'Data penempatan dibatalkan/dihapus');
     }
 
-    /**
-     * Halaman Rekapitulasi Nilai (Admin View)
-     */
     public function rekap()
     {
-
         $placements = Placement::with(['siswa', 'instansi', 'guru'])
             ->latest()
             ->get();
@@ -119,18 +122,15 @@ class PlacementController extends Controller
         return view('admin.placement.rekap', compact('placements'));
     }
 
-    /**
-     * [BARU] Aksi Finalisasi / Kunci Nilai
-     */
     public function finalize($id)
     {
         $placement = Placement::findOrFail($id);
 
-        $nilaiMentor = \App\Models\Penilaian::where('placement_id', $id)
+        $nilaiMentor = Penilaian::where('placement_id', $id)
             ->whereHas('penilai', fn($q) => $q->where('role', 'industri'))
             ->first();
 
-        $nilaiGuru = \App\Models\Penilaian::where('placement_id', $id)
+        $nilaiGuru = Penilaian::where('placement_id', $id)
             ->whereHas('penilai', fn($q) => $q->where('role', 'guru'))
             ->first();
 
@@ -147,5 +147,38 @@ class PlacementController extends Controller
         ]);
 
         return back()->with('success', 'Nilai berhasil dikunci. Siswa dinyatakan lulus magang.');
+    }
+
+    /**
+     * [FIXED] Menampilkan SEMUA siswa ber-role 'siswa' yang status_akun nya 'aktif'
+     */
+    public function calculate()
+    {
+        // Ambil seluruh siswa dengan role 'siswa' dan status_akun 'aktif'
+        // Tanpa menyembunyikan siswa yang sudah terdaftar di Placement
+        $siswaAktif = User::where('role', 'siswa')
+            ->where('status_akun', 'aktif')
+            ->get();
+
+        // Jika variabel di Blade membutuhkan $siswas
+        $siswas = $siswaAktif;
+
+        // Format data kriteria untuk Fuzzy
+        $dataSiswa = $siswaAktif->map(function ($s) {
+            return [
+                'id' => $s->id,
+                'nama' => $s->name,
+                'c1' => $s->nilai_akademik ?? $s->c1 ?? 80,
+                'c2' => $s->kehadiran ?? $s->c2 ?? 85,
+            ];
+        })->toArray();
+
+        // Proses SPK Fuzzy-SAW
+        $hasilSPK = $this->fuzzySawService->processFuzzySaw($dataSiswa);
+
+        // Ambil data instansi
+        $instansis = Instansi::all();
+
+        return view('admin.placement.calculate', compact('siswaAktif', 'siswas', 'hasilSPK', 'instansis'));
     }
 }

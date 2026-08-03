@@ -73,19 +73,20 @@
                             </div>
                         </td>
 
-                        {{-- Jurusan --}}
+                        {{-- Jurusan DENGAN ICON --}}
                         <td class="px-6 py-4">
-                            <span class="bg-rose-50 text-rose-700 group-hover:bg-rose-100/80 px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-rose-200/60 uppercase tracking-wider shadow-2xs">
-                                {{ $siswa->jurusan->kode_jurusan ?? '-' }}
+                            <span class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 group-hover:bg-rose-100/80 px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-rose-200/60 uppercase tracking-wider shadow-2xs">
+                                <i class="fas fa-graduation-cap text-rose-500 text-xs"></i>
+                                <span>{{ $siswa->jurusan->kode_jurusan ?? '-' }}</span>
                             </span>
                         </td>
 
                         {{-- Tombol Aksi --}}
                         <td class="px-6 py-4">
                             <div class="flex justify-center items-center gap-2">
-                                <form action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST">
+                                <form id="verify-form-{{ $siswa->id }}" action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-emerald-600 shadow-sm hover:shadow-emerald-500/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+                                    <button type="button" onclick="confirmVerify('verify-form-{{ $siswa->id }}', '{{ $siswa->name }}')" class="bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-emerald-600 shadow-sm hover:shadow-emerald-500/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
                                         <i class="fas fa-check mr-1.5 text-[10px]"></i> Terima
                                     </button>
                                 </form>
@@ -163,21 +164,30 @@
                             </div>
                         </td>
 
+                        {{-- Jurusan DENGAN ICON --}}
                         <td class="px-6 py-4">
-                            <span class="bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase tracking-wider">
-                                {{ $siswa->jurusan->kode_jurusan ?? '-' }}
+                            <span class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                                <i class="fas fa-graduation-cap text-blue-500 text-xs"></i>
+                                <span>{{ $siswa->jurusan->kode_jurusan ?? '-' }}</span>
                             </span>
                         </td>
+
+                        {{-- EMAIL / KONTAK DENGAN ICON GMAIL DAN WHATSAPP --}}
                         <td class="px-6 py-4 text-xs text-slate-500">
                             <div class="flex items-center mb-1 text-slate-600 font-medium">
-                                <i class="fas fa-envelope text-slate-400 mr-2 w-3.5 text-center"></i>
+                                <i class="text-rose-500 mr-2 w-3.5 text-center text-sm">
+                                    <svg class="w-3.5 h-3.5 inline-block fill-current text-rose-500" viewBox="0 0 24 24">
+                                        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.272H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.545l8.073-6.052c1.618-1.214 3.927-.059 3.927 1.964z"/>
+                                    </svg>
+                                </i>
                                 {{ $siswa->email }}
                             </div>
                             <div class="flex items-center text-slate-500">
-                                <i class="fas fa-phone text-slate-400 mr-2 w-3.5 text-center"></i>
+                                <i class="fab fa-whatsapp text-emerald-500 mr-2 w-3.5 text-center text-sm"></i>
                                 <span class="text-slate-600">{{ $siswa->no_hp ?? '-' }}</span>
                             </div>
                         </td>
+
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-center space-x-2">
                                 <a href="{{ route('admin.siswa.edit', $siswa->id) }}" class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white rounded-xl transition-all duration-200 shadow-2xs border border-amber-200/50 cursor-pointer" title="Edit Data">
@@ -212,36 +222,56 @@
     </div>
 </div>
 
-<!-- Modal Kustom Konfirmasi Hapus / Tolak -->
-<div id="deleteCustomModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center transition-all duration-300 p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden">
-        <!-- Banner Top Line -->
-        <div class="h-2 w-full bg-gradient-to-r from-red-500 via-rose-500 to-red-600"></div>
+<!-- Modal Kustom Konfirmasi Hapus / Tolak (Desain Modern & Elegan) -->
+<div id="deleteCustomModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
+    <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md border border-slate-100 transform transition-all animate-modal-in overflow-hidden relative">
         
-        <div class="p-6 text-center space-y-4">
-            <!-- Icon Alert Animatif -->
-            <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-sm border border-rose-100 animate-bounce">
-                <i class="fas fa-exclamation-triangle"></i>
+        <!-- Decoration Gradient Bar -->
+        <div class="h-2 w-full bg-gradient-to-r from-red-500 via-rose-500 to-amber-500"></div>
+
+        <!-- Close Button (X) Upper Right -->
+        <button type="button" onclick="closeDeleteModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer">
+            <i class="fas fa-times text-sm"></i>
+        </button>
+
+        <div class="p-7 text-center space-y-5">
+            <!-- Animated Warning Badge -->
+            <div class="relative mx-auto w-20 h-20 flex items-center justify-center">
+                <div class="absolute inset-0 bg-rose-500/10 rounded-3xl animate-ping opacity-75"></div>
+                <div class="relative w-20 h-20 bg-gradient-to-tr from-rose-50 to-red-50 text-rose-500 rounded-3xl flex items-center justify-center text-3xl border border-rose-200/60 shadow-inner">
+                    <i class="fas fa-exclamation-triangle drop-shadow-sm"></i>
+                </div>
             </div>
             
             <div class="space-y-2">
-                <h3 id="modalTitle" class="font-extrabold text-slate-900 tracking-tight text-lg">Konfirmasi Hapus Data</h3>
-                <p class="text-sm text-slate-500 leading-relaxed">
-                    Apakah Anda yakin ingin <span id="modalActionText" class="font-medium text-slate-700">menghapus</span> data dari siswa bernama <span id="modalTargetName" class="font-bold text-slate-900"></span>?
-                    <span id="modalAlertNote" class="block mt-2 text-xs text-rose-600 bg-rose-50 p-3 rounded-xl border border-rose-100/80 font-medium text-left"></span>
+                <h3 id="modalTitle" class="font-black text-slate-900 tracking-tight text-xl">Konfirmasi Hapus Data</h3>
+                
+                <p class="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
+                    Apakah Anda yakin ingin <span id="modalActionText" class="font-bold text-slate-800">menghapus</span> data siswa ini?
                 </p>
+
+                <!-- Card Highlight Target Name -->
+                <div class="bg-slate-50 border border-slate-200/70 rounded-2xl p-3 my-3 flex items-center justify-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-slate-800 text-white font-black text-xs flex items-center justify-center shrink-0">
+                        <i class="fas fa-user text-xs"></i>
+                    </div>
+                    <span id="modalTargetName" class="font-bold text-slate-800 text-sm tracking-wide truncate max-w-[220px]"></span>
+                </div>
+
+                <!-- Alert Warning Container -->
+                <div id="modalAlertNote" class="text-xs text-rose-700 bg-rose-50/80 p-3.5 rounded-2xl border border-rose-200/80 font-medium text-left leading-relaxed shadow-2xs"></div>
             </div>
         </div>
         
-        <form id="deleteCustomForm" method="POST" class="px-6 pb-6 text-sm bg-white">
+        <form id="deleteCustomForm" method="POST" class="px-7 pb-7 text-sm bg-white">
             @csrf
             @method('DELETE')
             
-            <div class="flex items-center justify-center gap-3 pt-2">
-                <button type="button" onclick="closeDeleteModal()" class="w-full px-5 py-3 text-xs font-bold text-slate-500 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition-all tracking-wider uppercase cursor-pointer text-center">
+            <div class="flex items-center justify-center gap-3 pt-1">
+                <button type="button" onclick="closeDeleteModal()" class="w-1/2 px-5 py-3.5 text-xs font-bold text-slate-600 hover:text-slate-800 bg-slate-100 hover:bg-slate-200/70 rounded-2xl transition-all tracking-wider uppercase cursor-pointer text-center">
                     Batal
                 </button>
-                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-rose-600 text-white px-6 py-3 rounded-xl font-bold hover:from-red-700 hover:to-rose-700 shadow-md hover:shadow-red-600/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wider uppercase cursor-pointer flex items-center justify-center gap-2">
+                <button type="submit" class="w-1/2 bg-gradient-to-r from-red-600 via-rose-600 to-red-500 text-white px-5 py-3.5 rounded-2xl font-bold hover:opacity-95 shadow-lg shadow-rose-500/25 transform hover:-translate-y-0.5 active:translate-y-0 transition-all tracking-wider uppercase cursor-pointer flex items-center justify-center gap-2">
                     <i class="fas fa-trash text-xs"></i> Hapus
                 </button>
             </div>
@@ -252,13 +282,16 @@
 <!-- Animasi Modal -->
 <style>
     @keyframes modalIn {
-        from { opacity: 0; transform: scale(0.96) translateY(12px); }
+        from { opacity: 0; transform: scale(0.92) translateY(16px); }
         to { opacity: 1; transform: scale(1) translateY(0); }
     }
     .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 </style>
 
-{{-- SCRIPT PENCARIAN & SALIN CLIENT-SIDE --}}
+<!-- CDN SweetAlert2 untuk Pop-up Elegan -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- SCRIPT PENCARIAN, SALIN CLIENT-SIDE & SWEETALERT INTEGRASI --}}
 <script>
     // FUNGSI UNTUK SALIN NIS KE CLIPBOARD
     function copyToClipboard(text, btnElement) {
@@ -282,6 +315,25 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        // --- SWEETALERT2 POP-UP SUCCESS DARI CONTROLLER ---
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '<span style="color: #0f172a; font-weight: 800;">Berhasil!</span>',
+                html: '<span style="color: #64748b; font-size: 14px;">{{ session('success') }}</span>',
+                background: '#ffffff',
+                borderRadius: '24px',
+                padding: '2rem',
+                confirmButtonText: 'Lanjutkan',
+                confirmButtonColor: '#0f172a',
+                customClass: {
+                    popup: 'shadow-2xl border border-slate-100',
+                    confirmButton: 'px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider'
+                }
+            });
+        @endif
+
+        // --- PENCARIAN SISWA AKTIF ---
         const searchInput = document.getElementById('siswaSearchInput');
         const tableBody = document.getElementById('siswaTableBody');
         
@@ -330,7 +382,33 @@
         }
     });
 
-    // SISTEM PENGATURAN MODAL KUSTOM
+    // SISTEM PENGATURAN SWEETALERT UNTUK VERIFIKASI AKUN
+    function confirmVerify(formId, namaSiswa) {
+        Swal.fire({
+            title: '<span style="color: #0f172a; font-weight: 800;">Verifikasi Akun?</span>',
+            html: 'Aktifkan pendaftaran & akses akun untuk siswa <b>' + namaSiswa + '</b>?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#94a3b8',
+            confirmButtonText: 'Ya, Terima',
+            cancelButtonText: 'Batal',
+            background: '#ffffff',
+            borderRadius: '24px',
+            padding: '2rem',
+            customClass: {
+                popup: 'shadow-2xl border border-slate-100',
+                confirmButton: 'px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider',
+                cancelButton: 'px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(formId).submit();
+            }
+        });
+    }
+
+    // SISTEM PENGATURAN MODAL KUSTOM HAPUS / TOLAK
     function openDeleteModal(id, name, type) {
         const modal = document.getElementById('deleteCustomModal');
         const form = document.getElementById('deleteCustomForm');
@@ -346,15 +424,15 @@
         if (type === 'pending') {
             modalTitle.innerText = "Konfirmasi Tolak Pendaftaran";
             modalActionText.innerText = "menolak serta menghapus pendaftaran";
-            modalAlertNote.innerHTML = "<i class='fas fa-info-circle mr-1'></i> Berkas pendaftaran awal siswa ini akan dihapus permanen dari antrean verifikasi.";
+            modalAlertNote.innerHTML = "<i class='fas fa-info-circle mr-1 text-rose-600'></i> Berkas pendaftaran awal siswa ini akan dihapus permanen dari antrean verifikasi.";
             
-            // Masukkan route detroy pendaftaran pending
+            // Masukkan route destroy pendaftaran pending
             let url = "{{ route('admin.siswa.destroy', ':id') }}";
             form.action = url.replace(':id', id);
         } else {
             modalTitle.innerText = "Konfirmasi Hapus Siswa Aktif";
             modalActionText.innerText = "menghapus akun beserta data permanen";
-            modalAlertNote.innerHTML = "<i class='fas fa-info-circle mr-1'></i> Tindakan ini berbahaya! Logbook harian dan seluruh akumulasi nilai siswa terkait akan ikut terhapus dari basis data.";
+            modalAlertNote.innerHTML = "<i class='fas fa-exclamation-circle mr-1 text-rose-600'></i> <b>Tindakan Berbahaya!</b> Logbook harian dan seluruh akumulasi nilai siswa terkait akan ikut terhapus dari basis data.";
             
             // Masukkan route destroy akun aktif
             let url = "{{ route('admin.siswa.destroy', ':id') }}";

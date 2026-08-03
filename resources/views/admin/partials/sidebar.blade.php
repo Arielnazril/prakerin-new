@@ -42,6 +42,7 @@
         </div>
 
         @include('admin.partials.sidebar_item', ['route' => 'admin.rekap.index', 'icon' => 'fas fa-clipboard-check', 'label' => 'Rekap Nilai'])
+        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.calculate', 'icon' => 'fas fa-calculator', 'label' => 'Kalkulasi Penempatan'])
         @include('admin.partials.sidebar_item', ['route' => 'admin.placement.index', 'icon' => 'fas fa-map-marked-alt', 'label' => 'Penempatan'])
         @include('admin.partials.sidebar_item', ['route' => 'admin.placement.create', 'icon' => 'fas fa-user-plus', 'label' => 'Plotting Baru'])
         @include('admin.partials.sidebar_item', ['route' => 'profile.edit', 'icon' => 'fas fa-user-cog', 'label' => 'Profil Saya'])
