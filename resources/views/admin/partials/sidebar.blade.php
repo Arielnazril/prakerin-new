@@ -41,10 +41,10 @@
             <span class="h-[1px] flex-1 bg-gradient-to-r from-blue-400/20 to-transparent rounded"></span>
         </div>
 
+        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.calculate', 'icon' => 'fas fa-calculator', 'label' => 'Kalkulasi Rekomendasi'])
+        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.create', 'icon' => 'fas fa-user-plus', 'label' => 'Plotting Siswa'])
+        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.index', 'icon' => 'fas fa-map-marked-alt', 'label' => 'Data Penempatan'])
         @include('admin.partials.sidebar_item', ['route' => 'admin.rekap.index', 'icon' => 'fas fa-clipboard-check', 'label' => 'Rekap Nilai'])
-        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.calculate', 'icon' => 'fas fa-calculator', 'label' => 'Kalkulasi Penempatan'])
-        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.index', 'icon' => 'fas fa-map-marked-alt', 'label' => 'Penempatan'])
-        @include('admin.partials.sidebar_item', ['route' => 'admin.placement.create', 'icon' => 'fas fa-user-plus', 'label' => 'Plotting Baru'])
         @include('admin.partials.sidebar_item', ['route' => 'profile.edit', 'icon' => 'fas fa-user-cog', 'label' => 'Profil Saya'])
     </div>
 

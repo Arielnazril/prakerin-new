@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\Instansi;
 use Illuminate\Http\Request;
 use App\Models\Penilaian;
+use App\Models\PenempatanKalkulasi; // Import model permanen kalkulasi
 use App\Services\FuzzySawService;
+use Illuminate\Support\Facades\DB; // Ditambahkan untuk query hitung kuota
 
 class PlacementController extends Controller
 {
@@ -113,6 +115,25 @@ class PlacementController extends Controller
         return back()->with('success', 'Data penempatan dibatalkan/dihapus');
     }
 
+    /**
+     * Menghapus seluruh data penempatan magang sekaligus dan mereset instansi siswa
+     */
+    public function destroyAll()
+    {
+        // Ambil semua ID siswa yang sedang di-plotting
+        $siswaIds = Placement::pluck('siswa_id')->toArray();
+
+        // Reset instansi_id seluruh siswa terkait menjadi null
+        if (!empty($siswaIds)) {
+            User::whereIn('id', $siswaIds)->update(['instansi_id' => null]);
+        }
+
+        // Hapus seluruh record dari tabel placements
+        Placement::query()->delete();
+
+        return redirect()->route('admin.placement.index')->with('success', 'Semua data penempatan berhasil dihapus');
+    }
+
     public function rekap()
     {
         $placements = Placement::with(['siswa', 'instansi', 'guru'])
@@ -150,35 +171,98 @@ class PlacementController extends Controller
     }
 
     /**
-     * [FIXED] Menampilkan SEMUA siswa ber-role 'siswa' yang status_akun nya 'aktif'
+     * Menampilkan Halaman Kalkulasi & Data Terkalkulasi dari Database MySQL (Permanen)
      */
     public function calculate()
     {
-        // Ambil seluruh siswa dengan role 'siswa' dan status_akun 'aktif'
-        // Tanpa menyembunyikan siswa yang sudah terdaftar di Placement
+        // Ambil daftar ID siswa yang SUDAH DITEMPATKAN di tabel placements
+        $siswaDitempatkanIds = Placement::pluck('siswa_id')->toArray();
+
+        // Ambil HANYA siswa aktif yang BELUM DITEMPATKAN
         $siswaAktif = User::where('role', 'siswa')
             ->where('status_akun', 'aktif')
+            ->whereNotIn('id', $siswaDitempatkanIds)
             ->get();
 
-        // Jika variabel di Blade membutuhkan $siswas
         $siswas = $siswaAktif;
 
-        // Format data kriteria untuk Fuzzy
-        $dataSiswa = $siswaAktif->map(function ($s) {
-            return [
-                'id' => $s->id,
-                'nama' => $s->name,
-                'c1' => $s->nilai_akademik ?? $s->c1 ?? 80,
-                'c2' => $s->kehadiran ?? $s->c2 ?? 85,
-            ];
-        })->toArray();
+        // Ambil hasil kalkulasi yang tersimpan permanen di database MySQL
+        $kalkulasis = PenempatanKalkulasi::with('siswa')->latest()->get();
 
-        // Proses SPK Fuzzy-SAW
-        $hasilSPK = $this->fuzzySawService->processFuzzySaw($dataSiswa);
-
-        // Ambil data instansi
         $instansis = Instansi::all();
 
-        return view('admin.placement.calculate', compact('siswaAktif', 'siswas', 'hasilSPK', 'instansis'));
+        // Menghitung rekap kuota terpakai riwayat penempatan dari database berdasarkan nama instansi
+        $kuotaTerpakaiDB = Placement::join('instansis', 'placements.instansi_id', '=', 'instansis.id')
+            ->select('instansis.nama_perusahaan', DB::raw('count(*) as total'))
+            ->where('placements.status', 'aktif')
+            ->groupBy('instansis.nama_perusahaan')
+            ->pluck('total', 'nama_perusahaan')
+            ->toArray();
+
+        return view('admin.placement.calculate', compact('siswaAktif', 'siswas', 'kalkulasis', 'instansis', 'kuotaTerpakaiDB', 'siswaDitempatkanIds'));
+    }
+
+    /**
+     * Menyimpan atau Meng-update Hasil Perhitungan SPK Secara PERMANEN ke Database MySQL
+     */
+    public function storeKalkulasi(Request $request)
+    {
+        $request->validate([
+            'siswa_id' => 'required',
+            'c1'       => 'required|numeric',
+            'c2'       => 'required|numeric',
+        ]);
+
+        $c1 = (float) $request->c1;
+        $c2 = (float) $request->c2;
+
+        // Logika Fuzzy Sugeno
+        $hardSkill = "Kurang";
+        if ($c1 >= 80) $hardSkill = "Baik";
+        elseif ($c1 >= 70) $hardSkill = "Cukup";
+
+        $softSkill = "Kurang";
+        if ($c2 >= 85) $softSkill = "Sangat Baik";
+        elseif ($c2 >= 70) $softSkill = "Cukup";
+
+        $fuzzyScore = 0.5;
+        $grade = "B";
+        $rule = "Rule 1";
+
+        if ($hardSkill === "Cukup" && $softSkill === "Sangat Baik") { $fuzzyScore = 1.0; $grade = "A"; $rule = "Rule 6"; }
+        elseif ($hardSkill === "Baik" && $softSkill === "Cukup") { $fuzzyScore = 1.0; $grade = "A"; $rule = "Rule 8"; }
+        elseif ($hardSkill === "Baik" && $softSkill === "Sangat Baik") { $fuzzyScore = 1.0; $grade = "A"; $rule = "Rule 9"; }
+
+        // Logika SAW
+        $r1 = $c1 / 100;
+        $r2 = $c2 / 100;
+        $finalScore = (0.6 * $r1) + (0.4 * $r2);
+
+        // Simpan Permanen ke MySQL
+        PenempatanKalkulasi::updateOrCreate(
+            ['siswa_id' => $request->siswa_id],
+            [
+                'c1'                   => $c1,
+                'c2'                   => $c2,
+                'fuzzy_score'          => $fuzzyScore,
+                'grade'                => $grade,
+                'rule'                 => $rule,
+                'final_score'          => round($finalScore, 2),
+                'instansi_rekomendasi' => $request->instansi_rekomendasi ?? null,
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Data kalkulasi berhasil disimpan secara permanen!');
+    }
+
+    /**
+     * Menghapus Data Kalkulasi dari Database MySQL
+     */
+    public function destroyKalkulasi($id)
+    {
+        $kalkulasi = PenempatanKalkulasi::findOrFail($id);
+        $kalkulasi->delete();
+
+        return redirect()->back()->with('success', 'Data kalkulasi berhasil dihapus!');
     }
 }

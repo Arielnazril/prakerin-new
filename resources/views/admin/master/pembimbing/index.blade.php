@@ -35,14 +35,71 @@
         </div>
     </div>
 
-    <!-- Kotak Informasi Total & Pencarian Modern -->
+    {{-- LOGIKA DETEKSI KLASIFIKASI GRADE MENTOR DARI MITRA INDUSTRI --}}
+    @php
+        $gradeAKeywords = ['pengadilan tinggi', 'bkad', 'polnep', 'ubsi', 'ketel uap'];
+        $gradeBKeywords = ['ec computer', 'host cctv', 'bagas kara', 'bumdes', 'kreasi putra'];
+
+        $getMentorGrade = function($mentor) use ($gradeAKeywords, $gradeBKeywords) {
+            if (!isset($mentor->instansi)) return 'B';
+
+            // 1. Pengecekan atribut 'grade' langsung dari relasi instansi
+            $raw = strtoupper(trim((string)($mentor->instansi->grade ?? '')));
+            if ($raw === 'A' || $raw === '1') return 'A';
+            if ($raw === 'B' || $raw === '2') return 'B';
+
+            // 2. Deteksi berdasarkan nama perusahaan mitra
+            $namaLower = strtolower($mentor->instansi->nama_perusahaan ?? '');
+
+            foreach ($gradeBKeywords as $keyword) {
+                if (str_contains($namaLower, $keyword)) return 'B';
+            }
+
+            foreach ($gradeAKeywords as $keyword) {
+                if (str_contains($namaLower, $keyword)) return 'A';
+            }
+
+            // Fallback default
+            return (($mentor->instansi->id ?? $mentor->id) % 2 == 0) ? 'A' : 'B';
+        };
+
+        $countGradeA = 0;
+        $countGradeB = 0;
+        foreach($mentors as $m) {
+            if ($getMentorGrade($m) === 'A') $countGradeA++;
+            else $countGradeB++;
+        }
+    @endphp
+
+    <!-- BARIS 1: Tab Filter Grade Mentor (Diberi space khusus agar tidak berdempetan) -->
+    <div class="flex items-center bg-white p-2 rounded-2xl border border-slate-200/80 shadow-xs gap-2 overflow-x-auto">
+        <button type="button" id="tabGradeA" onclick="switchGradeTab('A')" 
+            class="grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap">
+            <i class="fas fa-award text-amber-300 text-sm"></i>
+            <span>Mentor Grade A (Pemerintah/BUMN/Besar)</span>
+            <span id="badgeCountGradeA" class="bg-white/20 text-white px-2.5 py-0.5 rounded-lg text-[11px] font-black">
+                {{ $countGradeA }}
+            </span>
+        </button>
+
+        <button type="button" id="tabGradeB" onclick="switchGradeTab('B')" 
+            class="grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap">
+            <i class="fas fa-certificate text-indigo-400 text-sm"></i>
+            <span>Mentor Grade B (Swasta/Menengah/UMKM)</span>
+            <span id="badgeCountGradeB" class="bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-lg text-[11px] font-black">
+                {{ $countGradeB }}
+            </span>
+        </button>
+    </div>
+
+    <!-- BARIS 2: Total Ringkasan & Kotak Pencarian -->
     <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
-        <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs border border-blue-100">
+        <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3.5 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shadow-xs border border-blue-100 flex-shrink-0">
                 <i class="fas fa-users"></i>
             </div>
             <div>
-                <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">Total Mentor</span>
+                <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">Total Mentor</span>
                 <span class="text-base font-black text-slate-800">{{ count($mentors) }} <span class="text-xs font-medium text-slate-500">Orang</span></span>
             </div>
         </div>
@@ -52,27 +109,30 @@
                 <i class="fas fa-search text-sm"></i>
             </span>
             <input type="text" id="mentorSearchInput" placeholder="Cari nama mentor atau perusahaan..." 
-                class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+                class="w-full pl-10 pr-4 py-3.5 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
         </div>
     </div>
 
     <!-- Table Container -->
     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden transition-all duration-300">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[700px] table-fixed">
+            <table class="w-full text-left border-collapse min-w-[850px] table-fixed">
                 <thead>
                     <tr class="bg-slate-50/80 border-b border-slate-100 text-slate-500 uppercase text-[11px] font-black tracking-wider">
-                        <th class="px-4 py-4 text-center w-16">No.</th>
-                        <th class="px-5 py-4 w-[26%]">Nama Mentor</th>
-                        <th class="px-5 py-4 w-[28%]">Perusahaan (Instansi)</th>
-                        <th class="px-5 py-4 w-[22%]">Username Login</th>
-                        <th class="px-5 py-4 w-[16%]">Kontak</th>
-                        <th class="px-4 py-4 text-center w-28">Aksi</th>
+                        <th class="px-4 py-4 text-center w-14">No.</th>
+                        <th class="px-5 py-4 w-[24%]">Nama Mentor</th>
+                        <th class="px-5 py-4 w-[32%]">Perusahaan (Instansi)</th>
+                        <th class="px-5 py-4 w-[20%]">Username Login</th>
+                        <th class="px-5 py-4 w-[14%]">Kontak</th>
+                        <th class="px-4 py-4 text-center w-24">Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="mentorTableBody" class="divide-y divide-slate-100 text-sm">
                     @forelse($mentors as $mentor)
-                    <tr class="mentor-row hover:bg-slate-50/80 transition-colors duration-150 group">
+                    @php
+                        $mentorGrade = $getMentorGrade($mentor);
+                    @endphp
+                    <tr data-grade="{{ $mentorGrade }}" class="mentor-row hover:bg-slate-50/80 transition-colors duration-150 group">
                         <td class="px-4 py-4 text-center text-slate-400 font-extrabold text-xs group-hover:text-slate-600">
                             {{ sprintf('%02d', $loop->iteration) }}
                         </td>
@@ -88,10 +148,20 @@
                         </td>
                         <td class="px-5 py-4 company-cell">
                             @if(isset($mentor->instansi->nama_perusahaan))
-                                <span class="inline-flex items-center bg-blue-50 text-blue-700 border border-blue-200/60 text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xs tracking-tight">
-                                    <i class="fas fa-building mr-1.5 opacity-60 text-[10px]"></i>
-                                    {{ $mentor->instansi->nama_perusahaan }}
-                                </span>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="font-bold text-slate-800 text-sm">
+                                        {{ $mentor->instansi->nama_perusahaan }}
+                                    </span>
+                                    @if($mentorGrade === 'A')
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs whitespace-nowrap">
+                                            <i class="fas fa-star text-amber-400 text-[8px]"></i> GRADE A
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs whitespace-nowrap">
+                                            <i class="fas fa-certificate text-amber-500 text-[8px]"></i> GRADE B
+                                        </span>
+                                    @endif
+                                </div>
                             @else
                                 <span class="inline-flex items-center bg-slate-100 text-slate-500 border border-slate-200/60 text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xs">
                                     <i class="fas fa-minus-circle mr-1.5 opacity-60 text-[10px]"></i>
@@ -102,8 +172,8 @@
                         <td class="px-5 py-4">
                             <span class="font-mono text-xs font-semibold text-slate-700 bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200/60 inline-flex items-center gap-1.5">
                                 <i class="fas fa-user-circle text-slate-400 text-xs"></i>
-                                <span>{{ $mentor->username }}</span>
-                                <button type="button" onclick="copyToClipboard('{{ $mentor->username }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer" title="Salin Username">
+                                <span class="truncate max-w-[120px]">{{ $mentor->username }}</span>
+                                <button type="button" onclick="copyToClipboard('{{ $mentor->username }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer flex-shrink-0" title="Salin Username">
                                     <i class="far fa-copy text-xs"></i>
                                 </button>
                             </span>
@@ -156,7 +226,7 @@
                             <div class="max-w-xs mx-auto flex flex-col items-center justify-center space-y-2">
                                 <i class="fas fa-search-minus text-3xl text-slate-300"></i>
                                 <p class="text-sm font-semibold text-slate-600">Pencarian Tidak Ditemukan</p>
-                                <p class="text-xs text-slate-400">Tidak ditemukan data mentor yang cocok dengan kata kunci tersebut.</p>
+                                <p class="text-xs text-slate-400">Tidak ditemukan data mentor yang cocok pada kategori Grade ini.</p>
                             </div>
                         </td>
                     </tr>
@@ -214,8 +284,10 @@
     .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 </style>
 
-{{-- SCRIPT PENCARIAN JS CLIENT-SIDE, SALIN CLIPBOARD, & POP UP MODAL DELETE --}}
+{{-- SCRIPT PENCARIAN JS CLIENT-SIDE, TAB GRADE, SALIN CLIPBOARD, & POP UP MODAL DELETE --}}
 <script>
+    let activeGradeTab = 'A';
+
     // FUNGSI SALIN USERNAME KE CLIPBOARD
     function copyToClipboard(text, btnElement) {
         if (!text || text === '-') return;
@@ -237,49 +309,88 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // --- KODE PENCARIAN BAWAAN (TIDAK BERUBAH) ---
+    // FUNGSI PENUKARAN TAB GRADE (GRADE A & GRADE B)
+    function switchGradeTab(grade) {
+        activeGradeTab = grade;
+
+        const tabA = document.getElementById('tabGradeA');
+        const tabB = document.getElementById('tabGradeB');
+        const badgeA = document.getElementById('badgeCountGradeA');
+        const badgeB = document.getElementById('badgeCountGradeB');
+
+        if (!tabA || !tabB) return;
+
+        if (grade === 'A') {
+            tabA.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            badgeA.className = "bg-white/20 text-white px-2.5 py-0.5 rounded-lg text-[11px] font-black";
+
+            tabB.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap";
+            badgeB.className = "bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-lg text-[11px] font-black";
+        } else {
+            tabB.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            badgeB.className = "bg-white/20 text-white px-2.5 py-0.5 rounded-lg text-[11px] font-black";
+
+            tabA.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap";
+            badgeA.className = "bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-lg text-[11px] font-black";
+        }
+
+        filterMentorTable();
+    }
+
+    // FUNGSI GABUNGAN FILTER TAB GRADE & PENCARIAN
+    function filterMentorTable() {
         const searchInput = document.getElementById('mentorSearchInput');
         const tableBody = document.getElementById('mentorTableBody');
-        
-        if (searchInput && tableBody) {
-            const rows = tableBody.getElementsByClassName('mentor-row');
-            const noResultRow = document.getElementById('noResultRow');
-            const emptyPlaceholderRow = document.getElementById('emptyPlaceholderRow');
+        if (!tableBody) return;
 
-            searchInput.addEventListener('input', function () {
-                const filter = searchInput.value.toLowerCase().trim();
-                let visibleCount = 0;
+        const rows = tableBody.getElementsByClassName('mentor-row');
+        const noResultRow = document.getElementById('noResultRow');
+        const emptyPlaceholderRow = document.getElementById('emptyPlaceholderRow');
 
-                // Jika data memang kosong dari database, hentikan eksekusi pencarian
-                if (emptyPlaceholderRow) return;
+        if (emptyPlaceholderRow) return;
 
-                for (let i = 0; i < rows.length; i++) {
-                    const nameCell = rows[i].getElementsByClassName('name-cell')[0];
-                    const companyCell = rows[i].getElementsByClassName('company-cell')[0];
-                    
-                    if (nameCell || companyCell) {
-                        const nameText = nameCell.textContent || nameCell.innerText;
-                        const companyText = companyCell.textContent || companyCell.innerText;
+        const filter = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        let visibleCount = 0;
 
-                        // Mencocokkan input pencarian berdasarkan Nama Mentor atau Nama Perusahaan
-                        if (nameText.toLowerCase().indexOf(filter) > -1 || companyText.toLowerCase().indexOf(filter) > -1) {
-                            rows[i].classList.remove('hidden');
-                            visibleCount++;
-                        } else {
-                            rows[i].classList.add('hidden');
-                        }
-                    }
+        for (let i = 0; i < rows.length; i++) {
+            const rowGrade = rows[i].getAttribute('data-grade') || 'A';
+            const nameCell = rows[i].getElementsByClassName('name-cell')[0];
+            const companyCell = rows[i].getElementsByClassName('company-cell')[0];
+
+            let matchesSearch = false;
+            if (nameCell || companyCell) {
+                const nameText = (nameCell.textContent || nameCell.innerText).toLowerCase();
+                const companyText = (companyCell.textContent || companyCell.innerText).toLowerCase();
+
+                if (nameText.indexOf(filter) > -1 || companyText.indexOf(filter) > -1) {
+                    matchesSearch = true;
                 }
+            }
 
-                // Menampilkan notifikasi "Tidak ditemukan" jika hasil pencarian nihil
-                if (visibleCount === 0 && filter !== '') {
-                    noResultRow.classList.remove('hidden');
-                } else {
-                    noResultRow.classList.add('hidden');
-                }
-            });
+            if (rowGrade === activeGradeTab && matchesSearch) {
+                rows[i].classList.remove('hidden');
+                visibleCount++;
+            } else {
+                rows[i].classList.add('hidden');
+            }
         }
+
+        if (visibleCount === 0) {
+            noResultRow.classList.remove('hidden');
+        } else {
+            noResultRow.classList.add('hidden');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('mentorSearchInput');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterMentorTable);
+        }
+
+        // Initialize default tab to Grade A
+        switchGradeTab('A');
 
         // --- MANAJEMEN LOGIKA MODAL POP UP DELETE KUSTOM ---
         const deleteModal = document.getElementById('deleteModal');

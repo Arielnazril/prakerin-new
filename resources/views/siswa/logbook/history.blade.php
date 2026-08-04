@@ -151,20 +151,18 @@
                         @endif
                     </div>
 
-                    {{-- Actions Container --}}
-                    @if($logbook->status == 'pending')
-                        <div class="flex space-x-2">
-                            <a href="{{ route('siswa.logbook.edit', $logbook->id) }}" class="text-amber-700 hover:text-white hover:bg-amber-600 border border-amber-200 hover:border-amber-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-amber-50/50 text-sm" title="Edit Logbook">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('siswa.logbook.destroy', $logbook->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus logbook ini?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-white hover:bg-red-600 border border-red-200 hover:border-red-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-red-50/50 text-sm" title="Hapus Logbook">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    @endif
+                    {{-- Actions Container (Edit & Hapus Selalu Tersedia) --}}
+                    <div class="flex space-x-2">
+                        <a href="{{ route('siswa.logbook.edit', $logbook->id) }}" class="text-amber-700 hover:text-white hover:bg-amber-600 border border-amber-200 hover:border-amber-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-amber-50/50 text-sm" title="Edit Logbook">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('siswa.logbook.destroy', $logbook->id) }}" method="POST" class="delete-logbook-form">
+                            @csrf @method('DELETE')
+                            <button type="button" class="btn-trigger-delete-logbook text-red-600 hover:text-white hover:bg-red-600 border border-red-200 hover:border-red-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-red-50/50 text-sm cursor-pointer" title="Hapus Logbook">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -193,4 +191,93 @@
         @endforelse
     </div>
 </div>
+
+{{-- MODAL POP-UP KONFIRMASI HAPUS LOGBOOK --}}
+<div id="deleteLogbookModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    {{-- Backdrop dengan Efek Blur --}}
+    <div id="deleteLogbookBackdrop" class="absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300 opacity-0"></div>
+    
+    {{-- Card Content Modal --}}
+    <div id="deleteLogbookCard" class="relative bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-7 transform transition-all duration-300 scale-95 opacity-0 border border-slate-100 overflow-hidden text-center z-10">
+        <div class="flex flex-col items-center">
+            {{-- Icon Danger Animated --}}
+            <div class="h-16 w-16 bg-red-50 text-red-600 rounded-2xl border border-red-100 flex items-center justify-center text-2xl mb-4 shadow-lg shadow-red-500/10">
+                <i class="fas fa-trash-alt animate-bounce"></i>
+            </div>
+            
+            <h3 class="text-xl font-black text-slate-900 mb-2 tracking-tight">Hapus Logbook Kegiatan?</h3>
+            <p class="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-6">
+                Apakah kamu yakin ingin menghapus catatan kegiatan harian ini? Tindakan ini <span class="font-bold text-red-600">tidak dapat dibatalkan</span>.
+            </p>
+            
+            {{-- Action Buttons --}}
+            <div class="flex w-full gap-3">
+                <button type="button" id="btnCancelDeleteLogbook" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-2xl transition text-xs uppercase tracking-wider outline-none cursor-pointer">
+                    Batal
+                </button>
+                <button type="button" id="btnConfirmDeleteLogbook" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-2xl shadow-lg shadow-red-600/30 hover:shadow-xl transition text-xs uppercase tracking-wider outline-none cursor-pointer">
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- SCRIPT PENGENDALI MODAL HAPUS LOGBOOK --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('deleteLogbookModal');
+        const backdrop = document.getElementById('deleteLogbookBackdrop');
+        const card = document.getElementById('deleteLogbookCard');
+        const btnCancel = document.getElementById('btnCancelDeleteLogbook');
+        const btnConfirm = document.getElementById('btnConfirmDeleteLogbook');
+        let formToSubmit = null;
+
+        function openModal() {
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            if (!modal) return;
+            backdrop.classList.add('opacity-0');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                formToSubmit = null;
+            }, 300);
+        }
+
+        document.addEventListener('click', function (e) {
+            const triggerBtn = e.target.closest('.btn-trigger-delete-logbook');
+            if (triggerBtn) {
+                e.preventDefault();
+                formToSubmit = triggerBtn.closest('.delete-logbook-form');
+                openModal();
+            }
+        });
+
+        if (btnCancel) {
+            btnCancel.addEventListener('click', closeModal);
+        }
+
+        if (backdrop) {
+            backdrop.addEventListener('click', closeModal);
+        }
+
+        if (btnConfirm) {
+            btnConfirm.addEventListener('click', function () {
+                if (formToSubmit) {
+                    formToSubmit.submit();
+                }
+            });
+        }
+    });
+</script>
 @endsection

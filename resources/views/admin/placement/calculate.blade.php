@@ -3,7 +3,7 @@
 @section('page_title', 'Kalkulasi Rekomendasi Penempatan')
 
 @section('content')
-<!-- CSS KHUSUS PRINT DENGAN TAMPILAN PORTRAIT RAPI, CARD GRADE A & B, DAN TABEL FULL -->
+<!-- CSS KHUSUS PRINT DENGAN TAMPILAN PORTRAIT RAPI, CARD GRADE A & B, DAN TABEL FULL (POIN 3 ENHANCEMENT) -->
 <style>
     /* Sembunyikan Kop & Card Khusus Print di layar browser normal */
     .print-only-header,
@@ -15,7 +15,7 @@
         /* Set Kertas Portrait A4 dengan Margin Presisi */
         @page {
             size: A4 portrait;
-            margin: 1cm 1cm 1cm 1cm;
+            margin: 0.8cm 0.8cm 0.8cm 0.8cm;
         }
 
         /* Sembunyikan elemen non-cetak dari Layout Utama Admin */
@@ -25,7 +25,7 @@
             display: none !important;
         }
 
-        /* Paksa area utama cetak terlihat penuh */
+        /* Paksa area utama cetak terlihat penuh & rapi */
         body, html {
             background: #ffffff !important;
             margin: 0 !important;
@@ -46,20 +46,20 @@
             border: none !important;
         }
 
-        /* Tampilkan Kop Laporan Resmi dengan Logo Sekolah di PDF */
+        /* Tampilkan Kop Laporan Resmi dengan Logo Sekolah di PDF/Print */
         .print-only-header {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             gap: 15px !important;
-            margin-bottom: 15px !important;
+            margin-bottom: 12px !important;
             border-bottom: 2px solid #0f172a !important;
-            padding-bottom: 10px !important;
+            padding-bottom: 8px !important;
             text-align: center !important;
         }
 
         .print-only-header img {
-            width: 55px !important;
+            width: 50px !important;
             height: auto !important;
             object-fit: contain !important;
         }
@@ -70,13 +70,13 @@
             align-items: center !important;
         }
 
-        /* Tampilkan Card Grade A & B di atas tabel pada PDF */
+        /* Tampilkan Card Grade A & B di atas tabel pada Hasil Cetak */
         .print-only-cards {
             display: flex !important;
             flex-direction: row !important;
             justify-content: space-between !important;
-            gap: 12px !important;
-            margin-bottom: 15px !important;
+            gap: 10px !important;
+            margin-bottom: 12px !important;
             width: 100% !important;
         }
 
@@ -84,7 +84,7 @@
             width: 49% !important;
             border: 1px solid #94a3b8 !important;
             border-radius: 6px !important;
-            padding: 8px 10px !important;
+            padding: 6px 8px !important;
             background-color: #f8fafc !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
@@ -92,10 +92,10 @@
 
         .print-card-header {
             font-weight: 800 !important;
-            font-size: 8.5pt !important;
-            margin-bottom: 4px !important;
+            font-size: 8pt !important;
+            margin-bottom: 3px !important;
             border-bottom: 1px solid #cbd5e1 !important;
-            padding-bottom: 3px !important;
+            padding-bottom: 2px !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
@@ -104,8 +104,8 @@
         .print-card-grid {
             display: grid !important;
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 3px 6px !important;
-            font-size: 7pt !important;
+            gap: 2px 4px !important;
+            font-size: 6.5pt !important;
             color: #1e293b !important;
         }
 
@@ -243,6 +243,50 @@
                         <option value="" disabled selected>-- Pilih Siswa --</option>
                         @foreach($daftar as $index => $siswa)
                             @php
+                                // KOMPREHENSIF FILTER PENGECEKAN STATUS PENEMPATAN
+                                $sudahDitempatkan = false;
+                                
+                                // Check 1: Pengecekan variabel array/koleksi ID penempatan dari controller
+                                if (isset($siswaDitempatkanIds) && is_array($siswaDitempatkanIds) && in_array($siswa->id, $siswaDitempatkanIds)) {
+                                    $sudahDitempatkan = true;
+                                }
+                                
+                                // Check 2: Pengecekan relasi penempatan Eloquent
+                                if (!$sudahDitempatkan) {
+                                    if (isset($siswa->penempatan) && !empty($siswa->penempatan)) {
+                                        $sudahDitempatkan = true;
+                                    } elseif (isset($siswa->penempatans) && count($siswa->penempatans) > 0) {
+                                        $sudahDitempatkan = true;
+                                    } elseif (isset($siswa->penempatan_count) && $siswa->penempatan_count > 0) {
+                                        $sudahDitempatkan = true;
+                                    }
+                                }
+                                
+                                // Check 3: Pengecekan properti status string
+                                if (!$sudahDitempatkan) {
+                                    $statusList = [
+                                        $siswa->status_penempatan ?? null,
+                                        $siswa->status ?? null,
+                                        $siswa->status_magang ?? null,
+                                        $siswa->is_placed ?? null
+                                    ];
+                                    foreach ($statusList as $st) {
+                                        if (!empty($st)) {
+                                            $stLower = strtolower((string)$st);
+                                            if ($stLower === '1' || $stLower === 'true' || in_array($stLower, ['ditempatkan', 'sedang magang', 'sudah ditempatkan', 'placed', 'magang'])) {
+                                                $sudahDitempatkan = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            @endphp
+
+                            @if($sudahDitempatkan)
+                                @continue
+                            @endif
+
+                            @php
                                 $namaJurusan = '-';
                                 if (is_object($siswa->jurusan)) {
                                     $namaJurusan = $siswa->jurusan->nama_jurusan ?? $siswa->jurusan->nama ?? $siswa->jurusan->kode_jurusan ?? '-';
@@ -305,6 +349,50 @@
                         <!-- Daftar Siswa -->
                         <div id="customDropdownList" class="max-h-72 overflow-y-auto p-2 space-y-1.5">
                             @foreach($daftar as $index => $siswa)
+                                @php
+                                    // KOMPREHENSIF FILTER PENGECEKAN STATUS PENEMPATAN
+                                    $sudahDitempatkan = false;
+                                    
+                                    // Check 1: Pengecekan variabel array/koleksi ID penempatan dari controller
+                                    if (isset($siswaDitempatkanIds) && is_array($siswaDitempatkanIds) && in_array($siswa->id, $siswaDitempatkanIds)) {
+                                        $sudahDitempatkan = true;
+                                    }
+                                    
+                                    // Check 2: Pengecekan relasi penempatan Eloquent
+                                    if (!$sudahDitempatkan) {
+                                        if (isset($siswa->penempatan) && !empty($siswa->penempatan)) {
+                                            $sudahDitempatkan = true;
+                                        } elseif (isset($siswa->penempatans) && count($siswa->penempatans) > 0) {
+                                            $sudahDitempatkan = true;
+                                        } elseif (isset($siswa->penempatan_count) && $siswa->penempatan_count > 0) {
+                                            $sudahDitempatkan = true;
+                                        }
+                                    }
+                                    
+                                    // Check 3: Pengecekan properti status string
+                                    if (!$sudahDitempatkan) {
+                                        $statusList = [
+                                            $siswa->status_penempatan ?? null,
+                                            $siswa->status ?? null,
+                                            $siswa->status_magang ?? null,
+                                            $siswa->is_placed ?? null
+                                        ];
+                                        foreach ($statusList as $st) {
+                                            if (!empty($st)) {
+                                                $stLower = strtolower((string)$st);
+                                                if ($stLower === '1' || $stLower === 'true' || in_array($stLower, ['ditempatkan', 'sedang magang', 'sudah ditempatkan', 'placed', 'magang'])) {
+                                                    $sudahDitempatkan = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+                                @if($sudahDitempatkan)
+                                    @continue
+                                @endif
+
                                 @php
                                     $namaJurusan = '-';
                                     if (is_object($siswa->jurusan)) {
@@ -501,18 +589,15 @@
             </div>
 
             <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto flex-shrink-0">
-                <!-- <div class="flex items-center space-x-2 w-full sm:w-auto">
-                    <span class="text-xs font-extrabold text-slate-500 uppercase tracking-wider whitespace-nowrap"><i class="fas fa-filter mr-1 text-slate-400"></i>Jurusan:</span>
-                    <select id="filterJurusan" onchange="renderTableSPK()" class="h-12 bg-slate-50/80 hover:bg-slate-100 border border-slate-200 text-xs font-bold text-slate-700 rounded-2xl px-4 outline-none focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all cursor-pointer shadow-2xs w-full sm:w-auto">
-                        <option value="ALL">Semua Jurusan</option>
-                        <option value="TKJ">TKJ</option>
-                        <option value="RPL">RPL</option>
-                        <option value="MM">Multimedia</option>
-                    </select>
-                </div> -->
+                <!-- FORM EKSPOR TERSEMBUNYI UNTUK MENGIRIM KUMPULAN DATA HASIL ANALISIS SPK KE PDFSHIFT CONTROLLER -->
+                <form id="formPdfShiftExport" action="{{ Route::has('admin.recommendation.exportPdf') ? route('admin.recommendation.exportPdf') : '#' }}" method="POST" target="_blank" class="hidden">
+                    @csrf
+                    <input type="hidden" name="spk_data_json" id="pdfShiftDataJson">
+                </form>
 
-                <button type="button" onclick="cetakLaporanSPK()" class="h-12 w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-5 rounded-2xl shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider group cursor-pointer whitespace-nowrap border border-emerald-400/20">
-                    <i class="fas fa-file-pdf mr-2 text-sm transition-transform group-hover:scale-110 duration-300"></i> Cetak Lap. SPK
+                <button id="btnCetakPDF" type="button" onclick="eksporAtauCetakLaporanSPK()" class="h-12 w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-5 rounded-2xl shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider group cursor-pointer whitespace-nowrap border border-emerald-400/20">
+                    <i id="btnCetakPDFIcon" class="fas fa-file-pdf mr-2 text-sm transition-transform group-hover:scale-110 duration-300"></i>
+                    <span id="btnCetakPDFText">Cetak Lap. SPK</span>
                 </button>
             </div>
         </div>
@@ -535,10 +620,10 @@
             </div>
             <div id="containerKuotaGradeA" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-emerald-950">
                 <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-building text-emerald-600 text-xs"></i><span class="truncate">Pengadilan Tinggi Pontianak</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-building text-emerald-600 text-xs"></i><span class="truncate">BKAD (Badan Keuangan & Aset)</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-university text-emerald-600 text-xs"></i><span class="truncate">POLNEP Prodi IT</span></div>
+                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-building text-emerald-600 text-xs"></i><span class="truncate">BKAD (Badan Keuangan dan Aset Daerah)</span></div>
+                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-university text-emerald-600 text-xs"></i><span class="truncate">POLNEP Prodi IT (Politeknik Negeri Pontianak)</span></div>
                 <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-university text-emerald-600 text-xs"></i><span class="truncate">POLNEP UPATIK</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-graduation-cap text-emerald-600 text-xs"></i><span class="truncate">UBSI Pontianak</span></div>
+                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-graduation-cap text-emerald-600 text-xs"></i><span class="truncate">UBSI Pontianak (Universitas BSI)</span></div>
                 <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-industry text-emerald-600 text-xs"></i><span class="truncate">PT Ketel Uap</span></div>
             </div>
         </div>
@@ -566,20 +651,20 @@
         </div>
     </div>
 
-    <!-- MAIN TABLE SECTION DENGAN KOP & CARD KHUSUS CETAK PDF -->
+    <!-- MAIN TABLE SECTION DENGAN KOP & CARD KHUSUS CETAK PDF/PRINT -->
     <div id="printableTableSection" class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
         
         <!-- KOP DOKUMEN CETAK LAPORAN DENGAN LOGO SEKOLAH -->
         <div class="print-only-header">
             <img src="{{ asset('img/logo_smk.png') }}" alt="Logo Sekolah">
             <div class="print-header-text">
-                <h2 style="font-size: 15pt; font-weight: 900; margin: 0; text-transform: uppercase; color: #0f172a; letter-spacing: 0.5px;">LAPORAN HASIL REKOMENDASI PENEMPATAN MAGANG</h2>
-                <h3 style="font-size: 10pt; font-weight: 700; margin: 3px 0; color: #334155;">SISTEM PENDUKUNG KEPUTUSAN (FUZZY SUGENO + SAW)</h3>
-                <p style="font-size: 8pt; color: #64748b; margin-top: 3px; font-style: italic;">Sistem Informasi E-PRAKERIN — Dicetak pada: <span id="printDateString"></span></p>
+                <h2 style="font-size: 14pt; font-weight: 900; margin: 0; text-transform: uppercase; color: #0f172a; letter-spacing: 0.5px;">LAPORAN HASIL REKOMENDASI PENEMPATAN MAGANG</h2>
+                <h3 style="font-size: 9.5pt; font-weight: 700; margin: 2px 0; color: #334155;">SISTEM PENDUKUNG KEPUTUSAN (FUZZY SUGENO + SAW)</h3>
+                <p style="font-size: 7.5pt; color: #64748b; margin-top: 2px; font-style: italic;">Sistem Informasi E-PRAKERIN — Dicetak pada: <span id="printDateString"></span></p>
             </div>
         </div>
 
-        <!-- CARD GRADE A & GRADE B KHUSUS DITAMPILKAN DI ATAS TABEL DI PDF -->
+        <!-- CARD GRADE A & GRADE B KHUSUS DITAMPILKAN DI ATAS TABEL DI PDF/PRINT -->
         <div class="print-only-cards">
             <!-- Card PDF Grade A -->
             <div class="print-card-box">
@@ -618,20 +703,21 @@
             <table class="w-full text-left border-collapse min-w-[1000px]">
                 <thead>
                     <tr class="bg-slate-50/90 text-slate-500 uppercase text-[10px] font-black tracking-wider border-b border-slate-100">
-                        <th style="width: 25%;" class="px-2.5 py-3 align-middle">Siswa</th>
-                        <th style="width: 10%;" class="px-1.5 py-3 text-center align-middle">C1 (Hard)</th>
-                        <th style="width: 10%;" class="px-1.5 py-3 text-center align-middle">C2 (Soft)</th>
-                        <th style="width: 12%;" class="px-1.5 py-3 text-center align-middle">Hasil Sugeno</th>
-                        <th style="width: 8%;" class="px-1.5 py-3 text-center align-middle">Norm R1</th>
-                        <th style="width: 8%;" class="px-1.5 py-3 text-center align-middle">Norm R2</th>
-                        <th style="width: 11%;" class="px-1.5 py-3 text-center align-middle">Nilai SAW (V)</th>
-                        <th style="width: 26%;" class="px-2.5 py-3 align-middle">Rekomendasi Instansi</th>
-                        <th style="width: 10%;" class="px-1.5 py-3 text-center align-middle no-print">Detail & Aksi</th>
+                        <th style="width: 5%;" class="px-2 py-3.5 text-center align-middle">Rank</th>
+                        <th style="width: 17%;" class="px-3 py-3.5 text-left align-middle">Siswa</th>
+                        <th style="width: 7%;" class="px-2 py-3.5 text-center align-middle">C1 (Hard)</th>
+                        <th style="width: 7%;" class="px-2 py-3.5 text-center align-middle">C2 (Soft)</th>
+                        <th style="width: 11%;" class="px-2 py-3.5 text-center align-middle">Hasil Sugeno</th>
+                        <th style="width: 7%;" class="px-2 py-3.5 text-center align-middle">Norm R1</th>
+                        <th style="width: 7%;" class="px-2 py-3.5 text-center align-middle">Norm R2</th>
+                        <th style="width: 10%;" class="px-2 py-3.5 text-center align-middle">Nilai SAW (V)</th>
+                        <th style="width: 21%;" class="px-3 py-3.5 text-left align-middle">Rekomendasi Instansi</th>
+                        <th style="width: 12%;" class="px-2 py-3.5 text-center align-middle no-print">Detail & Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="calculateTableBody" class="divide-y divide-slate-100 text-xs">
                     <tr id="emptyPlaceholderRow">
-                        <td colspan="9" class="px-6 py-16 text-center text-slate-400 bg-slate-50/30">
+                        <td colspan="10" class="px-6 py-16 text-center text-slate-400 bg-slate-50/30">
                             <div class="max-w-xs mx-auto flex flex-col items-center">
                                 <div class="w-16 h-16 rounded-3xl bg-slate-100/80 border border-slate-200/80 flex items-center justify-center text-slate-400 text-2xl mb-4 shadow-inner">
                                     <i class="fas fa-calculator"></i>
@@ -643,7 +729,7 @@
                     </tr>
 
                     <tr id="noResultRow" class="hidden">
-                        <td colspan="9" class="px-6 py-10 text-center text-slate-400 bg-slate-50/30 italic text-xs font-semibold">
+                        <td colspan="10" class="px-6 py-10 text-center text-slate-400 bg-slate-50/30 italic text-xs font-semibold">
                             <i class="fas fa-search-minus mr-2 text-slate-300 text-base"></i>
                             Tidak ditemukan nama siswa yang cocok dengan kata kunci pencarian.
                         </td>
@@ -882,6 +968,9 @@
 </div>
 
 <script>
+    // Ambil data kuota penempatan yang tersimpan di MySQL Database dari Controller Laravel
+    const kuotaDariDatabase = @json($kuotaTerpakaiDB ?? []);
+
     let listSiswaSPK = JSON.parse(localStorage.getItem('spk_siswa_data')) || [];
     let targetHapusNama = null;
     let selectedSiswaData = null;
@@ -906,8 +995,76 @@
         "PT Kreasi Putra Hotama"
     ];
 
-    // FUNGSI KHUSUS CETAK LAPORAN DENGAN HEADER TANGGAL DAN TEKS PILIHAN INSTANSI
-    function cetakLaporanSPK() {
+    // Helper FUNGSI PEMBERSIH & HARMONISASI STRING NAMA INSTANSI (CASE-INSENSITIVE)
+    function getJumlahKuotaTerpakaiDB(namaInstansiUI) {
+        if (!kuotaDariDatabase) return 0;
+
+        // Normalisasi nama dari UI JS (hapus spasi lebih, simbol, dan kecilkan huruf)
+        const cleanNameUI = namaInstansiUI.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+
+        let total = 0;
+        for (const [keyDB, valCount] of Object.entries(kuotaDariDatabase)) {
+            const cleanNameDB = keyDB.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            if (cleanNameDB === cleanNameUI || cleanNameDB.includes(cleanNameUI) || cleanNameUI.includes(cleanNameDB)) {
+                total += parseInt(valCount) || 0;
+            }
+        }
+        return total;
+    }
+
+    // FUNGSI UTAMA PLOTTING BERDASARKAN ELEMEN KLIKS BARIS DENGAN AKURASI PRESISI
+    function mulaiPenempatanDirect(namaVal, idVal, element) {
+        let namaFinal = namaVal;
+        let idFinal = idVal;
+        let namaInstansi = '';
+
+        if (element) {
+            const tr = element.closest('tr');
+            if (tr) {
+                // Ambil data-attribute presisi dari baris tabel jika tersedia
+                if (tr.getAttribute('data-nama-siswa')) namaFinal = tr.getAttribute('data-nama-siswa');
+                if (tr.getAttribute('data-id-siswa')) idFinal = tr.getAttribute('data-id-siswa');
+
+                // Ambil nilai instansi dari dropdown pada baris yang tepat
+                const selectInstansi = tr.querySelector('.print-select-container select');
+                if (selectInstansi) {
+                    let rawValue = selectInstansi.value || '';
+                    if (selectInstansi.selectedIndex !== -1) {
+                        rawValue = selectInstansi.options[selectInstansi.selectedIndex].text || rawValue;
+                    }
+
+                    // Pembersihan teks instansi dari simbol dan status kuota
+                    namaInstansi = rawValue
+                        .replace(/^[★•\s]+/, '')
+                        .replace(/\s*\((Sisa\s+\d+|FULL)\)/i, '')
+                        .trim();
+                }
+            }
+        }
+
+        const routeBase = "{{ route('admin.placement.create') }}";
+        const url = new URL(routeBase, window.location.origin);
+
+        if (idFinal && idFinal !== 'undefined' && idFinal !== 'null') {
+            url.searchParams.set('siswa_id', idFinal);
+        }
+        if (namaFinal) {
+            url.searchParams.set('siswa_nama', namaFinal);
+        }
+        if (namaInstansi && !namaInstansi.includes('-- Pilih')) {
+            url.searchParams.set('instansi_nama', namaInstansi);
+        }
+
+        window.location.href = url.toString();
+    }
+
+    // FUNGSI UTAMA EKSPOR PDF DENGAN ENGINE PDFSHIFT API BERBASIS BACKEND LARAVEL & BROWSER PRINT FALLBACK (POIN 3 ENHANCEMENT)
+    function eksporAtauCetakLaporanSPK() {
+        const formExport = document.getElementById('formPdfShiftExport');
+        const inputExportJson = document.getElementById('pdfShiftDataJson');
+        const exportUrl = formExport ? formExport.getAttribute('action') : '#';
+
+        // Persiapkan teks instansi pilihan dan tanggal cetak untuk tampilan print/PDF
         const dateElem = document.getElementById('printDateString');
         if (dateElem) {
             const now = new Date();
@@ -915,29 +1072,82 @@
             dateElem.textContent = now.toLocaleDateString('id-ID', options);
         }
 
-        // Sync nilai pilihan dropdown ke span print-selected-text
         const rows = document.querySelectorAll('#calculateTableBody tr.calculate-row');
-        rows.forEach(row => {
+        let exportDataPayload = [];
+
+        rows.forEach((row, index) => {
             const select = row.querySelector('.print-select-container select');
             const spanText = row.querySelector('.print-selected-text');
-            if (select && spanText) {
-                spanText.textContent = select.value;
+            let selectedInstansiText = '';
+            
+            if (select) {
+                selectedInstansiText = select.value;
+                if (spanText) spanText.textContent = selectedInstansiText;
             }
+
+            // Ekstrak data terstruktur per baris untuk dikirim ke API PDFShift backend
+            const namaSiswa = row.getAttribute('data-nama-siswa') || row.querySelector('.name-cell')?.textContent.trim() || '-';
+            const c1Val = row.cells[2]?.textContent.trim() || '0';
+            const c2Val = row.cells[3]?.textContent.trim() || '0';
+            const fuzzyScore = row.cells[4]?.textContent.trim() || '0';
+            const normR1 = row.cells[5]?.textContent.trim() || '0';
+            const normR2 = row.cells[6]?.textContent.trim() || '0';
+            const sawScore = row.cells[7]?.textContent.trim() || '0';
+
+            exportDataPayload.push({
+                rank: index + 1,
+                nama: namaSiswa,
+                c1: c1Val,
+                c2: c2Val,
+                fuzzy_score: fuzzyScore,
+                norm_r1: normR1,
+                norm_r2: normR2,
+                saw_score: sawScore,
+                instansi: selectedInstansiText
+            });
         });
 
-        window.print();
+        // Apabila Route PDFShift backend tersedia, kirim payload data melalui submit Form POST
+        if (exportUrl && exportUrl !== '#' && exportUrl !== '') {
+            if (inputExportJson) {
+                inputExportJson.value = JSON.stringify(exportDataPayload);
+            }
+            
+            // Animasi feedback tombol saat mengirim request ekspor PDF
+            const btnText = document.getElementById('btnCetakPDFText');
+            const btnIcon = document.getElementById('btnCetakPDFIcon');
+            if (btnText && btnIcon) {
+                btnText.textContent = "Menggenerasi PDF...";
+                btnIcon.className = "fas fa-spinner fa-spin mr-2 text-sm";
+                
+                setTimeout(() => {
+                    btnText.textContent = "Cetak Lap. SPK";
+                    btnIcon.className = "fas fa-file-pdf mr-2 text-sm transition-transform group-hover:scale-110 duration-300";
+                }, 3000);
+            }
+
+            formExport.submit();
+        } else {
+            // Fallback: Apabila Route API PDFShift backend belum didaftarkan, panggil browser print window secara optimal
+            window.print();
+        }
     }
 
-    // FUNGSI REAL-TIME UPDATE CARD MONITORING KUOTA INSTANSI
+    // Tetapkan fungsi cetak biasa sebagai alias untuk kompabilitas
+    function cetakLaporanSPK() {
+        eksporAtauCetakLaporanSPK();
+    }
+
     function updateCardKuotaMonitoring() {
         const containerA = document.getElementById('containerKuotaGradeA');
         const containerB = document.getElementById('containerKuotaGradeB');
 
+        // Initializer data kuota awal dari Database (Database Offset)
         let kuotaTerpakaiA = {};
-        instansiGradeA.forEach(i => kuotaTerpakaiA[i] = 0);
+        instansiGradeA.forEach(i => kuotaTerpakaiA[i] = getJumlahKuotaTerpakaiDB(i));
 
         let kuotaTerpakaiB = {};
-        instansiGradeB.forEach(i => kuotaTerpakaiB[i] = 0);
+        instansiGradeB.forEach(i => kuotaTerpakaiB[i] = getJumlahKuotaTerpakaiDB(i));
 
         const allSelects = document.querySelectorAll('#calculateTableBody select');
         
@@ -1123,6 +1333,7 @@
         const nama = selectedSiswaData.nama;
         const nis = selectedSiswaData.nis || '-';
         const jurusan = selectedSiswaData.jurusan || 'TKJ';
+        const idSiswa = selectedSiswaData.id || null;
         const c1 = parseFloat(document.getElementById('inputNilaiC1').value);
         const c2 = parseFloat(document.getElementById('inputNilaiC2').value);
 
@@ -1132,9 +1343,9 @@
         const fuzzy = evalFuzzySugeno(c1, c2);
 
         if (indexExisting !== -1) {
-            listSiswaSPK[indexExisting] = { nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill };
+            listSiswaSPK[indexExisting] = { id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill };
         } else {
-            listSiswaSPK.push({ nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill });
+            listSiswaSPK.push({ id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill });
         }
 
         localStorage.setItem('spk_siswa_data', JSON.stringify(listSiswaSPK));
@@ -1259,8 +1470,10 @@
         closeHapusModal();
     }
 
-    // FUNGSI UTAMA RENDER TABEL HASIL SPK & FILTERING
     function renderTableSPK() {
+        // Ambil data terbaru dari localStorage jika ada perubahan dari form plotting
+        listSiswaSPK = JSON.parse(localStorage.getItem('spk_siswa_data')) || [];
+
         const tableBody = document.getElementById('calculateTableBody');
         const emptyRow = document.getElementById('emptyPlaceholderRow');
         const statTotal = document.getElementById('statTotalSiswa');
@@ -1290,7 +1503,6 @@
         let maxC1 = Math.max(100, ...listSiswaSPK.map(s => s.c1));
         let maxC2 = Math.max(100, ...listSiswaSPK.map(s => s.c2));
 
-        // Kalkulasi Matriks Normalisasi & Nilai Preferensi SAW
         let calculated = filteredSiswa.map(s => {
             let r1 = maxC1 > 0 ? (s.c1 / maxC1) : 1;
             let r2 = maxC2 > 0 ? (s.c2 / maxC2) : 1;
@@ -1310,43 +1522,85 @@
         const oldRows = tableBody.querySelectorAll('.calculate-row');
         oldRows.forEach(row => row.remove());
 
+        // Memasukkan kuota terpakai awal dari database (offset)
         let kuotaTerpakaiA = {};
-        instansiGradeA.forEach(i => kuotaTerpakaiA[i] = 0);
+        instansiGradeA.forEach(i => kuotaTerpakaiA[i] = getJumlahKuotaTerpakaiDB(i));
 
         let kuotaTerpakaiB = {};
-        instansiGradeB.forEach(i => kuotaTerpakaiB[i] = 0);
+        instansiGradeB.forEach(i => kuotaTerpakaiB[i] = getJumlahKuotaTerpakaiDB(i));
 
         calculated.forEach((row, idx) => {
+            const rank = idx + 1; // PERHITUNGAN PERINGKAT
             const isGradeA = row.grade === 'A';
             const tr = document.createElement('tr');
+            const rowIdAttr = row.id || row.nama.replace(/\s+/g, '_');
+            
+            tr.id = 'row_siswa_' + rowIdAttr;
+            tr.setAttribute('data-nama-siswa', row.nama);
+            tr.setAttribute('data-id-siswa', row.id || '');
             tr.className = "calculate-row hover:bg-slate-50/80 transition-colors duration-150 border-b border-slate-200 divide-x divide-slate-200";
 
             let targetInstansiList = isGradeA ? instansiGradeA : instansiGradeB;
             let kuotaTracker = isGradeA ? kuotaTerpakaiA : kuotaTerpakaiB;
 
             let defaultInstansi = targetInstansiList.find(i => kuotaTracker[i] < MAX_KUOTA_PER_INSTANSI);
+            
+            if (!defaultInstansi) {
+                let altList = isGradeA ? instansiGradeB : instansiGradeA;
+                let altTracker = isGradeA ? kuotaTerpakaiB : kuotaTerpakaiA;
+                defaultInstansi = altList.find(i => altTracker[i] < MAX_KUOTA_PER_INSTANSI);
+            }
+
             if (!defaultInstansi) {
                 defaultInstansi = targetInstansiList[targetInstansiList.length - 1];
             }
 
-            if (kuotaTracker[defaultInstansi] !== undefined) {
-                kuotaTracker[defaultInstansi]++;
+            if (kuotaTerpakaiA[defaultInstansi] !== undefined) {
+                kuotaTerpakaiA[defaultInstansi]++;
+            } else if (kuotaTerpakaiB[defaultInstansi] !== undefined) {
+                kuotaTerpakaiB[defaultInstansi]++;
             }
 
-            let selectOptions = targetInstansiList.map(inst => {
+            let selectOptionsA = instansiGradeA.map(inst => {
                 const isSelected = inst === defaultInstansi ? 'selected' : '';
-                return `<option value="${inst}" ${isSelected}>
-                    ${isGradeA ? '★ ' : ''}${inst}
-                </option>`;
+                const terpakai = kuotaTerpakaiA[inst] || 0;
+                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terpakai);
+                const statusStr = sisa === 0 ? '(FULL)' : `(Sisa ${sisa})`;
+                return `<option value="${inst}" ${isSelected}>★ ${inst} ${statusStr}</option>`;
+            }).join('');
+
+            let selectOptionsB = instansiGradeB.map(inst => {
+                const isSelected = inst === defaultInstansi ? 'selected' : '';
+                const terpakai = kuotaTerpakaiB[inst] || 0;
+                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terpakai);
+                const statusStr = sisa === 0 ? '(FULL)' : `(Sisa ${sisa})`;
+                return `<option value="${inst}" ${isSelected}>• ${inst} ${statusStr}</option>`;
             }).join('');
 
             let optionsHTML = `
-                <optgroup label="Rekomendasi SPK (${isGradeA ? 'Grade A - Pemerintah/BUMN' : 'Grade B - Swasta/UMKM'})">
-                    ${selectOptions}
+                <optgroup label="Instansi Grade A (Pemerintah/BUMN)">
+                    ${selectOptionsA}
+                </optgroup>
+                <optgroup label="Instansi Grade B (Swasta/UMKM)">
+                    ${selectOptionsB}
                 </optgroup>
             `;
 
+            // Escaping kutip tunggal untuk keamanan argumen onclick
+            const safeNama = row.nama.replace(/'/g, "\\'");
+            const safeId = (row.id || '').toString().replace(/'/g, "\\'");
+
             tr.innerHTML = `
+                <td class="px-2 py-2.5 text-center align-middle font-black">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg text-xs ${
+                        rank === 1 ? 'bg-amber-400 text-amber-950 font-black shadow-xs' : 
+                        rank === 2 ? 'bg-slate-300 text-slate-900 font-bold' : 
+                        rank === 3 ? 'bg-amber-700/20 text-amber-900 font-bold' : 
+                        'bg-slate-100 text-slate-600'
+                    }">
+                        ${rank}
+                    </span>
+                </td>
                 <td class="px-2.5 py-2.5 align-middle col-siswa">
                     <div class="flex items-center space-x-2 overflow-hidden">
                         <div class="h-7 w-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-black text-[11px] flex-shrink-0 shadow-xs no-print">
@@ -1394,16 +1648,20 @@
                 </td>
                 <td class="px-1.5 py-2.5 text-center align-middle no-print">
                     <div class="flex items-center justify-center space-x-1">
-                        <button onclick="openMathBreakdownModal('${row.nama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}', '${row.r1}', '${row.r2}', '${row.finalScore}', '${row.rule}')" class="p-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200/80 transition-all cursor-pointer shadow-2xs" title="Breakdown Matematis SPK">
+                        <button type="button" onclick="mulaiPenempatanDirect('${safeNama}', '${safeId}', this)" class="p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold transition-all cursor-pointer shadow-2xs flex items-center space-x-1" title="Mulai Penempatan">
+                            <i class="fas fa-paper-plane text-xs"></i>
+                            <span class="text-[10px] hidden sm:inline">Plotting</span>
+                        </button>
+                        <button type="button" onclick="openMathBreakdownModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}', '${row.r1}', '${row.r2}', '${row.finalScore}', '${row.rule}')" class="p-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200/80 transition-all cursor-pointer shadow-2xs" title="Breakdown Matematis SPK">
                             <i class="fas fa-square-root-alt text-xs"></i>
                         </button>
-                        <button onclick="openRuleModal('${row.nama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 border border-slate-200/80 hover:border-blue-200 transition-all cursor-pointer shadow-2xs" title="Lihat Evaluasi Rule">
+                        <button type="button" onclick="openRuleModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 border border-slate-200/80 hover:border-blue-200 transition-all cursor-pointer shadow-2xs" title="Lihat Evaluasi Rule">
                             <i class="fas fa-eye text-xs"></i>
                         </button>
-                        <button onclick="editSiswaSPK('${row.nama}')" class="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 border border-amber-200/80 transition-all cursor-pointer shadow-2xs" title="Edit Nilai Siswa">
+                        <button type="button" onclick="editSiswaSPK('${safeNama}')" class="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 border border-amber-200/80 transition-all cursor-pointer shadow-2xs" title="Edit Nilai Siswa">
                             <i class="fas fa-edit text-xs"></i>
                         </button>
-                        <button onclick="hapusSiswaSPK('${row.nama}')" class="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200/80 transition-all cursor-pointer shadow-2xs" title="Hapus Dari Tabel">
+                        <button type="button" onclick="hapusSiswaSPK('${safeNama}')" class="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200/80 transition-all cursor-pointer shadow-2xs" title="Hapus Dari Tabel">
                             <i class="fas fa-trash-alt text-xs"></i>
                         </button>
                     </div>

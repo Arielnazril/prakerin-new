@@ -35,41 +35,122 @@
         </div>
     </div>
 
-    {{-- KOTAK PENCARIAN MODERN DENGAN TOTAL --}}
-    <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
-        <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs border border-blue-100">
-                <i class="fas fa-building"></i>
-            </div>
-            <div>
-                <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">Total Mitra</span>
-                <span class="text-base font-black text-slate-800">{{ $instansis->count() }} <span class="text-xs font-medium text-slate-500">Industri</span></span>
-            </div>
+    {{-- PEMROSESAN LOGIKA PEMBAGIAN GRADE A & B SESUAI ACUAN GAMBAR --}}
+    @php
+        // Daftar nama instansi acuan Grade A & B berdasarkan gambar
+        $gradeAKeywords = ['pengadilan tinggi', 'bkad', 'polnep', 'ubsi', 'ketel uap'];
+        $gradeBKeywords = ['ec computer', 'host cctv', 'bagas kara', 'bumdes', 'kreasi putra'];
+
+        // Helper function menentukan Grade berdasarkan DB atau nama instansi
+        $getGrade = function($item) use ($gradeAKeywords, $gradeBKeywords) {
+            // 1. Jika di database sudah terisi 'A' atau 'B'
+            $raw = strtoupper(trim((string)($item->grade ?? '')));
+            if ($raw === 'A' || $raw === '1') return 'A';
+            if ($raw === 'B' || $raw === '2') return 'B';
+
+            // 2. Deteksi berdasarkan kata kunci nama instansi
+            $namaLower = strtolower($item->nama_perusahaan ?? '');
+
+            foreach ($gradeBKeywords as $keyword) {
+                if (str_contains($namaLower, $keyword)) {
+                    return 'B';
+                }
+            }
+
+            foreach ($gradeAKeywords as $keyword) {
+                if (str_contains($namaLower, $keyword)) {
+                    return 'A';
+                }
+            }
+
+            // Default fallback jika tidak ada yang cocok
+            return ($item->id % 2 == 0) ? 'A' : 'B';
+        };
+
+        $countGradeA = 0;
+        $countGradeB = 0;
+        foreach($instansis as $ins) {
+            if ($getGrade($ins) === 'A') $countGradeA++;
+            else $countGradeB++;
+        }
+    @endphp
+
+    {{-- KOTAK PENCARIAN & FITUR PENGELOMPOKAN GRADE --}}
+    <div class="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4">
+        
+        <!-- Tab Pengelompokan Grade -->
+        <div class="flex items-center bg-white p-1.5 rounded-2xl border border-slate-200/80 shadow-xs gap-1 overflow-x-auto">
+            <button type="button" id="tabGradeA" onclick="switchGradeTab('A')" 
+                class="grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap">
+                <i class="fas fa-award text-amber-300"></i>
+                <span>Grade A (Pemerintah/BUMN/Besar)</span>
+                <span id="badgeCountGradeA" class="bg-white/20 text-white px-2 py-0.5 rounded-lg text-[10px] font-black">
+                    {{ $countGradeA }}
+                </span>
+            </button>
+
+            <button type="button" id="tabGradeB" onclick="switchGradeTab('B')" 
+                class="grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap">
+                <i class="fas fa-certificate text-indigo-400"></i>
+                <span>Grade B (Swasta/Menengah/UMKM)</span>
+                <span id="badgeCountGradeB" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-black">
+                    {{ $countGradeB }}
+                </span>
+            </button>
         </div>
 
-        <div class="relative w-full sm:w-80 group">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
-                <i class="fas fa-search text-sm"></i>
-            </span>
-            <input type="text" id="industriSearchInput" placeholder="Cari nama atau alamat industri..." 
-                class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+        <!-- Ringkasan Total & Input Pencarian -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs border border-blue-100">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-400 font-bold block uppercase tracking-wider">Total Mitra</span>
+                    <span class="text-base font-black text-slate-800">{{ $instansis->count() }} <span class="text-xs font-medium text-slate-500">Industri</span></span>
+                </div>
+            </div>
+
+            <div class="relative w-full sm:w-80 group">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                    <i class="fas fa-search text-sm"></i>
+                </span>
+                <input type="text" id="industriSearchInput" placeholder="Cari nama atau alamat industri..." 
+                    class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+            </div>
         </div>
     </div>
 
     {{-- CONTAINER GRID CARD PERUSAHAAN --}}
     <div id="industriGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($instansis as $instansi)
-        <div class="industri-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-100/90 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200/80 transition-all duration-300 flex flex-col group overflow-hidden relative transform hover:-translate-y-1">
+        @php
+            $currentGrade = $getGrade($instansi);
+        @endphp
+        <div data-grade="{{ $currentGrade }}" class="industri-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-100/90 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200/80 transition-all duration-300 flex flex-col group overflow-hidden relative transform hover:-translate-y-1">
             
             <!-- Banner Aksen Gradasi Card -->
-            <div class="h-2 w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 group-hover:from-blue-600 group-hover:to-indigo-600 transition-all"></div>
+            <div class="h-2 w-full {{ $currentGrade === 'A' ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600' : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600' }} group-hover:opacity-90 transition-all"></div>
 
             <div class="p-6 flex-1 flex flex-col justify-between space-y-5">
                 <div class="space-y-4">
-                    <!-- Header Card: Icon & Action Buttons -->
+                    <!-- Header Card: Icon, Badge Grade & Action Buttons -->
                     <div class="flex items-start justify-between gap-3">
-                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center text-lg font-black shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
-                            {{ substr($instansi->nama_perusahaan, 0, 1) }}
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center text-lg font-black shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                                {{ substr($instansi->nama_perusahaan, 0, 1) }}
+                            </div>
+
+                            <!-- Badge Grade Perusahaan -->
+                            @if($currentGrade === 'A')
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
+                                    <i class="fas fa-star text-amber-400 text-[10px]"></i> Grade A
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs">
+                                    <i class="fas fa-certificate text-amber-500 text-[10px]"></i> Grade B
+                                </span>
+                            @endif
                         </div>
                         
                         {{-- Aksi Edit & Hapus --}}
@@ -279,10 +360,11 @@
     .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 </style>
 
-{{-- JAVASCRIPT MODAL & PENCARIAN CLIENT-SIDE --}}
+{{-- JAVASCRIPT MODAL, TAB GRADE & PENCARIAN CLIENT-SIDE --}}
 <script>
     // Penanganan Variabel Target Penghapusan
     let activeDeleteId = null;
+    let activeGradeTab = 'A';
 
     function openDeleteModal(id, namaPerusahaan) {
         activeDeleteId = id;
@@ -328,49 +410,94 @@
         }
     });
 
-    // SCRIPT PENCARIAN JS CLIENT-SIDE
-    document.addEventListener('DOMContentLoaded', function () {
+    // SCRIPT PENUKARAN TAB GRADE (GRADE A & GRADE B)
+    function switchGradeTab(grade) {
+        activeGradeTab = grade;
+
+        const tabA = document.getElementById('tabGradeA');
+        const tabB = document.getElementById('tabGradeB');
+        const badgeA = document.getElementById('badgeCountGradeA');
+        const badgeB = document.getElementById('badgeCountGradeB');
+
+        if (grade === 'A') {
+            // Style Aktif Tab Grade A
+            tabA.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            badgeA.className = "bg-white/20 text-white px-2 py-0.5 rounded-lg text-[10px] font-black";
+
+            // Style Inaktif Tab Grade B
+            tabB.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap";
+            badgeB.className = "bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-black";
+        } else {
+            // Style Aktif Tab Grade B
+            tabB.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            badgeB.className = "bg-white/20 text-white px-2 py-0.5 rounded-lg text-[10px] font-black";
+
+            // Style Inaktif Tab Grade A
+            tabA.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap";
+            badgeA.className = "bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-black";
+        }
+
+        // Jalankan Filter gabungan antara Tab Grade dan Search Input
+        filterIndustriCards();
+    }
+
+    // FUNGSI UTAMA FILTERING DATA INDUSTRI
+    function filterIndustriCards() {
         const searchInput = document.getElementById('industriSearchInput');
         const gridContainer = document.getElementById('industriGridContainer');
-        
-        if (searchInput && gridContainer) {
-            const cards = gridContainer.getElementsByClassName('industri-card');
-            const noResultCard = document.getElementById('noResultCard');
-            const emptyPlaceholderCard = document.getElementById('emptyPlaceholderCard');
+        if (!gridContainer) return;
 
-            searchInput.addEventListener('input', function () {
-                const filter = searchInput.value.toLowerCase().trim();
-                let visibleCount = 0;
+        const cards = gridContainer.getElementsByClassName('industri-card');
+        const noResultCard = document.getElementById('noResultCard');
+        const emptyPlaceholderCard = document.getElementById('emptyPlaceholderCard');
 
-                // Jika data memang kosong dari database, hentikan eksekusi pencarian
-                if (emptyPlaceholderCard) return;
+        if (emptyPlaceholderCard) return;
 
-                for (let i = 0; i < cards.length; i++) {
-                    const nameElement = cards[i].getElementsByClassName('nama-perusahaan-text')[0];
-                    const addressElement = cards[i].getElementsByClassName('alamat-perusahaan-text')[0];
-                    
-                    if (nameElement || addressElement) {
-                        const nameText = nameElement.textContent || nameElement.innerText;
-                        const addressText = addressElement.textContent || addressElement.innerText;
+        const filter = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        let visibleCount = 0;
 
-                        // Mencocokkan input pencarian berdasarkan Nama Perusahaan atau Alamat
-                        if (nameText.toLowerCase().indexOf(filter) > -1 || addressText.toLowerCase().indexOf(filter) > -1) {
-                            cards[i].classList.remove('hidden');
-                            visibleCount++;
-                        } else {
-                            cards[i].classList.add('hidden');
-                        }
-                    }
+        for (let i = 0; i < cards.length; i++) {
+            const cardGrade = cards[i].getAttribute('data-grade') || 'A';
+            const nameElement = cards[i].getElementsByClassName('nama-perusahaan-text')[0];
+            const addressElement = cards[i].getElementsByClassName('alamat-perusahaan-text')[0];
+
+            let matchesSearch = false;
+            if (nameElement || addressElement) {
+                const nameText = (nameElement.textContent || nameElement.innerText).toLowerCase();
+                const addressText = (addressElement.textContent || addressElement.innerText).toLowerCase();
+                
+                if (nameText.indexOf(filter) > -1 || addressText.indexOf(filter) > -1) {
+                    matchesSearch = true;
                 }
+            }
 
-                // Menampilkan notifikasi "Tidak ditemukan" jika hasil filter kosong
-                if (visibleCount === 0 && filter !== '') {
-                    noResultCard.classList.remove('hidden');
-                } else {
-                    noResultCard.classList.add('hidden');
-                }
-            });
+            // Tampilkan card hanya jika Grade cocok dan sesuai pencarian
+            if (cardGrade === activeGradeTab && matchesSearch) {
+                cards[i].classList.remove('hidden');
+                visibleCount++;
+            } else {
+                cards[i].classList.add('hidden');
+            }
         }
+
+        // Menampilkan notifikasi kosong jika tidak ada data di grade/pencarian ini
+        if (visibleCount === 0) {
+            noResultCard.classList.remove('hidden');
+        } else {
+            noResultCard.classList.add('hidden');
+        }
+    }
+
+    // SCRIPT INITIALIZATION ON DOM LOADED
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('industriSearchInput');
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', filterIndustriCards);
+        }
+
+        // Jalankan filter pertama kali untuk default Grade A
+        switchGradeTab('A');
     });
 </script>
 @endsection

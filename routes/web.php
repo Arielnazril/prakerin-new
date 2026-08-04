@@ -51,15 +51,18 @@ Route::middleware('auth')->group(function () {
         Route::resource('guru', GuruController::class);
         Route::resource('pembimbing', PembimbingIndustriController::class);
         Route::resource('siswa', SiswaController::class);
+
+        // Management Penempatan Magang
+        Route::delete('/placement/delete-all', [PlacementController::class, 'destroyAll'])->name('placement.destroyAll');
         Route::resource('placement', PlacementController::class);
 
-        // Manajemen Penempatan Magang
-        Route::resource('placement', PlacementController::class)->only(['index', 'create', 'store', 'destroy']);
         Route::get('/rekap-nilai', [PlacementController::class, 'rekap'])->name('rekap.index');
         Route::post('/rekap-nilai/{id}/finalize', [PlacementController::class, 'finalize'])->name('rekap.finalize');
 
         // [BARU] Route Perhitungan Penempatan SPK Fuzzy Sugeno - SAW
         Route::get('/penempatan/kalkulasi', [PlacementController::class, 'calculate'])->name('placement.calculate');
+        Route::post('/penempatan/kalkulasi/store', [PlacementController::class, 'storeKalkulasi'])->name('placement.storeKalkulasi');
+        Route::delete('/penempatan/kalkulasi/{id}', [PlacementController::class, 'destroyKalkulasi'])->name('placement.destroyKalkulasi');
     });
 
     // =================================================================
