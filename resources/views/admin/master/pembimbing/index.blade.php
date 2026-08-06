@@ -25,7 +25,7 @@
                     Mentor Lapangan
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-300 font-medium pl-1 max-w-xl leading-relaxed">
-                    Pembimbing dari pihak industri/perusahaan yang mendampingi siswa selama program PKL.
+                    Pembimbing dari pihak industri/perusahaan yang mendampingi siswa selama program Prakerin.
                 </p>
             </div>
             
@@ -114,11 +114,11 @@
     </div>
 
     <!-- Table Container -->
-    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden transition-all duration-300">
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden transition-all duration-300 p-4 sm:p-6">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[850px] table-fixed">
+            <table class="w-full text-left border-collapse min-w-[850px] table-fixed border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
                 <thead>
-                    <tr class="bg-slate-50/80 border-b border-slate-100 text-slate-500 uppercase text-[11px] font-black tracking-wider">
+                    <tr class="bg-slate-100/80 border-b border-slate-200/80 text-slate-600 uppercase text-[11px] font-black tracking-wider divide-x divide-slate-200/80">
                         <th class="px-4 py-4 text-center w-14">No.</th>
                         <th class="px-5 py-4 w-[24%]">Nama Mentor</th>
                         <th class="px-5 py-4 w-[32%]">Perusahaan (Instansi)</th>
@@ -127,12 +127,12 @@
                         <th class="px-4 py-4 text-center w-24">Aksi</th>
                     </tr>
                 </thead>
-                <tbody id="mentorTableBody" class="divide-y divide-slate-100 text-sm">
+                <tbody id="mentorTableBody" class="divide-y divide-slate-200/80 text-sm bg-white">
                     @forelse($mentors as $mentor)
                     @php
                         $mentorGrade = $getMentorGrade($mentor);
                     @endphp
-                    <tr data-grade="{{ $mentorGrade }}" class="mentor-row hover:bg-slate-50/80 transition-colors duration-150 group">
+                    <tr data-grade="{{ $mentorGrade }}" class="mentor-row hover:bg-slate-50/80 transition-colors duration-150 group divide-x divide-slate-200/80">
                         <td class="px-4 py-4 text-center text-slate-400 font-extrabold text-xs group-hover:text-slate-600">
                             {{ sprintf('%02d', $loop->iteration) }}
                         </td>

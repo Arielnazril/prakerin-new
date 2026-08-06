@@ -15,12 +15,12 @@
             <div>
                 <div class="flex items-center space-x-3 mb-2">
                     <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-400/20 uppercase tracking-widest">
-                        Rekapitulasi PKL
+                        Rekapitulasi Prakerin
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">Finalisasi & Rekap Nilai</h2>
                 <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 max-w-xl leading-relaxed">
-                    Evaluasi gabungan nilai dari Mentor Industri dan Guru Pembimbing serta penerbitan nilai akhir siswa PKL.
+                    Evaluasi gabungan nilai dari Mentor Industri dan Guru Pembimbing serta penerbitan nilai akhir siswa Prakerin.
                 </p>
             </div>
 
@@ -87,10 +87,10 @@
     </div>
 
     {{-- KOTAK PENCARIAN & TABLE CONTAINER --}}
-    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100 p-4 sm:p-6">
         
         <!-- Header Tabel & Input Pencarian -->
-        <div class="p-5 sm:p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="p-5 sm:p-6 border-b border-slate-200/80 bg-slate-50/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 rounded-t-2xl">
             <div>
                 <h3 class="text-base font-bold text-slate-800">Master Data Nilai Akhir</h3>
                 <p class="text-xs text-slate-400 font-medium mt-0.5">Daftar rekap nilai evaluasi siswa dari pihak sekolah dan industri.</p>
@@ -106,9 +106,9 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="w-full text-left border-collapse border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
                 <thead>
-                    <tr class="bg-slate-50/80 text-slate-500 uppercase text-[11px] font-black tracking-wider border-b border-slate-100">
+                    <tr class="bg-slate-100/80 text-slate-600 uppercase text-[11px] font-black tracking-wider border-b border-slate-200/80 divide-x divide-slate-200/80">
                         <th class="px-6 py-4 w-16 text-center">No</th>
                         <th class="px-6 py-4">Siswa</th>
                         <th class="px-6 py-4">Mentor (Industri)</th>
@@ -117,7 +117,7 @@
                         <th class="px-6 py-4 text-center">Status</th>
                     </tr>
                 </thead>
-                <tbody id="nilaiTableBody" class="divide-y divide-slate-100 text-sm">
+                <tbody id="nilaiTableBody" class="divide-y divide-slate-200/80 text-sm bg-white">
                     @php 
                         $hasData = false; 
                         $rowNumber = 1;
@@ -130,7 +130,7 @@
                         $nGuru   = $p->penilaians->where('penilai.role', 'guru')->first();
                     @endphp
 
-                    <tr class="nilai-row hover:bg-slate-50/80 transition-colors duration-150">
+                    <tr class="nilai-row hover:bg-slate-50/80 transition-colors duration-150 divide-x divide-slate-200/80">
                         <td class="px-6 py-5 text-slate-400 font-extrabold text-center text-xs index-cell">{{ $rowNumber++ }}</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center space-x-3.5">

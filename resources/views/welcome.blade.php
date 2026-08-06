@@ -54,119 +54,157 @@
     <style>
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
+        
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(37, 99, 235, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(37, 99, 235, 0.7);
+        }
     </style>
 </head>
 
 <body class="antialiased bg-slate-50/80 dark:bg-slate-950 font-sans selection:bg-blue-600 selection:text-white text-slate-800 dark:text-slate-100 overflow-x-hidden transition-colors duration-300">
 
-    <!-- Navigasi Premium -->
-    <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl shadow-sm shadow-slate-200/50 dark:shadow-none border-b border-slate-200/60 dark:border-slate-800/80 fixed w-full z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                
-                <!-- Logo & Brand -->
-                <a href="#" class="flex items-center gap-3.5 group cursor-pointer shrink-0">
-                    <div class="relative">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur-md opacity-0 group-hover:opacity-60 transition duration-500"></div>
-                        <div class="relative bg-gradient-to-tr from-blue-50 via-indigo-50 to-white dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 p-2.5 rounded-2xl border border-blue-100/80 dark:border-slate-700/80 shadow-sm transform group-hover:scale-105 transition duration-300">
-                            <img src="{{ asset('img/logo_smk.png') }}" alt="Logo" class="h-10 w-10 sm:h-11 sm:w-11 object-contain">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-amber-400 z-50 transition-all duration-150 w-0"></div>
+
+    <!-- Top Sticky Header Wrapper -->
+    <div class="fixed top-0 left-0 w-full z-40">
+        <!-- Banner Info Live Status Sistem e-Prakerin -->
+        <div class="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white text-xs py-2 px-4 text-center font-semibold flex flex-wrap items-center justify-center gap-2 border-b border-blue-500/20 shadow-sm relative z-50">
+            <span class="inline-flex items-center gap-1.5 bg-blue-500/20 text-blue-300 px-2.5 py-0.5 rounded-full border border-blue-400/30 text-[11px]">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                System Live Status
+            </span>
+            
+            <span class="hidden sm:inline text-slate-200">Portal e-Prakerin SMK Al Madani Pontianak Berjalan Normal.</span>
+            
+            <!-- Tombol Simulasi Ber-Border Elegan -->
+            <button id="btn-open-calc" class="inline-flex items-center gap-1.5 bg-slate-900/80 hover:bg-amber-400 text-amber-300 hover:text-slate-950 font-extrabold px-3 py-1 rounded-full border-2 border-amber-400/80 hover:border-amber-300 shadow-sm hover:shadow-md hover:shadow-amber-400/20 transition-all duration-300 active:scale-95 cursor-pointer ml-2 text-[11px]">
+                <i class="fas fa-calculator text-xs"></i> Simulasi Jam Prakerin
+            </button>
+        </div>
+
+        <!-- Navigasi Premium -->
+        <nav class="bg-white/85 dark:bg-slate-900/85 backdrop-blur-2xl shadow-md shadow-slate-200/50 dark:shadow-slate-950/50 border-b border-slate-200/60 dark:border-slate-800/80 w-full transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-20 items-center">
+                    
+                    <!-- Logo & Brand -->
+                    <a href="#" class="flex items-center gap-3.5 group cursor-pointer shrink-0">
+                        <div class="relative">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition duration-500"></div>
+                            <div class="relative bg-gradient-to-tr from-blue-50 via-indigo-50 to-white dark:from-slate-800 dark:via-slate-800 dark:to-slate-900 p-2 rounded-2xl border border-blue-100/80 dark:border-slate-700/80 shadow-sm transform group-hover:scale-105 transition duration-300">
+                                <img src="{{ asset('img/logo_smk.png') }}" alt="Logo" class="h-10 w-10 sm:h-11 sm:w-11 object-contain">
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <h1 class="text-lg sm:text-xl font-black text-primary dark:text-blue-400 tracking-tight leading-none group-hover:text-secondary transition duration-300">e-Prakerin</h1>
-                        <p class="text-[9px] sm:text-[10px] text-slate-400 dark:text-slate-500 font-extrabold tracking-widest mt-1">SMK BISA HEBAT</p>
-                    </div>
-                </a>
+                        <div>
+                            <h1 class="text-lg sm:text-xl font-black text-primary dark:text-blue-400 tracking-tight leading-none group-hover:text-secondary transition duration-300">e-Prakerin</h1>
+                            <p class="text-[9px] sm:text-[10px] text-slate-400 dark:text-slate-500 font-extrabold tracking-widest mt-1">SMK S AL MADANI KOTA PONTIANAK</p>
+                        </div>
+                    </a>
 
-                <!-- Navigation Links (Fitur Tambahan Tampilan Elegan)
-                <div class="hidden lg:flex items-center gap-8 text-sm font-bold text-slate-600 dark:text-slate-300">
-                    <a href="#" class="hover:text-secondary dark:hover:text-blue-400 transition-colors duration-200">Beranda</a>
-                    <a href="#fitur" class="hover:text-secondary dark:hover:text-blue-400 transition-colors duration-200">Fitur</a>
-                    <a href="#alur" class="hover:text-secondary dark:hover:text-blue-400 transition-colors duration-200">Alur Sistem</a>
-                    <a href="#faq" class="hover:text-secondary dark:hover:text-blue-400 transition-colors duration-200">FAQ</a>
-                </div> -->
+                    <!-- Desktop Menu Buttons -->
+                    <div class="hidden md:flex items-center gap-3.5">
+                        <!-- Tombol Pencarian Cepat -->
+                        <button id="btn-open-search" class="px-3.5 py-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-200/60 border border-slate-200/80 dark:border-slate-700/80 transition-all duration-300 active:scale-95 flex items-center gap-2 text-xs font-bold shadow-xs">
+                            <i class="fas fa-search text-slate-400"></i>
+                            <span class="hidden lg:inline text-slate-500 dark:text-slate-400">Cari Info...</span>
+                        </button>
 
-                <!-- Desktop Menu Buttons -->
-                <div class="hidden md:flex items-center gap-4">
-                    <!-- Tombol Dark Mode Switcher (Desktop) -->
-                    <button id="theme-toggle" type="button" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-amber-400 border border-slate-200 dark:border-slate-700 transition-all duration-300 active:scale-95" aria-label="Toggle Dark Mode">
-                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-base"></i>
-                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-base text-amber-400"></i>
+                        <!-- Tombol Dark Mode Switcher (Desktop) -->
+                        <button id="theme-toggle" type="button" class="p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-amber-400 border border-slate-200/80 dark:border-slate-700/80 transition-all duration-300 active:scale-95 shadow-xs" aria-label="Toggle Dark Mode">
+                            <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-base"></i>
+                            <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-base text-amber-400"></i>
+                        </button>
+
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="font-bold text-sm text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-all duration-200 flex items-center gap-2 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 px-5 py-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs active:scale-95">
+                                    <i class="fas fa-columns text-xs text-slate-400 dark:text-slate-500"></i> Dashboard
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 text-sm font-bold transition-colors duration-200 px-4 py-2.5 rounded-xl hover:bg-slate-100/60 dark:hover:bg-slate-800/60">
+                                    Masuk
+                                </a>
+
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-xl group bg-gradient-to-r from-primary via-secondary to-indigo-600 group-hover:from-primary group-hover:to-indigo-600 text-white shadow-md shadow-blue-900/20 hover:shadow-xl hover:shadow-blue-900/30 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
+                                        <span class="relative px-6 py-2.5 transition-all ease-in duration-75 rounded-xl bg-transparent">
+                                            Daftar Siswa
+                                        </span>
+                                    </a>
+                                @endif
+                            @endauth
+                        @endif
+                    </div>
+
+                    <!-- Mobile Menu Toggle Button & Theme Switcher -->
+                    <div class="flex items-center gap-2 md:hidden">
+                        <button id="btn-open-search-mobile" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-primary border border-slate-200 dark:border-slate-700 transition-all duration-300">
+                            <i class="fas fa-search text-base"></i>
+                        </button>
+
+                        <!-- Tombol Dark Mode Switcher (Mobile) -->
+                        <button id="theme-toggle-mobile" type="button" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-amber-400 border border-slate-200 dark:border-slate-700 transition-all duration-300">
+                            <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon hidden text-base"></i>
+                            <i id="theme-toggle-light-icon-mobile" class="fas fa-sun hidden text-base text-amber-400"></i>
+                        </button>
+
+                        <button id="mobile-menu-btn" type="button" class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 focus:outline-none p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <i id="hamburger-icon" class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 animate-fadeIn transition-all duration-300">
+                <div class="px-4 pt-3 pb-6 space-y-3 shadow-inner">
+                    <button id="btn-open-calc-mobile" class="w-full text-left font-bold text-sm text-blue-600 dark:text-blue-400 py-2.5 px-3 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900 flex items-center justify-between">
+                        <span><i class="fas fa-calculator mr-2"></i> Simulasi Jam Prakerin</span>
+                        <i class="fas fa-chevron-right text-xs"></i>
                     </button>
 
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="font-bold text-sm text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-all duration-200 flex items-center gap-2 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 px-5 py-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs active:scale-95">
+                            <a href="{{ url('/dashboard') }}" class="w-full font-bold text-sm text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-colors duration-200 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 px-4 py-3 rounded-xl border border-slate-200/80 dark:border-slate-700">
                                 <i class="fas fa-columns text-xs text-slate-400 dark:text-slate-500"></i> Dashboard
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 text-sm font-bold transition-colors duration-200 px-4 py-2.5 rounded-xl hover:bg-slate-100/60 dark:hover:bg-slate-800/60">
+                            <a href="{{ route('login') }}" class="block text-center text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold transition-colors duration-200 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-800">
                                 Masuk
                             </a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-xl group bg-gradient-to-r from-primary via-secondary to-indigo-600 group-hover:from-primary group-hover:to-indigo-600 text-white shadow-md shadow-blue-900/15 hover:shadow-xl hover:shadow-blue-900/25 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0">
-                                    <span class="relative px-6 py-2.5 transition-all ease-in duration-75 rounded-xl bg-transparent">
-                                        Daftar Siswa
-                                    </span>
+                                <a href="{{ route('register') }}" class="block text-center bg-gradient-to-r from-primary to-blue-800 text-white text-sm py-3 rounded-xl font-bold shadow-md shadow-blue-900/10">
+                                    Daftar Siswa
                                 </a>
                             @endif
                         @endauth
                     @endif
                 </div>
-
-                <!-- Mobile Menu Toggle Button & Theme Switcher -->
-                <div class="flex items-center gap-2 md:hidden">
-                    <!-- Tombol Dark Mode Switcher (Mobile) -->
-                    <button id="theme-toggle-mobile" type="button" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-amber-400 border border-slate-200 dark:border-slate-700 transition-all duration-300">
-                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon hidden text-base"></i>
-                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun hidden text-base text-amber-400"></i>
-                    </button>
-
-                    <button id="mobile-menu-btn" type="button" class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 focus:outline-none p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                        <i id="hamburger-icon" class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
             </div>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 animate-fadeIn transition-all duration-300">
-            <div class="px-4 pt-3 pb-6 space-y-3 shadow-inner">
-                <!-- <a href="#" class="block text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold py-2 border-b border-slate-100 dark:border-slate-800">Beranda</a>
-                <a href="#fitur" class="block text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold py-2 border-b border-slate-100 dark:border-slate-800">Fitur Utama</a>
-                <a href="#alur" class="block text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold py-2 border-b border-slate-100 dark:border-slate-800">Alur Sistem</a>
-                <a href="#faq" class="block text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold py-2 border-b border-slate-100 dark:border-slate-800">FAQ</a> -->
-
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="w-full font-bold text-sm text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 transition-colors duration-200 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 px-4 py-3 rounded-xl border border-slate-200/80 dark:border-slate-700">
-                            <i class="fas fa-columns text-xs text-slate-400 dark:text-slate-500"></i> Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="block text-center text-slate-700 dark:text-slate-200 hover:text-primary dark:hover:text-blue-400 text-sm font-bold transition-colors duration-200 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-800">
-                            Masuk
-                        </a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="block text-center bg-gradient-to-r from-primary to-blue-800 text-white text-sm py-3 rounded-xl font-bold shadow-md shadow-blue-900/10">
-                                Daftar Siswa
-                            </a>
-                        @endif
-                    @endauth
-                @endif
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- Hero Section dengan Efek Dekoratif Modis -->
-    <div class="relative bg-gradient-to-b from-white via-slate-50/50 to-slate-100/60 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950 pt-36 pb-24 lg:pt-48 lg:pb-36 overflow-hidden border-b border-slate-200/60 dark:border-slate-800/80">
+    <div class="relative bg-gradient-to-b from-white via-blue-50/30 to-slate-100/60 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950 pt-44 pb-24 lg:pt-52 lg:pb-36 overflow-hidden border-b border-slate-200/60 dark:border-slate-800/80">
         <!-- Background Grid Pattern -->
-        <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
-                <span class="bg-gradient-to-r from-blue-50 via-indigo-50 to-sky-50 dark:from-blue-950/60 dark:via-indigo-950/60 dark:to-slate-900 text-blue-700 dark:text-blue-300 text-[11px] font-extrabold px-4 py-2 rounded-full uppercase tracking-widest mb-6 inline-flex items-center border border-blue-200/80 dark:border-blue-800/60 shadow-sm backdrop-blur-sm">
+                <span class="bg-gradient-to-r from-blue-50 via-indigo-50 to-sky-50 dark:from-blue-950/70 dark:via-indigo-950/70 dark:to-slate-900 text-blue-700 dark:text-blue-300 text-[11px] font-extrabold px-4 py-2 rounded-full uppercase tracking-widest mb-6 inline-flex items-center border border-blue-200/80 dark:border-blue-800/60 shadow-sm backdrop-blur-sm">
                     <span class="relative flex h-2 w-2 mr-2.5">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
@@ -178,7 +216,7 @@
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-indigo-600 dark:from-blue-400 dark:via-indigo-400 dark:to-cyan-400">Lebih Mudah & Modern</span>
                 </h1>
                 <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto font-medium">
-                    Platform terintegrasi yang menghubungkan Siswa, Guru Pembimbing, dan Mentor Industri untuk pemantauan kegiatan PKL yang efisien, transparan, dan real-time.
+                    Platform terintegrasi yang menghubungkan Siswa, Guru Pembimbing, dan Mentor Industri untuk pemantauan kegiatan Prakerin yang efisien, transparan, dan real-time.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3.5 justify-center items-center w-full max-w-2xl mx-auto">
                     @auth
@@ -186,7 +224,7 @@
                             <i class="fas fa-tachometer-alt text-xs opacity-80"></i> Buka Dashboard
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-primary to-blue-800 text-white rounded-xl font-bold shadow-xl shadow-blue-900/15 hover:shadow-2xl hover:shadow-blue-900/25 hover:from-blue-900 hover:to-indigo-900 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 text-sm">
+                        <a href="{{ route('login') }}" class="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-primary to-blue-800 text-white rounded-xl font-bold shadow-xl shadow-blue-900/20 hover:shadow-2xl hover:shadow-blue-900/30 hover:from-blue-900 hover:to-indigo-900 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 text-sm">
                             <i class="fas fa-sign-in-alt text-xs opacity-80"></i> Masuk Sekarang
                         </a>
                         <a href="#fitur" class="w-full sm:w-auto px-7 py-3.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-800 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white shadow-xs transition-all duration-200 flex items-center justify-center gap-2 text-sm">
@@ -313,15 +351,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 text-center">
                 <div class="bg-white/5 border border-white/10 p-7 rounded-3xl backdrop-blur-md shadow-2xl shadow-black/30 transition duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 group">
-                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform">50+</div>
+                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform counter-number" data-target="50" data-suffix="+">0</div>
                     <div class="text-blue-200 text-xs lg:text-sm font-extrabold tracking-wider uppercase">Siswa Magang</div>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-7 rounded-3xl backdrop-blur-md shadow-2xl shadow-black/30 transition duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 group">
-                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform">10+</div>
+                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform counter-number" data-target="10" data-suffix="+">0</div>
                     <div class="text-blue-200 text-xs lg:text-sm font-extrabold tracking-wider uppercase">Mitra Industri</div>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-7 rounded-3xl backdrop-blur-md shadow-2xl shadow-black/30 transition duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 group">
-                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform">100%</div>
+                    <div class="text-4xl lg:text-5xl font-black mb-2 bg-gradient-to-r from-white via-blue-100 to-sky-300 bg-clip-text text-transparent tracking-tight group-hover:scale-105 transition-transform counter-number" data-target="100" data-suffix="%">0</div>
                     <div class="text-blue-200 text-xs lg:text-sm font-extrabold tracking-wider uppercase">Digital Logbook</div>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-7 rounded-3xl backdrop-blur-md shadow-2xl shadow-black/30 transition duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 group">
@@ -342,32 +380,32 @@
             </div>
 
             <div class="space-y-4">
-                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs hover:border-blue-300 transition duration-200">
                     <button class="faq-btn w-full p-5 text-left font-bold text-slate-800 dark:text-slate-200 flex justify-between items-center focus:outline-none">
                         <span>Bagaimana cara mengisi jurnal logbook harian?</span>
                         <i class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium">
+                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-3">
                         Siswa dapat masuk ke akun masing-masing, memilih menu "Jurnal Harian", lalu menambah catatan aktivitas pekerjaan beserta unggah foto bukti kegiatan magang.
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs hover:border-blue-300 transition duration-200">
                     <button class="faq-btn w-full p-5 text-left font-bold text-slate-800 dark:text-slate-200 flex justify-between items-center focus:outline-none">
                         <span>Bagaimana jika lupa kata sandi akun?</span>
                         <i class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium">
+                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-3">
                         Anda dapat menghubungi tim Admin Kurikulum/Prakerin sekolah atau Guru Pembimbing untuk melakukan reset kata sandi akun Anda.
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs">
+                <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-xs hover:border-blue-300 transition duration-200">
                     <button class="faq-btn w-full p-5 text-left font-bold text-slate-800 dark:text-slate-200 flex justify-between items-center focus:outline-none">
                         <span>Apakah e-Prakerin bisa diakses melalui smartphone?</span>
                         <i class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium">
+                    <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-100 dark:border-slate-800/50 pt-3">
                         Ya, tampilan aplikasi e-Prakerin telah dirancang responsif dan nyaman digunakan pada perangkat smartphone, tablet, maupun komputer desktop.
                     </div>
                 </div>
@@ -453,13 +491,13 @@
                     </a>
 
                     <!-- Gmail -->
-                    <a href="mailto:akhdannafish@gmail.com" 
+                    <a href="mailto:smks.almadaniptk@gmail.com" 
                        class="flex items-center gap-2.5 group bg-slate-900/80 hover:bg-gradient-to-r hover:from-red-900/30 hover:to-orange-900/20 py-2.5 pl-2.5 pr-4 rounded-xl border border-slate-800 hover:border-red-500/40 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
                         <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-red-600 to-amber-500 shadow-md flex items-center justify-center transform group-hover:-rotate-12 transition-all duration-300">
                             <i class="fas fa-envelope text-white text-xs"></i>
                         </div>
                         <span class="text-xs text-slate-300 group-hover:text-red-400 font-bold tracking-wide transition-colors">
-                            akhdannafish@gmail.com
+                            smks.almadaniptk@gmail.com
                         </span>
                     </a>
                 </div>
@@ -471,6 +509,53 @@
             </div>
         </div>
     </footer>
+
+    <!-- FITUR TAMBAHAN JS: Modal Kalkulator Jam PKL (Interactive JS Component) -->
+    <div id="calc-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl transform scale-95 transition-transform duration-300 relative">
+            <button id="btn-close-calc" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white p-2">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                    <i class="fas fa-calculator text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-slate-900 dark:text-white">Simulasi Jam Kerja Prakerin</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Hitung estimasi total akumulasi jam magang</p>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Durasi Magang (Bulan)</label>
+                    <input type="number" id="calc-months" value="3" min="1" max="12" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Jam Kerja per Hari</label>
+                    <input type="number" id="calc-hours" value="8" min="1" max="12" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/50 rounded-2xl border border-blue-100 dark:border-blue-900 text-center">
+                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider block">Estimasi Total Akumulasi</span>
+                    <span id="calc-result" class="text-3xl font-black text-blue-900 dark:text-blue-200">528 Jam</span>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1">*Berdasarkan asumsi 22 hari kerja aktif/bulan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FITUR TAMBAHAN JS: Modal Pencarian Cepat (Live Search JS Component) -->
+    <div id="search-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-slate-950/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 p-4 pt-20">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-xl rounded-3xl p-6 shadow-2xl transform -translate-y-4 transition-transform duration-300 relative">
+            <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+                <i class="fas fa-search text-slate-400"></i>
+                <input type="text" id="search-input" placeholder="Cari info logbook, alur, FAQ, atau jurusan..." class="w-full bg-transparent text-sm font-bold text-slate-800 dark:text-white focus:outline-none">
+                <button id="btn-close-search" class="text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-500 px-2.5 py-1 rounded-lg">ESC</button>
+            </div>
+            <div id="search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2 text-xs">
+                <p class="text-slate-400 text-center py-4">Ketik kata kunci untuk memulai pencarian...</p>
+            </div>
+        </div>
+    </div>
 
     <!-- FITUR TAMBAHAN 3: Floating Back To Top Button -->
     <button id="back-to-top" class="fixed bottom-6 right-6 z-40 bg-primary/90 dark:bg-blue-600/90 text-white p-3.5 rounded-2xl shadow-xl hover:bg-secondary transition-all duration-300 opacity-0 pointer-events-none transform translate-y-4">
@@ -548,9 +633,12 @@
             });
         });
 
-        // --- 4. FLOATING BACK TO TOP BUTTON ---
+        // --- 4. FLOATING BACK TO TOP BUTTON & SCROLL PROGRESS BAR ---
         const backToTopBtn = document.getElementById('back-to-top');
+        const progressBar = document.getElementById('scroll-progress-bar');
+
         window.addEventListener('scroll', () => {
+            // Back to Top Button Visibility
             if (window.scrollY > 300) {
                 backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
                 backToTopBtn.classList.add('opacity-100', 'translate-y-0');
@@ -558,10 +646,148 @@
                 backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
                 backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
             }
+
+            // Scroll Progress Calculation
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            if (progressBar) progressBar.style.width = scrolled + "%";
         });
 
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // --- 5. ANIMATED COUNTER UP UNTUK STATISTIK ---
+        const counters = document.querySelectorAll('.counter-number');
+        let animated = false;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const speed = 200;
+                
+                const updateCount = () => {
+                    const count = +counter.innerText.replace(/[^0-9]/g, '');
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc) + suffix;
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target + suffix;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            const statsSection = document.querySelector('.counter-number');
+            if (statsSection && !animated) {
+                const pos = statsSection.getBoundingClientRect().top;
+                if (pos < window.innerHeight) {
+                    animateCounters();
+                    animated = true;
+                }
+            }
+        });
+
+        // --- 6. INTERACTIVE PKL HOURS CALCULATOR MODAL ---
+        const calcModal = document.getElementById('calc-modal');
+        const btnOpenCalc = document.getElementById('btn-open-calc');
+        const btnOpenCalcMobile = document.getElementById('btn-open-calc-mobile');
+        const btnCloseCalc = document.getElementById('btn-close-calc');
+        const calcMonths = document.getElementById('calc-months');
+        const calcHours = document.getElementById('calc-hours');
+        const calcResult = document.getElementById('calc-result');
+
+        function toggleCalcModal(show) {
+            if (show) {
+                calcModal.classList.remove('opacity-0', 'pointer-events-none');
+                calcModal.firstElementChild.classList.remove('scale-95');
+                calcModal.firstElementChild.classList.add('scale-100');
+            } else {
+                calcModal.classList.add('opacity-0', 'pointer-events-none');
+                calcModal.firstElementChild.classList.remove('scale-100');
+                calcModal.firstElementChild.classList.add('scale-95');
+            }
+        }
+
+        function calculatePKLHours() {
+            const m = parseInt(calcMonths.value) || 0;
+            const h = parseInt(calcHours.value) || 0;
+            const total = m * 22 * h; // 22 Hari kerja per bulan
+            calcResult.textContent = `${total.toLocaleString('id-ID')} Jam`;
+        }
+
+        if (btnOpenCalc) btnOpenCalc.addEventListener('click', () => toggleCalcModal(true));
+        if (btnOpenCalcMobile) btnOpenCalcMobile.addEventListener('click', () => toggleCalcModal(true));
+        if (btnCloseCalc) btnCloseCalc.addEventListener('click', () => toggleCalcModal(false));
+        if (calcMonths && calcHours) {
+            calcMonths.addEventListener('input', calculatePKLHours);
+            calcHours.addEventListener('input', calculatePKLHours);
+        }
+
+        // --- 7. LIVE SEARCH MODAL JS ---
+        const searchModal = document.getElementById('search-modal');
+        const btnOpenSearch = document.getElementById('btn-open-search');
+        const btnOpenSearchMobile = document.getElementById('btn-open-search-mobile');
+        const btnCloseSearch = document.getElementById('btn-close-search');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        const searchData = [
+            { title: 'Mengisi Logbook Harian', category: 'Siswa', link: '#faq' },
+            { title: 'Lupa Kata Sandi Akun', category: 'Bantuan', link: '#faq' },
+            { title: 'Alur Pendaftaran & Ploting Prakerin', category: 'Alur Sistem', link: '#alur' },
+            { title: 'Sertifikat & Penilaian Industri', category: 'Fitur', link: '#fitur' },
+            { title: 'Panduan Kerja Praktek PDF', category: 'Dokumen', link: '{{ asset("dokumen/panduan_prakerin.pdf") }}' },
+        ];
+
+        function toggleSearchModal(show) {
+            if (show) {
+                searchModal.classList.remove('opacity-0', 'pointer-events-none');
+                searchModal.firstElementChild.classList.remove('-translate-y-4');
+                searchInput.focus();
+            } else {
+                searchModal.classList.add('opacity-0', 'pointer-events-none');
+                searchModal.firstElementChild.classList.add('-translate-y-4');
+            }
+        }
+
+        if (btnOpenSearch) btnOpenSearch.addEventListener('click', () => toggleSearchModal(true));
+        if (btnOpenSearchMobile) btnOpenSearchMobile.addEventListener('click', () => toggleSearchModal(true));
+        if (btnCloseSearch) btnCloseSearch.addEventListener('click', () => toggleSearchModal(false));
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (!query) {
+                    searchResults.innerHTML = '<p class="text-slate-400 text-center py-4">Ketik kata kunci untuk memulai pencarian...</p>';
+                    return;
+                }
+                const filtered = searchData.filter(item => item.title.toLowerCase().includes(query) || item.category.toLowerCase().includes(query));
+                if (filtered.length === 0) {
+                    searchResults.innerHTML = '<p class="text-slate-400 text-center py-4">Hasil tidak ditemukan.</p>';
+                } else {
+                    searchResults.innerHTML = filtered.map(item => `
+                        <a href="${item.link}" class="block p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors flex justify-between items-center" onclick="toggleSearchModal(false)">
+                            <span class="font-bold text-slate-700 dark:text-slate-200">${item.title}</span>
+                            <span class="text-[10px] bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-300 font-bold px-2 py-0.5 rounded-md">${item.category}</span>
+                        </a>
+                    `).join('');
+                }
+            });
+        }
+
+        // Close modal on Escape Key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                toggleCalcModal(false);
+                toggleSearchModal(false);
+            }
         });
     </script>
 </body>

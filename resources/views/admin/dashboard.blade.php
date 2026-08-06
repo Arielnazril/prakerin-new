@@ -23,7 +23,7 @@
                     </span>
                     <span class="inline-block animate-bounce text-2xl sm:text-3xl">👋</span>
                 </h2>
-                <p class="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">Panel kontrol pusat untuk memantau kegiatan PKL dan Verifikasi Pendaftaran secara real-time.</p>
+                <p class="text-slate-300 text-sm sm:text-base font-medium leading-relaxed">Panel kontrol pusat untuk memantau kegiatan Prakerin dan Verifikasi Pendaftaran secara real-time.</p>
             </div>
 
             <div class="relative z-10 bg-white/10 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-white/15 text-white text-sm font-bold shadow-lg flex items-center shrink-0 gap-4 w-full sm:w-auto justify-between sm:justify-start">
@@ -39,8 +39,21 @@
         </div>
     </div>
 
-    {{-- GRID KARTU STATISTIK (SIMETRIS, GLASS-LIKE, HOVER ANIMATED) --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 sm:gap-6">
+    {{-- QUICK ACTIONS BAR --}}
+    <div class="flex flex-wrap items-center gap-3">
+        <a href="{{ route('admin.siswa.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
+            <i class="fas fa-user-plus text-blue-500"></i> Kelola Siswa
+        </a>
+        <a href="{{ route('admin.guru.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
+            <i class="fas fa-chalkboard-teacher text-emerald-500"></i> Data Guru
+        </a>
+        <a href="{{ route('admin.instansi.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
+            <i class="fas fa-building text-purple-500"></i> Mitra Industri
+        </a>
+    </div>
+
+    {{-- GRID KARTU STATISTIK (TERANG & CERAH) --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5 sm:gap-6">
 
         {{-- Total Siswa --}}
         <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-blue-500 group cursor-pointer flex flex-col justify-between h-48">
@@ -127,16 +140,227 @@
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
-                <span>Siswa Aktif PKL</span>
+                <span>Siswa Aktif Prakerin</span>
                 <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-amber-500"></i>
+            </div>
+        </a>
+
+        {{-- INFO TERKINI: Ringkasan Sisa Kuota Industri --}}
+        <a href="{{ route('admin.instansi.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-teal-500 group cursor-pointer no-underline flex flex-col justify-between h-48">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-teal-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+            <div class="relative z-10 flex items-start justify-between gap-3">
+                <div class="space-y-1.5">
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-teal-600 transition-colors">Sisa Kuota Mitra</p>
+                    @php
+                        $dataInstansis = $instansis ?? collect();
+                        $totalKuota = $dataInstansis->sum('kuota');
+                        $terpakai = $dataInstansis->sum('terpakai_count');
+                        $sisaKuota = max(0, $totalKuota - $terpakai);
+                    @endphp
+                    <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $sisaKuota }}">0</h3>
+                </div>
+                <div class="p-3.5 bg-teal-50 text-teal-600 rounded-2xl border border-teal-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-teal-600 group-hover:to-emerald-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-teal-500/30 group-hover:rotate-6 shrink-0">
+                    <i class="fas fa-users-slash text-xl"></i>
+                </div>
+            </div>
+            <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
+                <span>Dari Total {{ $totalKuota }} Kuota</span>
+                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-teal-500"></i>
             </div>
         </a>
 
     </div>
 
-    {{-- TABEL VERIFIKASI PENDAFTARAN (MODERN & RESPONSIVE) --}}
+    {{-- SECTION SEKSI DONUT CHART --}}
+    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-lg shadow-slate-200/50 transition-all duration-300 hover:shadow-xl relative overflow-hidden">
+        {{-- Accent Background Glow --}}
+        <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-4 border-b border-slate-100">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100">
+                        <i class="fas fa-chart-pie text-base"></i>
+                    </span>
+                    <h3 class="font-black text-slate-800 text-lg tracking-tight">Distribusi & Rasio Data</h3>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-400 font-medium mt-1">Visualisasi persentase dan komparasi data statistik sistem Prakerin</p>
+            </div>
+            <span class="px-3.5 py-1.5 rounded-2xl bg-indigo-50/80 text-indigo-700 border border-indigo-200/60 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span> Real-Time Data
+            </span>
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {{-- Canvas Donut Chart --}}
+            <div class="lg:col-span-7 flex justify-center items-center relative min-h-[300px]">
+                <div class="w-full max-w-[320px] sm:max-w-[360px] relative">
+                    <canvas id="statistikDonutChart"></canvas>
+                </div>
+            </div>
+
+            {{-- Custom Chart Legend Summary --}}
+            <div class="lg:col-span-5 space-y-3">
+                <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-blue-500 ring-4 ring-blue-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-blue-600 transition-colors">Total Siswa</span>
+                    </div>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalSiswa }}</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-emerald-600 transition-colors">Guru Pembimbing</span>
+                    </div>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalGuru }}</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-purple-500 ring-4 ring-purple-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-purple-600 transition-colors">Mitra Industri</span>
+                    </div>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalIndustri }}</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-cyan-500 ring-4 ring-cyan-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-cyan-600 transition-colors">Mentor Industri</span>
+                    </div>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalMentor }}</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3.5 h-3.5 rounded-full bg-amber-500 ring-4 ring-amber-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-amber-600 transition-colors">Sedang Magang</span>
+                    </div>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $siswaMagang }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- INFORMASI TERKINI: MANAJEMEN KUOTA INDUSTRI --}}
+    <div class="bg-white rounded-3xl shadow-md border border-slate-200/80 overflow-hidden transition-all duration-300 hover:shadow-xl relative z-10">
+        {{-- Header Seksi Kuota --}}
+        <div class="px-6 sm:px-8 py-6 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-teal-50/80 via-white to-slate-50">
+            <div class="flex items-center gap-4">
+                <div class="bg-gradient-to-tr from-teal-500 to-emerald-500 p-3.5 rounded-2xl text-white shadow-md shadow-teal-500/20 shrink-0">
+                    <i class="fas fa-warehouse text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-black text-slate-900 text-lg sm:text-xl tracking-tight">Status Kuota Mitra Industri</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-0.5 font-medium">Informasi kapasitas penerimaan siswa Prakerin per Mitra Industri</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+                <div class="relative w-full sm:w-64">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                        <i class="fas fa-search text-xs"></i>
+                    </span>
+                    <input type="text" id="kuotaSearchInput" placeholder="Cari nama mitra..." 
+                        class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all shadow-xs">
+                </div>
+                <a href="{{ route('admin.instansi.index') }}" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white text-xs font-black shadow-md shadow-teal-500/20 transition-all shrink-0 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
+                    <i class="fas fa-cog text-xs"></i> Kelola Kuota
+                </a>
+            </div>
+        </div>
+
+        {{-- Tabel Kuota Industri --}}
+        <div class="overflow-x-auto p-4 sm:p-6">
+            <table class="w-full text-left border-collapse border border-slate-200/80 rounded-2xl overflow-hidden">
+                <thead class="bg-slate-100/90 text-slate-700 uppercase text-[11px] font-black tracking-wider border-b border-slate-200/80 divide-x divide-slate-200/80">
+                    <tr>
+                        <th class="px-6 py-4">Nama Mitra Industri</th>
+                        <th class="px-6 py-4 text-center">Total Kuota</th>
+                        <th class="px-6 py-4 text-center">Terisi</th>
+                        <th class="px-6 py-4 text-center">Sisa</th>
+                        <th class="px-6 py-4 min-w-[200px]">Penggunaan Kuota</th>
+                        <th class="px-6 py-4 text-center">Status Kapasitas</th>
+                    </tr>
+                </thead>
+                <tbody id="kuotaTableBody" class="divide-y divide-slate-200/80 text-sm bg-white">
+                    @forelse($instansis ?? [] as $instansi)
+                    @php
+                        // PENANGANAN PENAMPILLAN NAMA DENGAN DYNAMIC FALLBACK
+                        $namaIndustri = $instansi->nama_instansi ?? $instansi->nama ?? $instansi->nama_perusahaan ?? $instansi->name ?? 'Mitra Industri #' . $instansi->id;
+                        
+                        $kuotaTotal = $instansi->kuota ?? 0;
+                        $kuotaTerpakai = $instansi->terpakai_count ?? 0;
+                        $sisa = max(0, $kuotaTotal - $kuotaTerpakai);
+                        $persen = $kuotaTotal > 0 ? min(100, round(($kuotaTerpakai / $kuotaTotal) * 100)) : 0;
+                    @endphp
+                    <tr class="kuota-row hover:bg-slate-50/90 transition-all duration-200 group divide-x divide-slate-200/80">
+                        <td class="px-6 py-4 font-black text-slate-800 tracking-wide search-target-kuota">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 text-teal-600 font-bold text-sm flex items-center justify-center shrink-0 group-hover:bg-teal-500 group-hover:text-white transition-all shadow-2xs">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <span class="text-sm font-black text-slate-800 group-hover:text-teal-600 transition-colors leading-snug">
+                                    {{ $namaIndustri }}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-center font-mono text-sm font-black text-slate-700">
+                            {{ $kuotaTotal }}
+                        </td>
+                        <td class="px-6 py-4 text-center font-mono text-sm font-black text-amber-600">
+                            {{ $kuotaTerpakai }}
+                        </td>
+                        <td class="px-6 py-4 text-center font-mono text-sm font-black text-emerald-600">
+                            {{ $sisa }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-[11px] font-black">
+                                    <span class="text-slate-500 font-mono">{{ $persen }}%</span>
+                                    <span class="text-slate-400 font-mono">{{ $kuotaTerpakai }}/{{ $kuotaTotal }}</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60 flex shadow-inner">
+                                    <div class="h-full transition-all duration-500 rounded-full {{ $persen >= 100 ? 'bg-rose-500' : ($persen >= 80 ? 'bg-amber-500' : 'bg-gradient-to-r from-teal-400 to-emerald-500') }}" style="width: {{ $persen }}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-center whitespace-nowrap">
+                            @if($sisa <= 0)
+                                <span class="bg-rose-50 text-rose-700 border border-rose-200/80 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs">
+                                    <i class="fas fa-times-circle"></i> Penuh
+                                </span>
+                            @elseif($persen >= 80)
+                                <span class="bg-amber-50 text-amber-700 border border-amber-200/80 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs">
+                                    <i class="fas fa-exclamation-triangle"></i> Hampir Penuh
+                                </span>
+                            @else
+                                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs">
+                                    <i class="fas fa-check-circle"></i> Tersedia
+                                </span>
+                            @endif
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-slate-400 bg-slate-50/30">
+                            <p class="text-xs font-semibold">Belum ada data mitra industri yang terdaftar.</p>
+                        </td>
+                    </tr>
+                    @endforelse
+
+                    <tr id="noKuotaResult" class="hidden">
+                        <td colspan="6" class="px-6 py-8 text-center text-slate-400 bg-slate-50/50 italic text-xs font-medium">
+                            <i class="fas fa-search-minus mr-2 text-slate-400"></i>
+                            Mitra Industri yang dicari tidak ditemukan.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{-- TABEL VERIFIKASI PENDAFTARAN (PUTIH TERANG & CLEAN DENGAN GARIS RAPI) --}}
     <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200/80 transition-all duration-300 hover:shadow-md">
-        <div class="px-6 sm:px-8 py-5 border-b border-slate-100 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90">
+        <div class="px-6 sm:px-8 py-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90">
             <div class="flex items-center">
                 <div class="bg-rose-50 p-3 rounded-2xl mr-4 border border-rose-100 text-rose-500 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                     <i class="fas fa-user-plus text-lg animate-pulse"></i>
@@ -171,9 +395,9 @@
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead class="bg-slate-50/80 text-slate-400 uppercase text-[10px] font-black tracking-widest border-b border-slate-100">
+        <div class="overflow-x-auto p-4 sm:p-6">
+            <table class="w-full text-left border-collapse border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
+                <thead class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-black tracking-widest border-b border-slate-200/80 divide-x divide-slate-200/80">
                     <tr>
                         <th class="px-6 sm:px-8 py-4">Nama Siswa</th>
                         <th class="px-6 py-4">NIS</th>
@@ -182,9 +406,9 @@
                         <th class="px-6 sm:px-8 py-4 text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody id="verifyTableBody" class="divide-y divide-slate-100 text-sm">
+                <tbody id="verifyTableBody" class="divide-y divide-slate-200/80 text-sm bg-white">
                     @forelse($siswaPending as $siswa)
-                    <tr class="pending-row hover:bg-slate-50/80 transition-all duration-200 group">
+                    <tr class="pending-row hover:bg-slate-50/90 transition-all duration-200 group divide-x divide-slate-200/80">
                         <td class="px-6 sm:px-8 py-4 font-extrabold text-slate-800 tracking-wide search-target">
                             <div class="flex items-center gap-3.5">
                                 <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform shrink-0">
@@ -194,15 +418,15 @@
                             </div>
                         </td>
                         <td class="px-6 py-4 text-slate-500 font-mono text-xs font-semibold tracking-wider search-target">
-                            <span class="bg-slate-100/70 group-hover:bg-white px-3 py-1.5 rounded-lg border border-slate-200/60 text-slate-700 shadow-2xs inline-block">{{ $siswa->nomor_identitas }}</span>
+                            <span class="bg-slate-100/80 group-hover:bg-white px-3 py-1.5 rounded-lg border border-slate-200/80 text-slate-700 shadow-2xs inline-block">{{ $siswa->nomor_identitas }}</span>
                         </td>
                         <td class="px-6 py-4 search-target">
-                            <span class="bg-indigo-50 text-indigo-700 group-hover:bg-indigo-100 group-hover:text-indigo-800 px-3 py-1 rounded-full text-[10px] font-black border border-indigo-100 uppercase tracking-wider shadow-2xs transition-colors inline-block">
+                            <span class="bg-indigo-50 text-indigo-700 group-hover:bg-indigo-100 group-hover:text-indigo-800 px-3 py-1 rounded-full text-[10px] font-black border border-indigo-200/70 uppercase tracking-wider shadow-2xs transition-colors inline-block">
                                 {{ $siswa->jurusan->kode_jurusan ?? '-' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-slate-500 text-xs font-semibold">
-                            <div class="flex items-center bg-slate-50/80 group-hover:bg-white w-max px-3 py-1.5 rounded-xl border border-slate-200/60 transition-colors shadow-2xs">
+                            <div class="flex items-center bg-slate-50/80 group-hover:bg-white w-max px-3 py-1.5 rounded-xl border border-slate-200/80 transition-colors shadow-2xs">
                                 <i class="far fa-calendar-alt mr-2 text-blue-500 text-xs"></i>
                                 {{ $siswa->created_at->locale('id')->isoFormat('D MMMM Y') }}
                             </div>
@@ -256,30 +480,39 @@
 
 </div>
 
-{{-- MODAL POP-UP KONFIRMASI INTERAKTIF KUSTOM (VERIFIKASI / TOLAK) --}}
+{{-- MODAL POP-UP KONFIRMASI ELEGAN & MODERN --}}
 <div id="actionModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-    {{-- Backdrop --}}
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity duration-300" id="modalBackdrop"></div>
+    {{-- Backdrop dengan Efek Blur Ringan & Fade --}}
+    <div class="absolute inset-0 bg-slate-950/40 backdrop-blur-md transition-opacity duration-300 ease-out opacity-0" id="modalBackdrop"></div>
     
-    {{-- Card Content --}}
-    <div class="relative bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-7 transform transition-all border border-slate-100 overflow-hidden scale-95 opacity-0 duration-300" id="modalCard">
-        <div class="flex flex-col items-center text-center">
-            {{-- Dynamic Icon Container --}}
-            <div id="modalIconBg" class="h-16 w-16 rounded-full flex items-center justify-center text-2xl mb-4 shadow-inner transition-colors duration-300">
+    {{-- Card Content (Elegan Glassmorphism) --}}
+    <div class="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl max-w-md w-full mx-4 p-7 sm:p-8 transform transition-all duration-300 ease-out border border-white/80 overflow-hidden scale-90 opacity-0" id="modalCard">
+        
+        {{-- Glow Accent Belakang Modal --}}
+        <div id="modalGlow" class="absolute -top-20 -right-20 w-44 h-44 rounded-full blur-3xl opacity-30 pointer-events-none transition-colors duration-500"></div>
+
+        {{-- Tombol Close di Pojok Atas --}}
+        <button type="button" onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-slate-600 hover:bg-slate-200 flex items-center justify-center transition-all duration-200 text-xs font-bold cursor-pointer">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="flex flex-col items-center text-center relative z-10">
+            {{-- Dynamic Icon Container dengan Pulse Glow --}}
+            <div id="modalIconBg" class="relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 shadow-lg transition-all duration-300">
                 <i id="modalIcon" class="fas"></i>
             </div>
             
-            <h3 id="modalTitle" class="text-xl font-black text-slate-900 mb-1 tracking-tight">Konfirmasi Action</h3>
-            <p id="modalDescription" class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6 font-medium">
-                Apakah Anda yakin ingin melakukan tindakan ini pada <span id="modalTargetName" class="font-bold text-slate-800"></span>?
+            <h3 id="modalTitle" class="text-xl sm:text-2xl font-black text-slate-900 mb-2 tracking-tight">Konfirmasi Action</h3>
+            <p id="modalDescription" class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-7 font-medium px-2">
+                Apakah Anda yakin ingin melakukan tindakan ini pada <span id="modalTargetName" class="font-extrabold text-slate-800"></span>?
             </p>
             
             {{-- Action Buttons --}}
             <div class="flex w-full gap-3">
-                <button type="button" id="btnCancelModal" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold py-3 px-4 rounded-xl transition text-xs outline-none cursor-pointer">
+                <button type="button" id="btnCancelModal" class="flex-1 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-600 font-extrabold py-3.5 px-4 rounded-2xl transition-all duration-200 text-xs outline-none cursor-pointer tracking-wide">
                     Batal
                 </button>
-                <button type="button" id="btnConfirmModal" class="flex-1 text-white font-extrabold py-3 px-4 rounded-xl shadow-md transition text-xs outline-none cursor-pointer transform hover:-translate-y-0.5">
+                <button type="button" id="btnConfirmModal" class="flex-1 text-white font-extrabold py-3.5 px-4 rounded-2xl shadow-lg transition-all duration-200 text-xs outline-none cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 tracking-wide">
                     Ya, Lanjutkan
                 </button>
             </div>
@@ -287,9 +520,66 @@
     </div>
 </div>
 
+{{-- LIBRARY CHART.JS VIA CDN UNTUK DONUT CHART --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 {{-- SCRIPT JAVASCRIPT LENGKAP & INTERAKTIF --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        // 0. INISIALISASI DONUT CHART (STATISTIK DATA)
+        const donutCtx = document.getElementById('statistikDonutChart');
+        if (donutCtx) {
+            new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Total Siswa', 'Guru Pembimbing', 'Mitra Industri', 'Mentor Industri', 'Sedang Magang'],
+                    datasets: [{
+                        data: [
+                            {{ $totalSiswa ?? 0 }}, 
+                            {{ $totalGuru ?? 0 }}, 
+                            {{ $totalIndustri ?? 0 }}, 
+                            {{ $totalMentor ?? 0 }}, 
+                            {{ $siswaMagang ?? 0 }}
+                        ],
+                        backgroundColor: [
+                            '#3b82f6', // Blue-500
+                            '#10b981', // Emerald-500
+                            '#a855f7', // Purple-500
+                            '#06b6d4', // Cyan-500
+                            '#f59e0b'  // Amber-500
+                        ],
+                        borderWidth: 4,
+                        borderColor: '#ffffff',
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#0f172a',
+                            padding: 12,
+                            titleFont: { size: 12, weight: 'bold' },
+                            bodyFont: { size: 12 },
+                            cornerRadius: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return ` ${label}: ${value}`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '72%'
+                }
+            });
+        }
 
         // 1. JAM & TANGGAL DIGITAL REAL-TIME
         function updateClock() {
@@ -384,12 +674,55 @@
             });
         }
 
-        // 4. CUSTOM MODAL CONFIRMATION (TERIMA / TOLAK SISWA)
+        // 3.1 LIVE SEARCH TABEL KUOTA INDUSTRI
+        const kuotaSearchInput = document.getElementById('kuotaSearchInput');
+        const kuotaTableBody = document.getElementById('kuotaTableBody');
+
+        function filterKuotaTable() {
+            if (!kuotaTableBody) return;
+
+            const query = kuotaSearchInput ? kuotaSearchInput.value.toLowerCase().trim() : '';
+            const kuotaRows = kuotaTableBody.getElementsByClassName('kuota-row');
+            const noKuotaResult = document.getElementById('noKuotaResult');
+            let visibleCount = 0;
+
+            for (let i = 0; i < kuotaRows.length; i++) {
+                const row = kuotaRows[i];
+                const targets = row.getElementsByClassName('search-target-kuota');
+                let textContent = '';
+
+                for (let j = 0; j < targets.length; j++) {
+                    textContent += ' ' + targets[j].textContent.toLowerCase();
+                }
+
+                if (textContent.indexOf(query) > -1) {
+                    row.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    row.classList.add('hidden');
+                }
+            }
+
+            if (noKuotaResult) {
+                if (visibleCount === 0) {
+                    noKuotaResult.classList.remove('hidden');
+                } else {
+                    noKuotaResult.classList.add('hidden');
+                }
+            }
+        }
+
+        if (kuotaSearchInput) {
+            kuotaSearchInput.addEventListener('input', filterKuotaTable);
+        }
+
+        // 4. CUSTOM MODAL CONFIRMATION ELEGAN (TERIMA / TOLAK SISWA)
         const actionModal = document.getElementById('actionModal');
         const modalCard = document.getElementById('modalCard');
         const modalBackdrop = document.getElementById('modalBackdrop');
         const modalIconBg = document.getElementById('modalIconBg');
         const modalIcon = document.getElementById('modalIcon');
+        const modalGlow = document.getElementById('modalGlow');
         const modalTitle = document.getElementById('modalTitle');
         const modalDescription = document.getElementById('modalDescription');
         const modalTargetName = document.getElementById('modalTargetName');
@@ -403,34 +736,43 @@
             modalTargetName.textContent = targetName;
 
             if (type === 'approve') {
-                modalIconBg.className = 'h-16 w-16 rounded-full flex items-center justify-center text-2xl mb-4 bg-emerald-50 text-emerald-500 shadow-inner animate-bounce';
+                modalGlow.className = 'absolute -top-20 -right-20 w-44 h-44 rounded-full blur-3xl opacity-30 pointer-events-none bg-emerald-500 transition-colors duration-500';
+                modalIconBg.className = 'relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 bg-gradient-to-tr from-emerald-500 to-teal-400 text-white shadow-xl shadow-emerald-500/30 transform hover:scale-105 transition-all';
                 modalIcon.className = 'fas fa-user-check';
                 modalTitle.textContent = 'Terima Pendaftaran';
-                modalDescription.innerHTML = `Apakah Anda yakin ingin menyetujui akun siswa <span class="font-bold text-emerald-600">${targetName}</span>? Siswa akan dapat terhubung ke sistem.`;
-                btnConfirmModal.className = 'flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-2.5 px-4 rounded-xl shadow-md transition text-xs outline-none cursor-pointer';
+                modalDescription.innerHTML = `Apakah Anda yakin ingin menyetujui pendaftaran siswa <span class="font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">${targetName}</span>? Akun siswa akan diaktifkan secara otomatis.`;
+                btnConfirmModal.className = 'flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-200 text-xs outline-none cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 tracking-wide';
             } else {
-                modalIconBg.className = 'h-16 w-16 rounded-full flex items-center justify-center text-2xl mb-4 bg-rose-50 text-rose-500 shadow-inner animate-bounce';
+                modalGlow.className = 'absolute -top-20 -right-20 w-44 h-44 rounded-full blur-3xl opacity-30 pointer-events-none bg-rose-500 transition-colors duration-500';
+                modalIconBg.className = 'relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 bg-gradient-to-tr from-rose-500 to-red-500 text-white shadow-xl shadow-rose-500/30 transform hover:scale-105 transition-all';
                 modalIcon.className = 'fas fa-user-times';
                 modalTitle.textContent = 'Tolak Pendaftaran';
-                modalDescription.innerHTML = `Apakah Anda yakin ingin menolak dan menghapus pendaftaran siswa <span class="font-bold text-rose-600">${targetName}</span>? Tindakan ini tidak dapat dibatalkan.`;
-                btnConfirmModal.className = 'flex-1 bg-rose-500 hover:bg-rose-600 text-white font-extrabold py-2.5 px-4 rounded-xl shadow-md transition text-xs outline-none cursor-pointer';
+                modalDescription.innerHTML = `Apakah Anda yakin ingin menolak dan menghapus pendaftaran siswa <span class="font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-100">${targetName}</span>? Tindakan ini permanen.`;
+                btnConfirmModal.className = 'flex-1 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white font-extrabold py-3.5 px-4 rounded-2xl shadow-lg shadow-rose-500/25 transition-all duration-200 text-xs outline-none cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 tracking-wide';
             }
 
             actionModal.classList.remove('hidden');
             setTimeout(() => {
-                modalCard.classList.remove('scale-95', 'opacity-0');
+                modalBackdrop.classList.remove('opacity-0');
+                modalBackdrop.classList.add('opacity-100');
+
+                modalCard.classList.remove('scale-90', 'opacity-0');
                 modalCard.classList.add('scale-100', 'opacity-100');
             }, 10);
         }
 
-        function closeModal() {
+        window.closeModal = function() {
+            modalBackdrop.classList.remove('opacity-100');
+            modalBackdrop.classList.add('opacity-0');
+
             modalCard.classList.remove('scale-100', 'opacity-100');
-            modalCard.classList.add('scale-95', 'opacity-0');
+            modalCard.classList.add('scale-90', 'opacity-0');
+            
             setTimeout(() => {
                 actionModal.classList.add('hidden');
                 targetFormToSubmit = null;
-            }, 200);
-        }
+            }, 300);
+        };
 
         // Event Listener Tombol Terima
         document.querySelectorAll('.btn-approve').forEach(button => {
@@ -453,9 +795,14 @@
         if (btnCancelModal) btnCancelModal.addEventListener('click', closeModal);
         if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
 
+        // 5. SUBMIT FORM DENGAN LOADING STATE
         if (btnConfirmModal) {
             btnConfirmModal.addEventListener('click', function () {
                 if (targetFormToSubmit) {
+                    this.disabled = true;
+                    this.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...`;
+                    this.classList.add('opacity-75', 'cursor-not-allowed');
+                    
                     targetFormToSubmit.submit();
                 }
             });

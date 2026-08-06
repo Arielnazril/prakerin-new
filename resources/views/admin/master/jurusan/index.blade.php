@@ -12,12 +12,15 @@
         <div class="absolute -left-16 -bottom-16 w-80 h-80 bg-gradient-to-tr from-violet-600/20 to-pink-500/0 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div class="space-y-2 max-w-2xl">
+        <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div class="space-y-3 max-w-2xl">
                 <div class="flex items-center space-x-2">
                     <span class="inline-flex items-center gap-1.5 bg-indigo-500/10 text-indigo-400 text-[11px] font-extrabold px-3.5 py-1 rounded-full border border-indigo-500/20 uppercase tracking-widest backdrop-blur-md">
                         <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
                         Master Data
+                    </span>
+                    <span class="inline-flex items-center gap-1 bg-white/10 text-slate-300 text-[11px] font-bold px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">
+                        <i class="fas fa-layer-group text-[10px] text-indigo-300"></i> {{ $jurusans->count() }} Total Jurusan
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-3.5">
@@ -27,7 +30,7 @@
                     Daftar Jurusan
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-400 font-medium leading-relaxed pt-1">
-                    Kelola data kompetensi keahlian dan jurusan sekolah secara terpusat untuk integrasi sistem PKL.
+                    Kelola data kompetensi keahlian dan jurusan sekolah secara terpusat untuk integrasi sistem Prakerin.
                 </p>
             </div>
             
@@ -39,8 +42,23 @@
 
     <!-- Table Container -->
     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100/80 overflow-hidden transition-all duration-300">
+        
+        <!-- Filter & Search Toolbar -->
+        <div class="px-6 py-4 bg-slate-50/50 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="relative w-full sm:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                    <i class="fas fa-search text-xs"></i>
+                </span>
+                <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama atau kode jurusan..." 
+                    class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-2xs placeholder:text-slate-400">
+            </div>
+            <div class="text-xs text-slate-400 font-bold self-end sm:self-center">
+                Menampilkan <span id="visibleCount" class="text-indigo-600 font-extrabold">{{ $jurusans->count() }}</span> data
+            </div>
+        </div>
+
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[650px] table-fixed">
+            <table class="w-full text-left border-collapse min-w-[650px] table-fixed" id="jurusanTable">
                 <thead>
                     <tr class="bg-slate-50/80 border-b border-slate-100 text-slate-400 uppercase text-[11px] font-black tracking-widest">
                         <th class="px-6 py-5 w-20 text-center">No</th>
@@ -51,11 +69,11 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-sm">
                     @forelse($jurusans as $index => $jurusan)
-                    <tr class="hover:bg-indigo-50/30 transition-colors duration-200 group">
+                    <tr class="jurusan-row hover:bg-indigo-50/30 transition-colors duration-200 group">
                         <td class="px-6 py-5 text-center text-slate-400 font-extrabold text-xs index-cell group-hover:text-indigo-600 transition-colors">
                             {{ sprintf('%02d', $index + 1) }}
                         </td>
-                        <td class="px-6 py-5">
+                        <td class="px-6 py-5 jurusan-name">
                             <div class="flex items-center space-x-4">
                                 <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
                                     {{ substr($jurusan->nama_jurusan, 0, 1) }}
@@ -65,7 +83,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-5">
+                        <td class="px-6 py-5 jurusan-code">
                             <span class="inline-flex items-center bg-indigo-50 text-indigo-700 border border-indigo-100 text-xs font-black font-mono px-3.5 py-1.5 rounded-xl shadow-2xs tracking-wider uppercase group-hover:bg-indigo-100/80 transition-colors">
                                 <i class="fas fa-tag mr-2 opacity-60 text-[10px]"></i> {{ $jurusan->kode_jurusan }}
                             </span>
@@ -99,6 +117,17 @@
                         </td>
                     </tr>
                     @endforelse
+
+                    <!-- Empty State Live Search -->
+                    <tr id="noSearchRow" class="hidden">
+                        <td colspan="4" class="px-6 py-12 text-center text-slate-400 bg-slate-50/30">
+                            <div class="max-w-xs mx-auto flex flex-col items-center justify-center space-y-2">
+                                <i class="fas fa-search text-2xl text-slate-300 mb-1"></i>
+                                <p class="text-sm font-extrabold text-slate-700">Data Tidak Ditemukan</p>
+                                <p class="text-xs text-slate-400">Pencarian kata kunci tidak cocok dengan nama atau kode jurusan manapun.</p>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -108,6 +137,9 @@
 <!-- Modal Tambah Jurusan -->
 <div id="addModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
+        <!-- Glow Overlay Inside Modal -->
+        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full blur-3xl opacity-20 pointer-events-none bg-indigo-500"></div>
+
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-blue-600"></div>
         
@@ -166,6 +198,9 @@
 <!-- Modal Edit Jurusan -->
 <div id="editModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
+        <!-- Glow Overlay Inside Modal -->
+        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full blur-3xl opacity-20 pointer-events-none bg-amber-500"></div>
+
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600"></div>
         
@@ -225,12 +260,15 @@
 <!-- Modal Konfirmasi Hapus Jurusan -->
 <div id="deleteModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
+        <!-- Glow Overlay Inside Modal -->
+        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full blur-3xl opacity-20 pointer-events-none bg-rose-500"></div>
+
         <!-- Header Strip -->
         <div class="h-2 w-full bg-gradient-to-r from-rose-500 via-red-500 to-rose-600"></div>
         
         <div class="p-7 text-center space-y-4">
             <!-- Icon Warning -->
-            <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner border border-rose-100">
+            <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner border border-rose-100 animate-bounce">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
             
@@ -280,6 +318,34 @@
 
     function closeModal(id) {
         document.getElementById(id).classList.add('hidden');
+    }
+
+    // Logic Live Search Filter Tabel
+    function filterTable() {
+        const input = document.getElementById('searchInput').value.toLowerCase().trim();
+        const rows = document.querySelectorAll('.jurusan-row');
+        const noSearchRow = document.getElementById('noSearchRow');
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const name = row.querySelector('.jurusan-name').textContent.toLowerCase();
+            const code = row.querySelector('.jurusan-code').textContent.toLowerCase();
+
+            if (name.includes(input) || code.includes(input)) {
+                row.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                row.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('visibleCount').innerText = visibleCount;
+
+        if (visibleCount === 0 && rows.length > 0) {
+            noSearchRow.classList.remove('hidden');
+        } else {
+            noSearchRow.classList.add('hidden');
+        }
     }
 
     // Logic untuk mengisi data ke Modal Edit secara dinamis

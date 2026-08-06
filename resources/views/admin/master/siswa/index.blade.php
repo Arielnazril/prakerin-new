@@ -28,9 +28,9 @@
         </div>
 
         {{-- Table Content --}}
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[650px]">
-                <thead class="bg-slate-50/70 text-slate-400 uppercase text-[10px] font-extrabold tracking-widest border-b border-slate-100">
+        <div class="overflow-x-auto p-4 sm:p-6">
+            <table class="w-full text-left border-collapse min-w-[650px] border border-rose-200/80 rounded-2xl overflow-hidden shadow-2xs">
+                <thead class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-extrabold tracking-widest border-b border-rose-200/80 divide-x divide-rose-200/80">
                     <tr>
                         <th class="px-6 py-3.5">Waktu Daftar</th>
                         <th class="px-6 py-3.5">Nama Siswa</th>
@@ -39,9 +39,9 @@
                         <th class="px-6 py-3.5 text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 bg-white">
+                <tbody class="divide-y divide-rose-100 bg-white">
                     @foreach($siswaPending as $siswa)
-                    <tr class="hover:bg-rose-50/20 transition-colors duration-200 group">
+                    <tr class="hover:bg-rose-50/30 transition-colors duration-200 group divide-x divide-rose-100">
                         {{-- Waktu Daftar --}}
                         <td class="px-6 py-4 text-xs text-slate-500 font-medium">
                             <div class="inline-flex items-center bg-slate-50 group-hover:bg-white px-3 py-1 rounded-lg border border-slate-200/60 group-hover:border-rose-200 transition-colors shadow-2xs">
@@ -107,7 +107,7 @@
     {{-- TABEL SISWA AKTIF --}}
     <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 border border-slate-200/70 overflow-hidden">
         {{-- HEADER DAN INPUT PENCARIAN --}}
-        <div class="px-6 py-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/30">
+        <div class="px-6 py-6 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/30">
             <div>
                 <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">Data Siswa Aktif</h2>
                 <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Daftar siswa yang sudah resmi terdaftar di sistem.</p>
@@ -131,9 +131,9 @@
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[700px]">
-                <thead class="bg-slate-50/80 text-slate-400 uppercase text-[10px] font-extrabold tracking-widest border-b border-slate-100">
+        <div class="overflow-x-auto p-4 sm:p-6">
+            <table class="w-full text-left border-collapse min-w-[700px] border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
+                <thead class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-extrabold tracking-widest border-b border-slate-200/80 divide-x divide-slate-200/80">
                     <tr>
                         <th class="px-6 py-3.5">No</th>
                         <th class="px-6 py-3.5">Nama Siswa</th>
@@ -143,9 +143,9 @@
                         <th class="px-6 py-3.5 text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody id="siswaTableBody" class="divide-y divide-slate-100 bg-white">
+                <tbody id="siswaTableBody" class="divide-y divide-slate-200/80 bg-white">
                     @forelse($siswaAktif as $index => $siswa)
-                    <tr class="siswa-row hover:bg-slate-50/60 transition-colors duration-150">
+                    <tr class="siswa-row hover:bg-slate-50/90 transition-colors duration-150 divide-x divide-slate-200/80">
                         <td class="px-6 py-4 text-slate-400 text-xs font-medium index-cell">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 font-bold text-slate-800 name-cell">
                             <span class="text-sm text-slate-800 tracking-wide">{{ $siswa->name }}</span>

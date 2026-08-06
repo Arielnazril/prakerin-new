@@ -350,13 +350,13 @@
                     </a>
 
                     <!-- Gmail -->
-                    <a href="mailto:akhdannafish@gmail.com" 
+                    <a href="mailto:smks.almadaniptk@gmail.com" 
                        class="flex items-center gap-2.5 group bg-slate-900/80 hover:bg-gradient-to-r hover:from-red-900/30 hover:to-orange-900/20 py-2.5 pl-2.5 pr-4 rounded-xl border border-slate-800 hover:border-red-500/40 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
                         <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-red-500 via-red-600 to-orange-500 flex items-center justify-center transform group-hover:scale-105 transition-all duration-300 shadow-md shadow-red-500/10">
                             <i class="fas fa-envelope text-white text-[11px]"></i>
                         </div>
                         <span class="text-xs text-slate-300 group-hover:text-red-400 font-bold tracking-wide transition-colors">
-                            akhdannafish@gmail.com
+                           smks.almadaniptk@gmail.com
                         </span>
                     </a>
 

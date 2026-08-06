@@ -25,7 +25,7 @@
                     Daftar Mitra Industri
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-300 font-medium pl-1 max-w-xl leading-relaxed">
-                    Kelola informasi perusahaan dan instansi tempat siswa melakukan kegiatan magang / PKL secara terpusat.
+                    Kelola informasi perusahaan dan instansi tempat siswa melakukan kegiatan magang / Prakerin secara terpusat.
                 </p>
             </div>
             

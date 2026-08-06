@@ -3,7 +3,7 @@
 @section('page_title', 'Kalkulasi Rekomendasi Penempatan')
 
 @section('content')
-<!-- CSS KHUSUS PRINT DENGAN TAMPILAN PORTRAIT RAPI, CARD GRADE A & B, DAN TABEL FULL (POIN 3 ENHANCEMENT) -->
+<!-- CSS KHUSUS PRINT DENGAN TAMPILAN PORTRAIT RAPI, CARD GRADE A & B, DAN TABEL FULL -->
 <style>
     /* Sembunyikan Kop & Card Khusus Print di layar browser normal */
     .print-only-header,
@@ -124,7 +124,7 @@
             width: 100% !important;
             min-width: 100% !important;
             border-collapse: collapse !important;
-            font-size: 6.5pt !important; /* Font dikecilkan agar muat & rapi */
+            font-size: 6.5pt !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
             table-layout: fixed !important;
         }
@@ -243,15 +243,12 @@
                         <option value="" disabled selected>-- Pilih Siswa --</option>
                         @foreach($daftar as $index => $siswa)
                             @php
-                                // KOMPREHENSIF FILTER PENGECEKAN STATUS PENEMPATAN
                                 $sudahDitempatkan = false;
                                 
-                                // Check 1: Pengecekan variabel array/koleksi ID penempatan dari controller
                                 if (isset($siswaDitempatkanIds) && is_array($siswaDitempatkanIds) && in_array($siswa->id, $siswaDitempatkanIds)) {
                                     $sudahDitempatkan = true;
                                 }
                                 
-                                // Check 2: Pengecekan relasi penempatan Eloquent
                                 if (!$sudahDitempatkan) {
                                     if (isset($siswa->penempatan) && !empty($siswa->penempatan)) {
                                         $sudahDitempatkan = true;
@@ -262,7 +259,6 @@
                                     }
                                 }
                                 
-                                // Check 3: Pengecekan properti status string
                                 if (!$sudahDitempatkan) {
                                     $statusList = [
                                         $siswa->status_penempatan ?? null,
@@ -350,15 +346,12 @@
                         <div id="customDropdownList" class="max-h-72 overflow-y-auto p-2 space-y-1.5">
                             @foreach($daftar as $index => $siswa)
                                 @php
-                                    // KOMPREHENSIF FILTER PENGECEKAN STATUS PENEMPATAN
                                     $sudahDitempatkan = false;
                                     
-                                    // Check 1: Pengecekan variabel array/koleksi ID penempatan dari controller
                                     if (isset($siswaDitempatkanIds) && is_array($siswaDitempatkanIds) && in_array($siswa->id, $siswaDitempatkanIds)) {
                                         $sudahDitempatkan = true;
                                     }
                                     
-                                    // Check 2: Pengecekan relasi penempatan Eloquent
                                     if (!$sudahDitempatkan) {
                                         if (isset($siswa->penempatan) && !empty($siswa->penempatan)) {
                                             $sudahDitempatkan = true;
@@ -369,7 +362,6 @@
                                         }
                                     }
                                     
-                                    // Check 3: Pengecekan properti status string
                                     if (!$sudahDitempatkan) {
                                         $statusList = [
                                             $siswa->status_penempatan ?? null,
@@ -485,7 +477,7 @@
             </form>
         </div>
 
-        <!-- MODAL POPUP BERHASIL ELEGAN -->
+        <!-- MODAL POPUP BERHASIL ELEGAN (DENGAN DROPDOWN PILIHAN INSTANSI) -->
         <div id="modalKalkulasiSukses" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 transition-all duration-300">
             <div onclick="tutupModalSukses()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity"></div>
             <div id="modalCardContent" class="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-sm w-full p-6 text-center relative z-10 transform scale-95 opacity-0 transition-all duration-300">
@@ -499,7 +491,7 @@
                 <h3 class="text-lg font-black text-slate-800 tracking-tight">Kalkulasi Berhasil!</h3>
                 <p class="text-xs text-slate-400 font-medium mt-1">Data analisis Fuzzy Sugeno + SAW telah berhasil diproses.</p>
 
-                <div class="mt-4 p-3.5 bg-slate-50 border border-slate-100 rounded-2xl text-left space-y-2">
+                <div class="mt-4 p-3.5 bg-slate-50 border border-slate-100 rounded-2xl text-left space-y-2.5">
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-slate-400 font-medium">Siswa:</span>
                         <span id="popSiswaNama" class="font-bold text-slate-700 truncate max-w-[170px]">-</span>
@@ -511,6 +503,25 @@
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-slate-400 font-medium">Nilai C2 (Kehadiran):</span>
                         <span id="popNilaiC2" class="font-bold text-indigo-600">-</span>
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-slate-400 font-medium">Hasil Kelayakan:</span>
+                        <span id="popGradeBadge" class="font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200">Grade A</span>
+                    </div>
+
+                    <!-- DROPDOWN PILIHAN INSTANSI INTERAKTIF DALAM MODAL -->
+                    <div class="pt-2 border-t border-slate-200/60 space-y-1">
+                        <label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">
+                            Pilih Instansi Penempatan (Admin):
+                        </label>
+                        <div class="relative">
+                            <select id="popSelectInstansi" onchange="ubahInstansiModal(this.value)" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-extrabold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition-all cursor-pointer shadow-2xs">
+                                <!-- Dynamic Options via JavaScript -->
+                            </select>
+                        </div>
+                        <p class="text-[9.5px] text-slate-400 font-medium leading-tight mt-1">
+                            *Pilihan di atas otomatis menyaring instansi sesuai Grade hasil kalkulasi.
+                        </p>
                     </div>
                 </div>
 
@@ -525,7 +536,91 @@
 
     </div>
 
-    <!-- PENCARIAN & STATISTIK RINGKASAN -->
+    <!-- CARD PANEL MANAJEMEN KUOTA INDUSTRI TERPISAH -->
+    <div class="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-extrabold border border-indigo-100 shadow-xs flex-shrink-0">
+                    <i class="fas fa-sliders-h text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-slate-800 text-base sm:text-lg tracking-tight">Manajemen Kuota Industri</h3>
+                    <p class="text-xs text-slate-400 font-medium mt-0.5">Kelola kuota maksimal dan pantau sisa kapasitas untuk seluruh instansi mitra.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button type="button" onclick="bukaModalAturSemuaKuota()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-4 py-2 rounded-xl text-xs transition-all flex items-center space-x-2 border border-indigo-200/80 cursor-pointer shadow-2xs">
+                    <i class="fas fa-sliders-h text-xs"></i>
+                    <span>Set Seragam Kuota</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Cepat Manajemen Kuota -->
+        <div class="flex items-center space-x-2">
+            <button type="button" onclick="filterCardKuota('ALL')" id="btnFilterKuotaALL" class="btn-filter-kuota bg-slate-900 text-white font-extrabold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition-all cursor-pointer">
+                Semua Instansi
+            </button>
+            <button type="button" onclick="filterCardKuota('GRADE_A')" id="btnFilterKuotaA" class="btn-filter-kuota bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 font-extrabold px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer">
+                Grade A
+            </button>
+            <button type="button" onclick="filterCardKuota('GRADE_B')" id="btnFilterKuotaB" class="btn-filter-kuota bg-slate-100 hover:bg-amber-50 text-slate-600 hover:text-amber-700 font-extrabold px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer">
+                Grade B
+            </button>
+        </div>
+
+        <!-- Grid Manajemen Kuota Interaktif -->
+        <div id="gridKontrolKuota" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Rendered dynamically by updateCardKuotaMonitoring() -->
+        </div>
+    </div>
+
+    <!-- KATEGORI INSTANSI GRADE A & B (TAMPILAN WEB NORMAL) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card Grade A -->
+        <div class="bg-gradient-to-br from-emerald-50/90 via-teal-50/40 to-white p-6 rounded-3xl border border-emerald-200/80 shadow-md shadow-emerald-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-emerald-100/80">
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-sm shadow-md shadow-emerald-600/30 flex-shrink-0">
+                        <i class="fas fa-award text-base"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-extrabold text-emerald-950 text-base leading-snug">Instansi Grade A (Pemerintah/BUMN/Besar)</h3>
+                        <p class="text-[11px] text-emerald-700 font-semibold mt-0.5">Syarat Fuzzy: High Output (Nilai = 1.0)</p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/90 px-3.5 py-1.5 rounded-full border border-emerald-200/80 shadow-2xs">6 Instansi</span>
+            </div>
+            
+            <!-- Grid Item Instansi Grade A -->
+            <div id="containerKuotaGradeA" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-emerald-950">
+                <!-- Render via JS JavaScript updateCardKuotaMonitoring() -->
+            </div>
+        </div>
+
+        <!-- Card Grade B -->
+        <div class="bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-white p-6 rounded-3xl border border-amber-200/80 shadow-md shadow-amber-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div class="flex items-center justify-between mb-5 pb-3 border-b border-amber-100/80">
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-600 to-orange-600 text-white flex items-center justify-center font-black text-sm shadow-md shadow-amber-600/30 flex-shrink-0">
+                        <i class="fas fa-store text-base"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-extrabold text-amber-950 text-base leading-snug">Instansi Grade B (Swasta/Menengah/UMKM)</h3>
+                        <p class="text-[11px] text-amber-700 font-semibold mt-0.5">Syarat Fuzzy: Medium Output (Nilai = 0.5)</p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-extrabold text-amber-800 bg-amber-100/90 px-3.5 py-1.5 rounded-full border border-amber-200/80 shadow-2xs">6 Instansi</span>
+            </div>
+            
+            <!-- Grid Item Instansi Grade B -->
+            <div id="containerKuotaGradeB" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-amber-950">
+                <!-- Render via JS JavaScript updateCardKuotaMonitoring() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PENCARIAN & STATISTIK RINGKASAN (DIPINDAHKAN KE BAWAH CARD GRADE A & B) -->
     <div class="bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
         
         <!-- BARIS STATISTIK -->
@@ -602,53 +697,6 @@
             </div>
         </div>
 
-    </div>
-
-    <!-- KATEGORI INSTANSI GRADE A & B (TAMPILAN WEB NORMAL) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Card Grade A -->
-        <div class="bg-gradient-to-br from-emerald-50/90 via-teal-50/40 to-white p-6 rounded-3xl border border-emerald-200/80 shadow-md shadow-emerald-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-lg">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-emerald-100/80">
-                <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-xs shadow-md shadow-emerald-600/30 flex-shrink-0">A</span>
-                    <div>
-                        <h3 class="font-extrabold text-emerald-950 text-sm sm:text-base leading-snug">Instansi Grade A (Pemerintah/BUMN/Besar)</h3>
-                        <p class="text-[11px] text-emerald-700 font-semibold mt-0.5">Syarat Fuzzy: High Output (Nilai = 1.0)</p>
-                    </div>
-                </div>
-                <span class="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/90 px-3 py-1 rounded-full border border-emerald-200 shadow-2xs">6 Instansi</span>
-            </div>
-            <div id="containerKuotaGradeA" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-emerald-950">
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-building text-emerald-600 text-xs"></i><span class="truncate">Pengadilan Tinggi Pontianak</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-building text-emerald-600 text-xs"></i><span class="truncate">BKAD (Badan Keuangan dan Aset Daerah)</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-university text-emerald-600 text-xs"></i><span class="truncate">POLNEP Prodi IT (Politeknik Negeri Pontianak)</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-university text-emerald-600 text-xs"></i><span class="truncate">POLNEP UPATIK</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-graduation-cap text-emerald-600 text-xs"></i><span class="truncate">UBSI Pontianak (Universitas BSI)</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-emerald-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-industry text-emerald-600 text-xs"></i><span class="truncate">PT Ketel Uap</span></div>
-            </div>
-        </div>
-
-        <!-- Card Grade B -->
-        <div class="bg-gradient-to-br from-amber-50/90 via-orange-50/40 to-white p-6 rounded-3xl border border-amber-200/80 shadow-md shadow-amber-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-lg">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-amber-100/80">
-                <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-600 to-orange-600 text-white flex items-center justify-center font-black text-xs shadow-md shadow-amber-600/30 flex-shrink-0">B</span>
-                    <div>
-                        <h3 class="font-extrabold text-amber-950 text-sm sm:text-base leading-snug">Instansi Grade B (Swasta/Menengah/UMKM)</h3>
-                        <p class="text-[11px] text-amber-700 font-semibold mt-0.5">Syarat Fuzzy: Medium Output (Nilai = 0.5)</p>
-                    </div>
-                </div>
-                <span class="text-[11px] font-extrabold text-amber-800 bg-amber-100/90 px-3 py-1 rounded-full border border-amber-200 shadow-2xs">6 Instansi</span>
-            </div>
-            <div id="containerKuotaGradeB" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-bold text-amber-950">
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-laptop text-amber-600 text-xs"></i><span class="truncate">EC Computer</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-video text-amber-600 text-xs"></i><span class="truncate">Host CCTV</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-briefcase text-amber-600 text-xs"></i><span class="truncate">PT Bagas Kara Adji Putra</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-store text-amber-600 text-xs"></i><span class="truncate">BUMDes Kopri Serdam</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-store text-amber-600 text-xs"></i><span class="truncate">BUMDes Parit Baru</span></div>
-                <div class="flex items-center space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border border-amber-100/80 shadow-2xs hover:bg-white transition-colors"><i class="fas fa-city text-amber-600 text-xs"></i><span class="truncate">PT Kreasi Putra Hotama</span></div>
-            </div>
-        </div>
     </div>
 
     <!-- MAIN TABLE SECTION DENGAN KOP & CARD KHUSUS CETAK PDF/PRINT -->
@@ -737,6 +785,61 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<!-- MODAL EDIT KUOTA INSTANSI TUNGGAL -->
+<div id="modalEditKuota" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-sm overflow-hidden animate-fade-in my-8">
+        <div class="p-6 bg-slate-900 text-white flex justify-between items-center relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="font-black text-base text-white" id="modalEditKuotaTitle">Atur Kuota Instansi</h3>
+                <p class="text-xs text-slate-300 mt-0.5 font-medium">Ubah batas maksimum kuota penempatan</p>
+            </div>
+            <button onclick="closeKuotaModal()" class="relative z-10 w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-all cursor-pointer">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+        </div>
+        <form onsubmit="simpanKuotaInstansi(event)" class="p-6 space-y-4">
+            <input type="hidden" id="editKuotaTargetNama">
+            <div>
+                <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Nama Instansi</label>
+                <input type="text" id="editKuotaDisplayNama" readonly class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 cursor-not-allowed">
+            </div>
+            <div>
+                <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Batas Maksimum Kuota</label>
+                <input type="number" id="editKuotaInput" min="1" max="100" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div class="pt-2 flex items-center justify-end space-x-2">
+                <button type="button" onclick="closeKuotaModal()" class="px-4 py-2 bg-slate-100 text-slate-600 font-extrabold rounded-xl text-xs hover:bg-slate-200 transition-all cursor-pointer">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-extrabold rounded-xl text-xs hover:bg-blue-500 transition-all cursor-pointer shadow-md shadow-blue-600/20">Simpan Kuota</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL ATUR SEMUA KUOTA SERAGAM -->
+<div id="modalAturSemuaKuota" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-sm overflow-hidden animate-fade-in my-8">
+        <div class="p-6 bg-slate-900 text-white flex justify-between items-center relative overflow-hidden">
+            <div class="relative z-10">
+                <h3 class="font-black text-base text-white">Set Seragam Semua Kuota</h3>
+                <p class="text-xs text-slate-300 mt-0.5 font-medium">Ubah batas kuota seluruh instansi sekaligus</p>
+            </div>
+            <button onclick="tutupModalAturSemuaKuota()" class="relative z-10 w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 flex items-center justify-center transition-all cursor-pointer">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+        </div>
+        <form onsubmit="simpanSemuaKuotaSeragam(event)" class="p-6 space-y-4">
+            <div>
+                <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Nilai Kuota Maksimal Baru</label>
+                <input type="number" id="inputSemuaKuotaGlobal" min="1" max="100" value="5" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+            </div>
+            <div class="pt-2 flex items-center justify-end space-x-2">
+                <button type="button" onclick="tutupModalAturSemuaKuota()" class="px-4 py-2 bg-slate-100 text-slate-600 font-extrabold rounded-xl text-xs hover:bg-slate-200 transition-all cursor-pointer">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white font-extrabold rounded-xl text-xs hover:bg-indigo-500 transition-all cursor-pointer shadow-md shadow-indigo-600/20">Terapkan Ke Semua</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -974,32 +1077,166 @@
     let listSiswaSPK = JSON.parse(localStorage.getItem('spk_siswa_data')) || [];
     let targetHapusNama = null;
     let selectedSiswaData = null;
+    let activeFilterKuotaGrade = 'ALL';
+    let currentModalSiswaNama = null;
 
-    const MAX_KUOTA_PER_INSTANSI = 5;
+    // DATA DEFAULT DAN ATURAN MENGATUR KUOTA INSTANSI BERBASIS LOCALSTORAGE
+    let maxKuotaMap = JSON.parse(localStorage.getItem('spk_max_kuota_map')) || {
+        "Pengadilan Tinggi Pontianak": 5,
+        "BKAD (Badan Keuangan dan Aset Daerah)": 5,
+        "POLNEP Prodi IT (Politeknik Negeri Pontianak)": 5,
+        "POLNEP UPATIK": 5,
+        "UBSI Pontianak (Universitas BSI)": 5,
+        "PT Ketel Uap": 5,
+        "EC Computer": 5,
+        "Host CCTV": 5,
+        "PT Bagas Kara Adji Putra": 5,
+        "BUMDes Kopri Serdam": 5,
+        "BUMDes Parit Baru": 5,
+        "PT Kreasi Putra Hotama": 5
+    };
 
-    const instansiGradeA = [
-        "Pengadilan Tinggi Pontianak",
-        "BKAD (Badan Keuangan dan Aset Daerah)",
-        "POLNEP Prodi IT (Politeknik Negeri Pontianak)",
-        "POLNEP UPATIK",
-        "UBSI Pontianak (Universitas BSI)",
-        "PT Ketel Uap"
+    function getMaxKuotaInstansi(namaInstansi) {
+        return maxKuotaMap[namaInstansi] !== undefined ? maxKuotaMap[namaInstansi] : 5;
+    }
+
+    function openKuotaModal(namaInstansi) {
+        const currentMax = getMaxKuotaInstansi(namaInstansi);
+        document.getElementById('editKuotaTargetNama').value = namaInstansi;
+        document.getElementById('editKuotaDisplayNama').value = namaInstansi;
+        document.getElementById('editKuotaInput').value = currentMax;
+        document.getElementById('modalEditKuota').classList.remove('hidden');
+    }
+
+    function closeKuotaModal() {
+        document.getElementById('modalEditKuota').classList.add('hidden');
+    }
+
+    function simpanKuotaInstansi(e) {
+        e.preventDefault();
+        const nama = document.getElementById('editKuotaTargetNama').value;
+        const newMax = parseInt(document.getElementById('editKuotaInput').value);
+
+        if (nama && !isNaN(newMax) && newMax > 0) {
+            maxKuotaMap[nama] = newMax;
+            localStorage.setItem('spk_max_kuota_map', JSON.stringify(maxKuotaMap));
+            closeKuotaModal();
+            renderTableSPK();
+        }
+    }
+
+    function bukaModalAturSemuaKuota() {
+        document.getElementById('modalAturSemuaKuota').classList.remove('hidden');
+    }
+
+    function tutupModalAturSemuaKuota() {
+        document.getElementById('modalAturSemuaKuota').classList.add('hidden');
+    }
+
+    function simpanSemuaKuotaSeragam(e) {
+        e.preventDefault();
+        const globalVal = parseInt(document.getElementById('inputSemuaKuotaGlobal').value);
+        if (!isNaN(globalVal) && globalVal > 0) {
+            const allInstansi = [...detailsGradeA, ...detailsGradeB];
+            allInstansi.forEach(item => {
+                maxKuotaMap[item.nama] = globalVal;
+            });
+            localStorage.setItem('spk_max_kuota_map', JSON.stringify(maxKuotaMap));
+            tutupModalAturSemuaKuota();
+            renderTableSPK();
+        }
+    }
+
+    function filterCardKuota(grade) {
+        activeFilterKuotaGrade = grade;
+        const btnALL = document.getElementById('btnFilterKuotaALL');
+        const btnA = document.getElementById('btnFilterKuotaA');
+        const btnB = document.getElementById('btnFilterKuotaB');
+
+        const activeClass = "bg-slate-900 text-white font-extrabold shadow-xs";
+        const inactiveClass = "bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold";
+
+        if (btnALL) btnALL.className = `btn-filter-kuota ${grade === 'ALL' ? activeClass : inactiveClass} px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer`;
+        if (btnA) btnA.className = `btn-filter-kuota ${grade === 'GRADE_A' ? activeClass : inactiveClass} px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer`;
+        if (btnB) btnB.className = `btn-filter-kuota ${grade === 'GRADE_B' ? activeClass : inactiveClass} px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer`;
+
+        updateCardKuotaMonitoring();
+    }
+
+    // Data Detail Instansi Grade A
+    const detailsGradeA = [
+        {
+            nama: "Pengadilan Tinggi Pontianak",
+            icon: "fas fa-gavel",
+            alamat: "Jl. Sultan Abdurrahman No.89, Pontianak"
+        },
+        {
+            nama: "BKAD (Badan Keuangan dan Aset Daerah)",
+            icon: "fas fa-landmark",
+            alamat: "Jl. A. Yani No.1, Pontianak"
+        },
+        {
+            nama: "POLNEP Prodi IT (Politeknik Negeri Pontianak)",
+            icon: "fas fa-graduation-cap",
+            alamat: "Jl. Jendral Ahmad Yani, Bansir Laut"
+        },
+        {
+            nama: "POLNEP UPATIK",
+            icon: "fas fa-university",
+            alamat: "Gedung UPATIK POLNEP, Pontianak"
+        },
+        {
+            nama: "UBSI Pontianak (Universitas BSI)",
+            icon: "fas fa-school",
+            alamat: "Jl. Merdeka No.372, Pontianak"
+        },
+        {
+            nama: "PT Ketel Uap",
+            icon: "fas fa-industry",
+            alamat: "Kawasan Industri Pontianak"
+        }
     ];
 
-    const instansiGradeB = [
-        "EC Computer",
-        "Host CCTV",
-        "PT Bagas Kara Adji Putra",
-        "BUMDes Kopri Serdam",
-        "BUMDes Parit Baru",
-        "PT Kreasi Putra Hotama"
+    // Data Detail Instansi Grade B
+    const detailsGradeB = [
+        {
+            nama: "EC Computer",
+            icon: "fas fa-laptop-code",
+            alamat: "Jl. Gajah Mada No.12, Pontianak"
+        },
+        {
+            nama: "Host CCTV",
+            icon: "fas fa-video",
+            alamat: "Jl. Danau Sentarum No.45, Pontianak"
+        },
+        {
+            nama: "PT Bagas Kara Adji Putra",
+            icon: "fas fa-building",
+            alamat: "Jl. Sungai Raya Dalam, Kubu Raya"
+        },
+        {
+            nama: "BUMDes Kopri Serdam",
+            icon: "fas fa-store-alt",
+            alamat: "Komp. Korpri, Sungai Raya"
+        },
+        {
+            nama: "BUMDes Parit Baru",
+            icon: "fas fa-briefcase",
+            alamat: "Jl. Parit Baru Utama, Kubu Raya"
+        },
+        {
+            nama: "PT Kreasi Putra Hotama",
+            icon: "fas fa-city",
+            alamat: "Jl. Teuku Umar No.88, Pontianak"
+        }
     ];
 
-    // Helper FUNGSI PEMBERSIH & HARMONISASI STRING NAMA INSTANSI (CASE-INSENSITIVE)
+    const instansiGradeA = detailsGradeA.map(item => item.nama);
+    const instansiGradeB = detailsGradeB.map(item => item.nama);
+
     function getJumlahKuotaTerpakaiDB(namaInstansiUI) {
         if (!kuotaDariDatabase) return 0;
 
-        // Normalisasi nama dari UI JS (hapus spasi lebih, simbol, dan kecilkan huruf)
         const cleanNameUI = namaInstansiUI.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 
         let total = 0;
@@ -1012,7 +1249,6 @@
         return total;
     }
 
-    // FUNGSI UTAMA PLOTTING BERDASARKAN ELEMEN KLIKS BARIS DENGAN AKURASI PRESISI
     function mulaiPenempatanDirect(namaVal, idVal, element) {
         let namaFinal = namaVal;
         let idFinal = idVal;
@@ -1021,19 +1257,12 @@
         if (element) {
             const tr = element.closest('tr');
             if (tr) {
-                // Ambil data-attribute presisi dari baris tabel jika tersedia
                 if (tr.getAttribute('data-nama-siswa')) namaFinal = tr.getAttribute('data-nama-siswa');
                 if (tr.getAttribute('data-id-siswa')) idFinal = tr.getAttribute('data-id-siswa');
 
-                // Ambil nilai instansi dari dropdown pada baris yang tepat
-                const selectInstansi = tr.querySelector('.print-select-container select');
-                if (selectInstansi) {
-                    let rawValue = selectInstansi.value || '';
-                    if (selectInstansi.selectedIndex !== -1) {
-                        rawValue = selectInstansi.options[selectInstansi.selectedIndex].text || rawValue;
-                    }
-
-                    // Pembersihan teks instansi dari simbol dan status kuota
+                const instansiDisplay = tr.querySelector('.instansi-kunci-display span') || tr.querySelector('.print-select-container select');
+                if (instansiDisplay) {
+                    let rawValue = instansiDisplay.textContent || instansiDisplay.value || '';
                     namaInstansi = rawValue
                         .replace(/^[★•\s]+/, '')
                         .replace(/\s*\((Sisa\s+\d+|FULL)\)/i, '')
@@ -1058,13 +1287,11 @@
         window.location.href = url.toString();
     }
 
-    // FUNGSI UTAMA EKSPOR PDF DENGAN ENGINE PDFSHIFT API BERBASIS BACKEND LARAVEL & BROWSER PRINT FALLBACK (POIN 3 ENHANCEMENT)
     function eksporAtauCetakLaporanSPK() {
         const formExport = document.getElementById('formPdfShiftExport');
         const inputExportJson = document.getElementById('pdfShiftDataJson');
         const exportUrl = formExport ? formExport.getAttribute('action') : '#';
 
-        // Persiapkan teks instansi pilihan dan tanggal cetak untuk tampilan print/PDF
         const dateElem = document.getElementById('printDateString');
         if (dateElem) {
             const now = new Date();
@@ -1085,7 +1312,6 @@
                 if (spanText) spanText.textContent = selectedInstansiText;
             }
 
-            // Ekstrak data terstruktur per baris untuk dikirim ke API PDFShift backend
             const namaSiswa = row.getAttribute('data-nama-siswa') || row.querySelector('.name-cell')?.textContent.trim() || '-';
             const c1Val = row.cells[2]?.textContent.trim() || '0';
             const c2Val = row.cells[3]?.textContent.trim() || '0';
@@ -1107,13 +1333,11 @@
             });
         });
 
-        // Apabila Route PDFShift backend tersedia, kirim payload data melalui submit Form POST
         if (exportUrl && exportUrl !== '#' && exportUrl !== '') {
             if (inputExportJson) {
                 inputExportJson.value = JSON.stringify(exportDataPayload);
             }
             
-            // Animasi feedback tombol saat mengirim request ekspor PDF
             const btnText = document.getElementById('btnCetakPDFText');
             const btnIcon = document.getElementById('btnCetakPDFIcon');
             if (btnText && btnIcon) {
@@ -1128,26 +1352,25 @@
 
             formExport.submit();
         } else {
-            // Fallback: Apabila Route API PDFShift backend belum didaftarkan, panggil browser print window secara optimal
             window.print();
         }
     }
 
-    // Tetapkan fungsi cetak biasa sebagai alias untuk kompabilitas
     function cetakLaporanSPK() {
         eksporAtauCetakLaporanSPK();
     }
 
+    // UPDATE CARD KUOTA MONITORING (TANPA TOMBOL RODA GIGI DI CARD GRADE A & B)
     function updateCardKuotaMonitoring() {
         const containerA = document.getElementById('containerKuotaGradeA');
         const containerB = document.getElementById('containerKuotaGradeB');
+        const gridKontrol = document.getElementById('gridKontrolKuota');
 
-        // Initializer data kuota awal dari Database (Database Offset)
         let kuotaTerpakaiA = {};
-        instansiGradeA.forEach(i => kuotaTerpakaiA[i] = getJumlahKuotaTerpakaiDB(i));
+        detailsGradeA.forEach(item => kuotaTerpakaiA[item.nama] = getJumlahKuotaTerpakaiDB(item.nama));
 
         let kuotaTerpakaiB = {};
-        instansiGradeB.forEach(i => kuotaTerpakaiB[i] = getJumlahKuotaTerpakaiDB(i));
+        detailsGradeB.forEach(item => kuotaTerpakaiB[item.nama] = getJumlahKuotaTerpakaiDB(item.nama));
 
         const allSelects = document.querySelectorAll('#calculateTableBody select');
         
@@ -1166,41 +1389,120 @@
             }
         });
 
+        // Render Card Instansi Ringkas Grade A (Bersih Tanpa Roda Gigi)
         if (containerA) {
-            containerA.innerHTML = instansiGradeA.map(inst => {
-                const terisi = kuotaTerpakaiA[inst] || 0;
-                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terisi);
+            containerA.innerHTML = detailsGradeA.map(item => {
+                const maxK = getMaxKuotaInstansi(item.nama);
+                const terisi = kuotaTerpakaiA[item.nama] || 0;
+                const sisa = Math.max(0, maxK - terisi);
                 const isFull = sisa === 0;
 
                 return `
-                    <div class="flex items-center justify-between space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border ${isFull ? 'border-rose-200 bg-rose-50/50' : 'border-emerald-100/80'} shadow-2xs hover:bg-white transition-colors">
-                        <div class="flex items-center space-x-2 min-w-0">
-                            <i class="fas fa-building text-emerald-600 text-xs flex-shrink-0"></i>
-                            <span class="truncate" title="${inst}">${inst}</span>
+                    <div class="flex items-start justify-between p-3 rounded-2xl border ${isFull ? 'border-rose-200 bg-rose-50/50' : 'border-emerald-100 bg-white/90 hover:bg-white'} shadow-2xs hover:shadow-md transition-all duration-200 group relative">
+                        <div class="flex items-start space-x-2.5 min-w-0 pr-2">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-100/80 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="${item.icon} text-xs"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <span class="truncate block font-extrabold text-slate-800 text-[11px] leading-tight" title="${item.nama}">
+                                    ${item.nama}
+                                </span>
+                                <span class="truncate flex items-center gap-1 text-[9.5px] font-medium text-slate-400 mt-1" title="${item.alamat}">
+                                    <i class="fas fa-map-marker-alt text-[8.5px] text-emerald-600/70 flex-shrink-0"></i>
+                                    <span class="truncate">${item.alamat}</span>
+                                </span>
+                            </div>
                         </div>
-                        <span class="text-[10px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-emerald-100 text-emerald-800'}">
-                            ${isFull ? 'FULL' : `Sisa ${sisa}`}
-                        </span>
+                        <div class="flex items-center space-x-1.5 flex-shrink-0">
+                            <span class="text-[9px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-emerald-100 text-emerald-800 border border-emerald-200/60'}">
+                                ${isFull ? 'FULL' : `Sisa ${sisa}`}
+                            </span>
+                        </div>
                     </div>
                 `;
             }).join('');
         }
 
+        // Render Card Instansi Ringkas Grade B (Bersih Tanpa Roda Gigi)
         if (containerB) {
-            containerB.innerHTML = instansiGradeB.map(inst => {
-                const terisi = kuotaTerpakaiB[inst] || 0;
-                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terisi);
+            containerB.innerHTML = detailsGradeB.map(item => {
+                const maxK = getMaxKuotaInstansi(item.nama);
+                const terisi = kuotaTerpakaiB[item.nama] || 0;
+                const sisa = Math.max(0, maxK - terisi);
                 const isFull = sisa === 0;
 
                 return `
-                    <div class="flex items-center justify-between space-x-2.5 bg-white/80 backdrop-blur-xs p-2.5 rounded-xl border ${isFull ? 'border-rose-200 bg-rose-50/50' : 'border-amber-100/80'} shadow-2xs hover:bg-white transition-colors">
-                        <div class="flex items-center space-x-2 min-w-0">
-                            <i class="fas fa-laptop text-amber-600 text-xs flex-shrink-0"></i>
-                            <span class="truncate" title="${inst}">${inst}</span>
+                    <div class="flex items-start justify-between p-3 rounded-2xl border ${isFull ? 'border-rose-200 bg-rose-50/50' : 'border-amber-100 bg-white/90 hover:bg-white'} shadow-2xs hover:shadow-md transition-all duration-200 group relative">
+                        <div class="flex items-start space-x-2.5 min-w-0 pr-2">
+                            <div class="w-7 h-7 rounded-lg bg-amber-100/80 text-amber-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="${item.icon} text-xs"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <span class="truncate block font-extrabold text-slate-800 text-[11px] leading-tight" title="${item.nama}">
+                                    ${item.nama}
+                                </span>
+                                <span class="truncate flex items-center gap-1 text-[9.5px] font-medium text-slate-400 mt-1" title="${item.alamat}">
+                                    <i class="fas fa-map-marker-alt text-[8.5px] text-amber-600/70 flex-shrink-0"></i>
+                                    <span class="truncate">${item.alamat}</span>
+                                </span>
+                            </div>
                         </div>
-                        <span class="text-[10px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-800'}">
-                            ${isFull ? 'FULL' : `Sisa ${sisa}`}
-                        </span>
+                        <div class="flex items-center space-x-1.5 flex-shrink-0">
+                            <span class="text-[9px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-800 border border-amber-200/60'}">
+                                ${isFull ? 'FULL' : `Sisa ${sisa}`}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render Card khusus Manajemen Kuota Interaktif (Tempat Pengaturan Utama)
+        if (gridKontrol) {
+            let listAll = [];
+            if (activeFilterKuotaGrade === 'ALL' || activeFilterKuotaGrade === 'GRADE_A') {
+                detailsGradeA.forEach(item => listAll.push({ ...item, grade: 'A', terisi: kuotaTerpakaiA[item.nama] || 0 }));
+            }
+            if (activeFilterKuotaGrade === 'ALL' || activeFilterKuotaGrade === 'GRADE_B') {
+                detailsGradeB.forEach(item => listAll.push({ ...item, grade: 'B', terisi: kuotaTerpakaiB[item.nama] || 0 }));
+            }
+
+            gridKontrol.innerHTML = listAll.map(item => {
+                const maxK = getMaxKuotaInstansi(item.nama);
+                const sisa = Math.max(0, maxK - item.terisi);
+                const percent = Math.min(100, Math.round((item.terisi / maxK) * 100));
+                const isFull = sisa === 0;
+                const isGradeA = item.grade === 'A';
+                const safeInstansiNama = item.nama.replace(/'/g, "\\'");
+
+                return `
+                    <div class="bg-slate-50/70 hover:bg-white border ${isFull ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200/80'} rounded-2xl p-4 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col justify-between space-y-3 relative overflow-hidden group">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex items-center space-x-3 min-w-0">
+                                <div class="w-9 h-9 rounded-xl ${isGradeA ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    <i class="${item.icon}"></i>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="font-extrabold text-slate-800 text-xs truncate leading-snug" title="${item.nama}">${item.nama}</h4>
+                                    <span class="inline-flex items-center text-[9px] font-black px-1.5 py-0.2 rounded mt-0.5 ${isGradeA ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/60' : 'bg-amber-50 text-amber-700 border border-amber-200/60'}">
+                                        Grade ${item.grade}
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="button" onclick="openKuotaModal('${safeInstansiNama}')" class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-indigo-600 hover:border-indigo-200 transition-colors shadow-2xs cursor-pointer flex-shrink-0" title="Ubah Kuota">
+                                <i class="fas fa-edit text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between items-center text-[10px] font-extrabold">
+                                <span class="text-slate-400">Terisi: <strong class="text-slate-700">${item.terisi}</strong> / Max: <strong class="text-slate-900">${maxK}</strong></span>
+                                <span class="${isFull ? 'text-rose-600 font-black' : 'text-slate-500'}">Sisa ${sisa} Slot</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-200/70 rounded-full overflow-hidden">
+                                <div class="h-full transition-all duration-500 rounded-full ${isFull ? 'bg-rose-500' : (percent > 70 ? 'bg-amber-500' : 'bg-indigo-600')}" style="width: ${percent}%;"></div>
+                            </div>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -1343,9 +1645,9 @@
         const fuzzy = evalFuzzySugeno(c1, c2);
 
         if (indexExisting !== -1) {
-            listSiswaSPK[indexExisting] = { id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill };
+            listSiswaSPK[indexExisting] = { id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill, instansiPilihan: listSiswaSPK[indexExisting].instansiPilihan || null };
         } else {
-            listSiswaSPK.push({ id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill });
+            listSiswaSPK.push({ id: idSiswa, nama, nis, jurusan, c1, c2, fuzzyScore: fuzzy.score, grade: fuzzy.grade, rule: fuzzy.rule, hardSkill: fuzzy.hardSkill, softSkill: fuzzy.softSkill, instansiPilihan: null });
         }
 
         localStorage.setItem('spk_siswa_data', JSON.stringify(listSiswaSPK));
@@ -1355,18 +1657,62 @@
         document.getElementById('inputNilaiC2').value = '';
 
         renderTableSPK();
-        bukaModalSukses(nama, c1, c2);
+        bukaModalSukses(nama, c1, c2, fuzzy.grade);
     }
 
-    function bukaModalSukses(nama, c1, c2) {
+    function bukaModalSukses(nama, c1, c2, grade) {
         const modal = document.getElementById('modalKalkulasiSukses');
         const modalContent = document.getElementById('modalCardContent');
 
         if (!modal) return;
 
+        currentModalSiswaNama = nama;
+
         if (document.getElementById('popSiswaNama')) document.getElementById('popSiswaNama').textContent = nama;
         if (document.getElementById('popNilaiC1')) document.getElementById('popNilaiC1').textContent = c1;
         if (document.getElementById('popNilaiC2')) document.getElementById('popNilaiC2').textContent = c2;
+
+        const popBadge = document.getElementById('popGradeBadge');
+        if (popBadge) {
+            if (grade === 'A') {
+                popBadge.textContent = "Grade A (Rekomendasi Utama)";
+                popBadge.className = "font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200";
+            } else {
+                popBadge.textContent = "Grade B (Rekomendasi Menengah)";
+                popBadge.className = "font-extrabold px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800 border border-amber-200";
+            }
+        }
+
+        const popSelect = document.getElementById('popSelectInstansi');
+        if (popSelect) {
+            let optionsHtml = '';
+            const isGradeA = grade === 'A';
+            const targetList = isGradeA ? detailsGradeA : detailsGradeB;
+
+            targetList.forEach(item => {
+                const maxK = getMaxKuotaInstansi(item.nama);
+                const terpakai = getJumlahKuotaTerpakaiDB(item.nama);
+                const sisa = Math.max(0, maxK - terpakai);
+                const isFull = sisa === 0;
+
+                optionsHtml += `<option value="${item.nama}" ${isFull ? 'disabled' : ''}>
+                    ${item.nama} ${isFull ? '(FULL)' : `(Sisa Kuota: ${sisa})`}
+                </option>`;
+            });
+
+            popSelect.innerHTML = optionsHtml;
+
+            if (popSelect.options.length > 0) {
+                let firstAvailable = Array.from(popSelect.options).find(opt => !opt.disabled);
+                if (firstAvailable) {
+                    popSelect.value = firstAvailable.value;
+                    ubahInstansiModal(firstAvailable.value);
+                } else {
+                    popSelect.selectedIndex = 0;
+                    ubahInstansiModal(popSelect.value);
+                }
+            }
+        }
 
         modal.classList.remove('hidden');
         modal.classList.add('flex');
@@ -1377,6 +1723,17 @@
                 modalContent.classList.add('scale-100', 'opacity-100');
             }
         }, 10);
+    }
+
+    function ubahInstansiModal(namaInstansiBaru) {
+        if (!currentModalSiswaNama) return;
+
+        const idx = listSiswaSPK.findIndex(s => s.nama === currentModalSiswaNama);
+        if (idx !== -1) {
+            listSiswaSPK[idx].instansiPilihan = namaInstansiBaru;
+            localStorage.setItem('spk_siswa_data', JSON.stringify(listSiswaSPK));
+            renderTableSPK();
+        }
     }
 
     function tutupModalSukses() {
@@ -1471,7 +1828,6 @@
     }
 
     function renderTableSPK() {
-        // Ambil data terbaru dari localStorage jika ada perubahan dari form plotting
         listSiswaSPK = JSON.parse(localStorage.getItem('spk_siswa_data')) || [];
 
         const tableBody = document.getElementById('calculateTableBody');
@@ -1522,7 +1878,6 @@
         const oldRows = tableBody.querySelectorAll('.calculate-row');
         oldRows.forEach(row => row.remove());
 
-        // Memasukkan kuota terpakai awal dari database (offset)
         let kuotaTerpakaiA = {};
         instansiGradeA.forEach(i => kuotaTerpakaiA[i] = getJumlahKuotaTerpakaiDB(i));
 
@@ -1530,7 +1885,7 @@
         instansiGradeB.forEach(i => kuotaTerpakaiB[i] = getJumlahKuotaTerpakaiDB(i));
 
         calculated.forEach((row, idx) => {
-            const rank = idx + 1; // PERHITUNGAN PERINGKAT
+            const rank = idx + 1;
             const isGradeA = row.grade === 'A';
             const tr = document.createElement('tr');
             const rowIdAttr = row.id || row.nama.replace(/\s+/g, '_');
@@ -1543,16 +1898,18 @@
             let targetInstansiList = isGradeA ? instansiGradeA : instansiGradeB;
             let kuotaTracker = isGradeA ? kuotaTerpakaiA : kuotaTerpakaiB;
 
-            let defaultInstansi = targetInstansiList.find(i => kuotaTracker[i] < MAX_KUOTA_PER_INSTANSI);
+            let defaultInstansi = row.instansiPilihan;
             
             if (!defaultInstansi) {
-                let altList = isGradeA ? instansiGradeB : instansiGradeA;
-                let altTracker = isGradeA ? kuotaTerpakaiB : kuotaTerpakaiA;
-                defaultInstansi = altList.find(i => altTracker[i] < MAX_KUOTA_PER_INSTANSI);
-            }
-
-            if (!defaultInstansi) {
-                defaultInstansi = targetInstansiList[targetInstansiList.length - 1];
+                defaultInstansi = targetInstansiList.find(i => kuotaTracker[i] < getMaxKuotaInstansi(i));
+                if (!defaultInstansi) {
+                    let altList = isGradeA ? instansiGradeB : instansiGradeA;
+                    let altTracker = isGradeA ? kuotaTerpakaiB : kuotaTerpakaiA;
+                    defaultInstansi = altList.find(i => altTracker[i] < getMaxKuotaInstansi(i));
+                }
+                if (!defaultInstansi) {
+                    defaultInstansi = targetInstansiList[targetInstansiList.length - 1];
+                }
             }
 
             if (kuotaTerpakaiA[defaultInstansi] !== undefined) {
@@ -1561,32 +1918,6 @@
                 kuotaTerpakaiB[defaultInstansi]++;
             }
 
-            let selectOptionsA = instansiGradeA.map(inst => {
-                const isSelected = inst === defaultInstansi ? 'selected' : '';
-                const terpakai = kuotaTerpakaiA[inst] || 0;
-                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terpakai);
-                const statusStr = sisa === 0 ? '(FULL)' : `(Sisa ${sisa})`;
-                return `<option value="${inst}" ${isSelected}>★ ${inst} ${statusStr}</option>`;
-            }).join('');
-
-            let selectOptionsB = instansiGradeB.map(inst => {
-                const isSelected = inst === defaultInstansi ? 'selected' : '';
-                const terpakai = kuotaTerpakaiB[inst] || 0;
-                const sisa = Math.max(0, MAX_KUOTA_PER_INSTANSI - terpakai);
-                const statusStr = sisa === 0 ? '(FULL)' : `(Sisa ${sisa})`;
-                return `<option value="${inst}" ${isSelected}>• ${inst} ${statusStr}</option>`;
-            }).join('');
-
-            let optionsHTML = `
-                <optgroup label="Instansi Grade A (Pemerintah/BUMN)">
-                    ${selectOptionsA}
-                </optgroup>
-                <optgroup label="Instansi Grade B (Swasta/UMKM)">
-                    ${selectOptionsB}
-                </optgroup>
-            `;
-
-            // Escaping kutip tunggal untuk keamanan argumen onclick
             const safeNama = row.nama.replace(/'/g, "\\'");
             const safeId = (row.id || '').toString().replace(/'/g, "\\'");
 
@@ -1640,8 +1971,14 @@
                 </td>
                 <td class="px-2.5 py-2.5 align-middle col-rekomendasi">
                     <div class="relative w-full print-select-container">
-                        <select onchange="updateCardKuotaMonitoring()" class="w-full bg-slate-50 hover:bg-slate-100/80 focus:bg-white border rounded-xl px-2 py-1 text-[11px] font-bold transition-all cursor-pointer shadow-2xs truncate ${isGradeA ? 'text-emerald-800 border-emerald-300 focus:ring-emerald-500/20 focus:border-emerald-500' : 'text-amber-800 border-amber-300 focus:ring-amber-500/20 focus:border-amber-500'}">
-                            ${optionsHTML}
+                        <div class="instansi-kunci-display w-full border rounded-xl px-2.5 py-1.5 text-[11px] font-bold flex items-center space-x-1.5 shadow-2xs truncate ${isGradeA ? 'bg-emerald-50/80 text-emerald-900 border-emerald-200' : 'bg-amber-50/80 text-amber-900 border-amber-200'}">
+                            <i class="${isGradeA ? 'fas fa-star text-emerald-600' : 'fas fa-circle text-amber-600'} text-[10px] flex-shrink-0"></i>
+                            <span class="truncate">${defaultInstansi}</span>
+                            <i class="fas fa-lock text-[9px] opacity-40 ml-auto flex-shrink-0" title="Terkunci Hasil Kalkulasi"></i>
+                        </div>
+
+                        <select class="hidden">
+                            <option value="${defaultInstansi}" selected>${defaultInstansi}</option>
                         </select>
                         <span class="print-selected-text">${defaultInstansi}</span>
                     </div>

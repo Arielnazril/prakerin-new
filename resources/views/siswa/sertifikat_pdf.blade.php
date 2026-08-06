@@ -266,7 +266,7 @@
                             <div class="school-name">SMK Al Madani Kota Pontianak</div>
                             <div class="school-address">
                                 Jalan Sungai Raya Dalam Komp. Mitra Utama III No. 16 B<br>
-                                Telepon: 05618110048 | Website: www.smkalmadaniptk.sch.id | Email: akhdannafish@gmail.com
+                                Telepon: 05618110048 | Website: www.smkalmadaniptk.sch.id | Email: smks.almadaniptk@gmail.com
                             </div>
                             <div class="certificate-title">SERTIFIKAT PRAKERIN</div>
                         </td>

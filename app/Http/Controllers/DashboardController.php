@@ -43,7 +43,6 @@ class DashboardController extends Controller
         $totalIndustri = Instansi::count();
         $siswaMagang = Placement::where('status', 'aktif')->count();
         
-        // KUNCI PERBAIKAN: Mengubah role pencarian menjadi 'industri' agar sinkron dengan database Anda
         $totalMentor = User::where('role', 'industri')->count(); 
 
         $siswaPending = User::where('role', 'siswa')
@@ -52,13 +51,39 @@ class DashboardController extends Controller
             ->latest()
             ->get();
 
+        $instansis = Instansi::all()->map(function ($instansi) {
+            $instansi->terpakai_count = Placement::where('instansi_id', $instansi->id)
+                ->where('status', 'aktif')
+                ->count();
+            return $instansi;
+        });
+
+        // KUNCI PEMISAHAN DATA GRADE A & GRADE B
+        $instansiGradeA = $instansis->filter(function ($instansi, $index) {
+            $dbGrade = strtoupper($instansi->akreditasi ?? $instansi->grade ?? $instansi->kategori ?? '');
+            return $dbGrade === 'A' || ($dbGrade === '' && $index % 2 === 0);
+        });
+
+        $instansiGradeB = $instansis->filter(function ($instansi, $index) {
+            $dbGrade = strtoupper($instansi->akreditasi ?? $instansi->grade ?? $instansi->kategori ?? '');
+            return $dbGrade === 'B' || ($dbGrade === '' && $index % 2 !== 0);
+        });
+
+        $totalGradeA = $instansiGradeA->count();
+        $totalGradeB = $instansiGradeB->count();
+
         return view('admin.dashboard', compact(
             'totalSiswa',
             'totalGuru',
             'totalIndustri',
             'siswaMagang',
             'siswaPending',
-            'totalMentor' // <-- Menyertakan variabel ke dalam compact view
+            'totalMentor',
+            'instansis',
+            'instansiGradeA',
+            'instansiGradeB',
+            'totalGradeA',
+            'totalGradeB'
         ));
     }
 
@@ -125,28 +150,21 @@ class DashboardController extends Controller
     {
         $guruId = Auth::id();
 
-        // 1. Ambil penempatan (placement) yang berstatus AKTIF milik guru ini
         $activePlacements = Placement::where('guru_id', $guruId)
             ->where('status', 'aktif');
 
-        // Mengambil ID siswa aktif untuk keperluan logbook dan total siswa
         $siswaIds = (clone $activePlacements)->pluck('siswa_id');
         $totalSiswa = $siswaIds->count();
 
-        // Mengambil ID placement yang aktif saja
         $placementIds = (clone $activePlacements)->pluck('id');
 
-        // 2. Hitung siswa yang SUDAH dinilai (Memastikan kolom nilai tidak NULL)
-        // Catatan: Ganti 'nilai_akhir' sesuai dengan nama kolom nilai sekolah di database Anda (misal: 'nilai', 'nilai_sekolah', dll)
         $sudahDinilai = Penilaian::whereIn('placement_id', $placementIds)
             ->where('penilai_id', $guruId)
-            ->whereNotNull('nilai_akhir') // <--- KUNCI PERBAIKAN: Hanya hitung jika nilainya TIDAK KOSONG
+            ->whereNotNull('nilai_akhir')
             ->count();
 
-        // 3. Hitung yang belum dinilai
         $belumDinilai = $totalSiswa - $sudahDinilai;
 
-        // 4. Mengambil logbook terbaru
         $recentLogbooks = Logbook::whereIn('user_id', $siswaIds)
             ->with('siswa')
             ->latest()
@@ -163,7 +181,6 @@ class DashboardController extends Controller
     {
         $mentorId = Auth::id();
 
-        // Mengambil data penempatan siswa bimbingan mentor ini
         $placements = Placement::where('mentor_id', $mentorId)
             ->with('siswa')
             ->where('status', 'aktif')
@@ -171,28 +188,23 @@ class DashboardController extends Controller
 
         $siswaIds = $placements->pluck('siswa_id');
 
-        // 1. MENGAKTIFKAN CARD TOTAL SISWA BIMBINGAN
         $totalSiswa = $siswaIds->count();
 
-        // 2. MENGAKTIFKAN CARD BUTUH VALIDASI
         $logbookPending = Logbook::whereIn('user_id', $siswaIds)
             ->where('status', 'pending')
             ->count();
 
-        // 3. MENGAKTIFKAN CARD TOTAL AKTIVITAS
         $totalLogbook = Logbook::whereIn('user_id', $siswaIds)
             ->count();
 
-        // 4. MENGIRIM VARIABEL RECENT LOGBOOKS
         $recentLogbooks = Logbook::whereIn('user_id', $siswaIds)
-            ->with('siswa') // Memastikan relasi siswa ikut termuat untuk card Aktivitas Logbook
+            ->with('siswa')
             ->orderBy('tanggal', 'desc')
             ->take(5)
             ->get();
 
-        // Mengirimkan semua variabel ke halaman view industri.dashboard
         return view('industri.dashboard', compact(
-            'placements', // Diubah agar sinkron dengan variabel $placements di file Blade sebelumnya
+            'placements',
             'logbookPending', 
             'totalSiswa', 
             'totalLogbook', 

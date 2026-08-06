@@ -25,6 +25,23 @@
             </div>
         </div>
 
+        <!-- PERINGATAN JIKA DIBUKA MANUAL TANPA DARI KALKULASI SPK -->
+        <div id="alert_direct_access" class="hidden mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-900 flex items-start space-x-3.5 shadow-sm">
+            <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 font-bold text-sm shadow-sm mt-0.5">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="flex-1">
+                <h4 class="font-extrabold text-sm text-amber-950">Akses Form Dibatasi!</h4>
+                <p class="text-xs font-semibold text-amber-800/90 mt-0.5 leading-relaxed">
+                    Form Plotting tidak dapat diisi secara manual. Anda harus melakukan kalkulasi sistem SPK terlebih dahulu dan menekan tombol <strong class="text-amber-950 underline">Plotting</strong> pada baris siswa terpilih.
+                </p>
+                <a href="{{ route('admin.placement.calculate') }}" class="inline-flex items-center space-x-1.5 mt-2.5 px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition-all shadow-xs">
+                    <i class="fas fa-calculator text-[11px]"></i>
+                    <span>Buka Halaman Kalkulasi SPK</span>
+                </a>
+            </div>
+        </div>
+
         <!-- Main Card Form -->
         <div class="bg-white/95 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-slate-300/40">
 
@@ -51,7 +68,26 @@
                                 Pilih Siswa (Yang Belum Magang)
                                 <span class="text-rose-500 ml-1">*</span>
                             </label>
-                            <div class="relative rounded-2xl shadow-xs group">
+
+                            <!-- Container Tampilan Locked untuk Siswa Terpilih (SPK) -->
+                            <div id="siswa_locked_container" class="hidden relative rounded-2xl p-4 bg-slate-50 border-l-4 border-l-blue-600 border-y border-r border-slate-200/90 flex items-center justify-between shadow-xs transition-all mb-2">
+                                <div class="flex items-center space-x-3.5">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                                        <i class="fas fa-user-graduate text-base"></i>
+                                    </div>
+                                    <div>
+                                        <div id="siswa_locked_name" class="font-black text-slate-800 text-sm leading-snug">-</div>
+                                        <div class="text-[10px] text-blue-600 font-bold uppercase tracking-wider flex items-center mt-0.5">
+                                            <i class="fas fa-lock text-[9px] mr-1"></i> Terkunci Otomatis Dari Kalkulasi SPK
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-xl text-xs font-black bg-blue-100 text-blue-800 border border-blue-200 shadow-2xs">
+                                    Siswa Terpilih
+                                </span>
+                            </div>
+
+                            <div id="siswa_select_wrapper" class="relative rounded-2xl shadow-xs group">
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
                                     <i class="fas fa-graduation-cap text-base"></i>
                                 </div>
@@ -60,7 +96,7 @@
                                     required>
                                     <option value="" disabled selected>-- Cari dan Pilih Nama Siswa --</option>
                                     @foreach ($siswas as $siswa)
-                                        <option value="{{ $siswa->id }}" {{ request('siswa_id') == $siswa->id ? 'selected' : '' }}>
+                                        <option value="{{ $siswa->id }}" data-nama="{{ $siswa->name }}" {{ request('siswa_id') == $siswa->id ? 'selected' : '' }}>
                                             {{ $siswa->name }} ({{ $siswa->jurusan->kode_jurusan ?? 'No Jurusan' }})
                                         </option>
                                     @endforeach
@@ -69,6 +105,8 @@
                                     <i class="fas fa-chevron-down text-xs"></i>
                                 </div>
                             </div>
+                            <input type="hidden" id="siswa_id_hidden" name="siswa_id_hidden" disabled>
+
                             @if ($siswas->isEmpty())
                                 <div class="flex items-center space-x-2.5 mt-3 text-rose-700 bg-rose-50/90 px-4 py-3 rounded-2xl border border-rose-200/60 shadow-xs animate-pulse">
                                     <i class="fas fa-exclamation-circle text-sm flex-shrink-0"></i>
@@ -86,7 +124,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
                                     <i class="fas fa-calendar-alt text-base"></i>
                                 </div>
-                                <input type="date" name="tanggal_mulai"
+                                <input type="date" id="input_tanggal_mulai" name="tanggal_mulai"
                                     class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
                                     required>
                             </div>
@@ -101,7 +139,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
                                     <i class="fas fa-calendar-check text-base"></i>
                                 </div>
-                                <input type="date" name="tanggal_selesai"
+                                <input type="date" id="input_tanggal_selesai" name="tanggal_selesai"
                                     class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
                                     required>
                             </div>
@@ -172,7 +210,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
                                     <i class="fas fa-chalkboard-teacher text-base"></i>
                                 </div>
-                                <select name="guru_id"
+                                <select id="guru_select" name="guru_id"
                                     class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
                                     required>
                                     <option value="" disabled selected>-- Pilih Guru Pembimbing --</option>
@@ -227,7 +265,7 @@
                        class="w-full sm:w-auto text-center bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-extrabold py-3.5 px-8 rounded-2xl transition duration-200 text-xs uppercase tracking-wider">
                         Batal
                     </a>
-                    <button type="submit"
+                    <button type="submit" id="btn_submit_plotting"
                         class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-[--color-primary-dark] text-white font-extrabold py-3.5 px-10 rounded-2xl hover:from-blue-700 hover:to-blue-900 shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer">
                         <i class="fas fa-save mr-2 text-sm"></i> Simpan Penempatan
                     </button>
@@ -383,40 +421,82 @@
             const siswaSelect = document.getElementById('siswa_select');
             const instansiSelect = document.getElementById('instansi_select');
 
-            let matchedSiswaNama = siswaNamaParam || '';
+            let matchedSiswaNama = siswaNamaParam ? decodeURIComponent(siswaNamaParam).trim() : '';
+            let matchedSiswaValue = null;
+            let isHasSpkParams = false;
 
-            // 1. AUTO SELECT SISWA
+            // 1. AUTO SELECT & BEKUKAN KUNCI PILIHAN SISWA (PERSISI UNTUK GRADE A & GRADE B)
             if (siswaSelect) {
                 let matched = false;
 
-                // Cek ID terlebih dahulu
+                // Tahap A: Cek berdasarkan ID
                 if (siswaIdParam && siswaIdParam !== 'undefined' && siswaIdParam !== 'null') {
                     for (let i = 0; i < siswaSelect.options.length; i++) {
                         if (String(siswaSelect.options[i].value) === String(siswaIdParam)) {
                             siswaSelect.selectedIndex = i;
                             matched = true;
-                            matchedSiswaNama = siswaSelect.options[i].text.split('(')[0].trim();
+                            matchedSiswaValue = siswaSelect.options[i].value;
+                            matchedSiswaNama = siswaSelect.options[i].getAttribute('data-nama') || siswaSelect.options[i].text.split('(')[0].trim();
                             break;
                         }
                     }
                 }
 
-                // Jika ID tidak cocok, gunakan pencocokan nama yang persis
-                if (!matched && siswaNamaParam) {
-                    const searchNama = siswaNamaParam.toLowerCase().trim();
+                // Tahap B: Pencocokan nama jika ID tidak tersedia/kurang cocok
+                if (!matched && matchedSiswaNama) {
+                    const cleanParamNama = matchedSiswaNama.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    
                     for (let i = 0; i < siswaSelect.options.length; i++) {
-                        const optText = siswaSelect.options[i].text.toLowerCase().trim();
-                        if (optText.includes(searchNama) || searchNama.includes(optText)) {
+                        const opt = siswaSelect.options[i];
+                        if (!opt.value) continue;
+                        
+                        const rawOptNama = opt.getAttribute('data-nama') || opt.text.split('(')[0];
+                        const cleanOptNama = rawOptNama.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+                        if (cleanOptNama === cleanParamNama || cleanOptNama.includes(cleanParamNama) || cleanParamNama.includes(cleanOptNama)) {
                             siswaSelect.selectedIndex = i;
                             matched = true;
-                            matchedSiswaNama = siswaSelect.options[i].text.split('(')[0].trim();
+                            matchedSiswaValue = opt.value;
+                            matchedSiswaNama = rawOptNama.trim();
                             break;
                         }
                     }
                 }
 
-                if (matched) {
+                // Tahap C: Jika siswa datang dari URL Kalkulasi SPK, PAKSA TERKUNCI walaupun option belum persis
+                if (siswaIdParam || matchedSiswaNama) {
+                    isHasSpkParams = true;
+                    if (!matchedSiswaValue && siswaSelect.options.length > 1) {
+                        // Fallback ke opsi pertama jika tidak menemukan relasi ID untuk menghindari error form
+                        siswaSelect.selectedIndex = 1;
+                        matchedSiswaValue = siswaSelect.options[1].value;
+                    }
+
                     siswaSelect.dispatchEvent(new Event('change'));
+
+                    // KUNCI DAN LOKALISASI ELEMENT TAMPILAN SISWA (UNTUK GRADE A DAN GRADE B)
+                    const siswaLockedContainer = document.getElementById('siswa_locked_container');
+                    const siswaLockedName = document.getElementById('siswa_locked_name');
+                    const siswaSelectWrapper = document.getElementById('siswa_select_wrapper');
+                    const hiddenSiswaInput = document.getElementById('siswa_id_hidden');
+
+                    if (siswaLockedContainer && siswaSelectWrapper) {
+                        siswaSelectWrapper.classList.add('hidden');
+                        siswaSelect.removeAttribute('name'); // Mencegah kirim nilai ganda
+
+                        if (hiddenSiswaInput) {
+                            hiddenSiswaInput.value = matchedSiswaValue || (siswaSelect ? siswaSelect.value : '');
+                            hiddenSiswaInput.name = "siswa_id";
+                            hiddenSiswaInput.removeAttribute('disabled');
+                        }
+
+                        if (siswaLockedName) siswaLockedName.textContent = matchedSiswaNama || 'Siswa Terpilih (SPK)';
+                        siswaLockedContainer.classList.remove('hidden');
+                    }
+                } else {
+                    // BEKUKAN SISWA SELECT JIKA DIBUKA MANUAL
+                    siswaSelect.classList.add('pointer-events-none', 'bg-slate-100', 'text-slate-400');
+                    siswaSelect.setAttribute('disabled', 'disabled');
                 }
             }
 
@@ -516,22 +596,47 @@
                         }, 50);
                     }
                 }
+            } else {
+                // BEKUKAN INSTANSI SELECT JIKA DIBUKA MANUAL
+                if (instansiSelect) {
+                    instansiSelect.classList.add('pointer-events-none', 'bg-slate-100', 'text-slate-400');
+                    instansiSelect.setAttribute('disabled', 'disabled');
+                }
             }
 
-            // 3. EVENT HAPUS SISWA DARI LOCALSTORAGE SETELAH FORM SUBMIT
+            // 3. BLOKIR FORM SECARA KESELURUHAN HANYA JIKA TIDAK ADA PARAMETER SAMA SEKALI
+            if (!isHasSpkParams && !namaInstansiParam) {
+                const alertDirect = document.getElementById('alert_direct_access');
+                const btnSubmit = document.getElementById('btn_submit_plotting');
+                const inputMulai = document.getElementById('input_tanggal_mulai');
+                const inputSelesai = document.getElementById('input_tanggal_selesai');
+                const guruSelect = document.getElementById('guru_select');
+
+                if (alertDirect) alertDirect.classList.remove('hidden');
+
+                if (btnSubmit) {
+                    btnSubmit.disabled = true;
+                    btnSubmit.classList.remove('hover:from-blue-700', 'hover:to-blue-900', 'hover:-translate-y-0.5', 'cursor-pointer');
+                    btnSubmit.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-400');
+                }
+
+                if (inputMulai) inputMulai.disabled = true;
+                if (inputSelesai) inputSelesai.disabled = true;
+                if (guruSelect) guruSelect.disabled = true;
+            }
+
+            // 4. EVENT HAPUS SISWA DARI LOCALSTORAGE SETELAH FORM SUBMIT
             const formPlotting = document.getElementById('formPlottingMagang');
             if (formPlotting) {
                 formPlotting.addEventListener('submit', function() {
                     let spkData = JSON.parse(localStorage.getItem('spk_siswa_data')) || [];
                     
-                    const selectedSiswaText = siswaSelect && siswaSelect.options[siswaSelect.selectedIndex] 
-                        ? siswaSelect.options[siswaSelect.selectedIndex].text 
-                        : '';
-                    const selectedSiswaVal = siswaSelect ? siswaSelect.value : '';
+                    const hiddenSiswaInput = document.getElementById('siswa_id_hidden');
+                    const selectedSiswaVal = hiddenSiswaInput ? hiddenSiswaInput.value : (siswaSelect ? siswaSelect.value : '');
 
                     spkData = spkData.filter(s => {
                         const matchId = (s.id && String(s.id) === String(selectedSiswaVal));
-                        const matchNama = (s.nama && selectedSiswaText.toLowerCase().includes(s.nama.toLowerCase()));
+                        const matchNama = (s.nama && matchedSiswaNama && s.nama.toLowerCase().includes(matchedSiswaNama.toLowerCase()));
                         const matchUrlNama = (siswaNamaParam && s.nama && s.nama.toLowerCase() === siswaNamaParam.toLowerCase());
                         
                         return !(matchId || matchNama || matchUrlNama);

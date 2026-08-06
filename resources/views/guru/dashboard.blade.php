@@ -23,7 +23,7 @@
                 <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight flex items-center gap-2">
                     Selamat Datang, {{ Auth::user()->name ?? 'Guru Pembimbing' }}! <span class="animate-bounce inline-block text-2xl">👋</span>
                 </h2>
-                <p class="text-slate-300 mt-1 text-sm font-medium">Berikut adalah ringkasan aktivitas siswa bimbingan PKL Anda.</p>
+                <p class="text-slate-300 mt-1 text-sm font-medium">Berikut adalah ringkasan aktivitas siswa bimbingan Prakerin Anda.</p>
             </div>
         </div>
         
@@ -52,7 +52,7 @@
         <div class="flex items-start justify-between relative z-10 gap-3">
             <div class="space-y-1.5 min-w-0 flex-1">
                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100">
-                    Pembimbing PKL
+                    Pembimbing Prakerin
                 </span>
                 <h3 class="text-base font-extrabold text-slate-800 tracking-tight group-hover:text-blue-600 transition-colors duration-300 truncate mt-1" title="{{ Auth::user()->name ?? 'Guru Bimbingan' }}">
                     {{ Auth::user()->name ?? 'Guru Bimbingan' }}
