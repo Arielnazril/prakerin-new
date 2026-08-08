@@ -3,7 +3,7 @@
     {{-- SIDEBAR HEADER --}}
     <div class="h-16 flex items-center justify-between px-4 sm:px-5 border-b border-white/10 shadow-xs bg-slate-900/50 backdrop-blur-md relative group/header shrink-0">
         {{-- Efek Glow Halus di Header --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-500/15 via-indigo-500/10 to-transparent opacity-0 group-hover/header:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-transparent opacity-0 group-hover/header:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
         
         <div class="flex items-center space-x-3 z-10 w-full justify-start sm:justify-center lg:justify-start min-w-0 pr-2">
             <div class="bg-white p-1.5 rounded-2xl shadow-md shadow-black/20 flex-shrink-0 sidebar-logo transition-all duration-300 transform group-hover/header:scale-105 group-hover/header:rotate-3 border border-white/20">
@@ -11,7 +11,7 @@
             </div>
             <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap min-w-0">
                 <h1 class="text-sm font-black tracking-widest leading-none text-white bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300 truncate">MENTOR</h1>
-                <p class="text-[9px] text-blue-300 font-extrabold uppercase tracking-widest mt-1 opacity-90 flex items-center gap-1.5 truncate">
+                <p class="text-[9px] text-emerald-300 font-extrabold uppercase tracking-widest mt-1 opacity-90 flex items-center gap-1.5 truncate">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-xs shadow-emerald-400/50 animate-pulse shrink-0"></span> Industri Panel
                 </p>
             </div>
@@ -34,7 +34,7 @@
         ])
 
         {{-- SECTION HEADER: MONITORING --}}
-        <div class="pt-6 pb-2 px-3 text-[10px] font-black text-blue-200/50 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">
+        <div class="pt-6 pb-2 px-3 text-[10px] font-black text-emerald-200/50 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">
             Monitoring Siswa
         </div>
 
@@ -53,7 +53,7 @@
         ])
 
         {{-- SECTION HEADER: PENGATURAN --}}
-        <div class="pt-6 pb-2 px-3 text-[10px] font-black text-blue-200/50 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">
+        <div class="pt-6 pb-2 px-3 text-[10px] font-black text-emerald-200/50 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">
             Pengaturan
         </div>
 

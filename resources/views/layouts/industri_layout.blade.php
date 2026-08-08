@@ -12,9 +12,9 @@
 
     <style>
         :root {
-            /* Warna Mentor disesuaikan menjadi nuansa Biru Premium */
-            --color-primary-dark: #1e3a8a; /* blue-900 */
-            --color-primary-light: #2563eb; /* blue-600 */
+            /* Warna Mentor disesuaikan menjadi nuansa Hijau / Emerald Premium */
+            --color-primary-dark: #064e3b; /* emerald-900 */
+            --color-primary-light: #059669; /* emerald-600 */
             --sidebar-width: 16rem;
             --sidebar-collapsed-width: 5rem;
         }
@@ -46,26 +46,26 @@
                     </h2>
                 </div>
 
-                {{-- USER PROFILE INFO WITH RUNDOWN DROPDOWN (VERSI INDUSTRI) --}}
+                {{-- USER PROFILE INFO WITH RUNDOWN DROPDOWN (VERSI INDUSTRI - EMERALD TEMA) --}}
                 <div class="relative shrink-0 my-auto" id="user-dropdown-wrapper">
                     {{-- Button Trigger Profil Mentor --}}
-                    <button type="button" onclick="toggleUserDropdown()" class="flex items-center gap-2.5 sm:gap-3.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white border sm:border-2 border-blue-400/40 shadow-md sm:shadow-lg shadow-blue-900/20 hover:shadow-xl hover:shadow-blue-900/40 hover:border-white/80 transition-all duration-300 focus:outline-none cursor-pointer group transform hover:-translate-y-0.5">
+                    <button type="button" onclick="toggleUserDropdown()" class="flex items-center gap-2.5 sm:gap-3.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-950 via-emerald-900 to-teal-950 hover:from-emerald-900 hover:to-teal-900 text-white border sm:border-2 border-emerald-400/40 shadow-md sm:shadow-lg shadow-emerald-950/20 hover:shadow-xl hover:shadow-emerald-950/40 hover:border-white/80 transition-all duration-300 focus:outline-none cursor-pointer group transform hover:-translate-y-0.5">
                         
                         {{-- Wrapper Teks Nama & Instansi --}}
                         <div class="flex flex-col justify-center text-right select-none">
-                            <div class="text-[11px] sm:text-sm font-black text-white group-hover:text-blue-100 transition-colors flex items-center justify-end gap-1.5">
+                            <div class="text-[11px] sm:text-sm font-black text-white group-hover:text-emerald-100 transition-colors flex items-center justify-end gap-1.5">
                                 <span class="truncate max-w-[120px] sm:max-w-[200px] leading-tight">{{ Auth::user()->name }}</span>
-                                <span class="h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-white/20 border border-white/40 group-hover:bg-white group-hover:text-blue-900 flex items-center justify-center transition-all duration-300 shrink-0 shadow-xs ml-0.5">
-                                    <i class="fas fa-chevron-down text-[8px] sm:text-[9px] text-white group-hover:text-blue-900 transition-transform duration-300" id="dropdown-chevron"></i>
+                                <span class="h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-white/20 border border-white/40 group-hover:bg-white group-hover:text-emerald-950 flex items-center justify-center transition-all duration-300 shrink-0 shadow-xs ml-0.5">
+                                    <i class="fas fa-chevron-down text-[8px] sm:text-[9px] text-white group-hover:text-emerald-950 transition-transform duration-300" id="dropdown-chevron"></i>
                                 </span>
                             </div>
-                            <div class="text-[8px] sm:text-[9px] text-blue-200 font-extrabold tracking-wider uppercase mt-1 drop-shadow-xs truncate">
+                            <div class="text-[8px] sm:text-[9px] text-emerald-200 font-extrabold tracking-wider uppercase mt-1 drop-shadow-xs truncate">
                                 {{ Auth::user()->instansi->nama_perusahaan ?? 'Mentor Industri' }}
                             </div>
                         </div>
 
                         {{-- Avatar Icon Mentor --}}
-                        <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-blue-900 font-black text-xs sm:text-base flex items-center justify-center shadow-md shadow-black/20 transform group-hover:scale-105 group-hover:rotate-3 transition duration-300 shrink-0 border sm:border-2 border-blue-200/80 relative my-auto uppercase">
+                        <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-emerald-950 font-black text-xs sm:text-base flex items-center justify-center shadow-md shadow-black/20 transform group-hover:scale-105 group-hover:rotate-3 transition duration-300 shrink-0 border sm:border-2 border-emerald-200/80 relative my-auto uppercase">
                             {{ substr(Auth::user()->name, 0, 1) }}
                             {{-- Indikator Status Online --}}
                             <span class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 sm:h-3 sm:w-3 bg-emerald-400 border border-slate-900 sm:border-2 rounded-full shadow-xs animate-pulse"></span>
@@ -73,18 +73,18 @@
                     </button>
 
                     {{-- MENU DROPDOWN RUNDOWN MENTOR --}}
-                    <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 sm:mt-3 w-64 sm:w-70 bg-white rounded-xl sm:rounded-2xl shadow-2xl shadow-blue-950/30 border sm:border-2 border-blue-400/30 ring-2 sm:ring-4 ring-blue-500/10 py-0 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 overflow-hidden">
+                    <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 sm:mt-3 w-64 sm:w-70 bg-white rounded-xl sm:rounded-2xl shadow-2xl shadow-emerald-950/30 border sm:border-2 border-emerald-400/30 ring-2 sm:ring-4 ring-emerald-500/10 py-0 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 overflow-hidden">
                         
                         {{-- Header Info Pengguna Mentor --}}
-                        <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-950 text-white border-b sm:border-b-2 border-blue-400/30 flex items-center gap-2.5 sm:gap-3 relative overflow-hidden">
+                        <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 bg-gradient-to-br from-emerald-950 via-emerald-900 to-teal-950 text-white border-b sm:border-b-2 border-emerald-400/30 flex items-center gap-2.5 sm:gap-3 relative overflow-hidden">
                             <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-md pointer-events-none"></div>
 
-                            <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-blue-900 flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-black/20 shrink-0 border sm:border-2 border-white/90 uppercase">
+                            <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-emerald-950 flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-black/20 shrink-0 border sm:border-2 border-white/90 uppercase">
                                 {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
                             <div class="min-w-0 flex-1 z-10">
                                 <p class="text-[11px] sm:text-xs font-black text-white truncate leading-tight drop-shadow-xs">{{ Auth::user()->name }}</p>
-                                <span class="inline-block mt-0.5 sm:mt-1 px-2 py-0.5 text-[8px] sm:text-[9px] font-black text-blue-950 bg-blue-200 border border-blue-100 rounded-full tracking-wider uppercase shadow-xs truncate max-w-full">
+                                <span class="inline-block mt-0.5 sm:mt-1 px-2 py-0.5 text-[8px] sm:text-[9px] font-black text-emerald-950 bg-emerald-200 border border-emerald-100 rounded-full tracking-wider uppercase shadow-xs truncate max-w-full">
                                     {{ Auth::user()->instansi->nama_perusahaan ?? 'Mentor Industri' }}
                                 </span>
                             </div>
@@ -93,13 +93,13 @@
                         {{-- Daftar Item Rundown --}}
                         <div class="p-1.5 sm:p-2 space-y-1 sm:space-y-1.5 bg-slate-50">
                             {{-- Menu Halaman Profil --}}
-                            <a href="{{ route('profile.edit') }}" class="flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-slate-700 hover:bg-blue-700 hover:text-white border border-slate-200/80 hover:border-blue-600 shadow-2xs hover:shadow-md hover:shadow-blue-700/30 transition duration-200 gap-2.5 sm:gap-3.5 group">
-                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-blue-100 text-blue-800 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-blue-700 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-blue-200 group-hover:border-transparent">
+                            <a href="{{ route('profile.edit') }}" class="flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-slate-700 hover:bg-emerald-700 hover:text-white border border-slate-200/80 hover:border-emerald-600 shadow-2xs hover:shadow-md hover:shadow-emerald-700/30 transition duration-200 gap-2.5 sm:gap-3.5 group">
+                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-emerald-100 text-emerald-800 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-emerald-700 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-emerald-200 group-hover:border-transparent">
                                     <i class="fas fa-id-card text-xs sm:text-sm group-hover:scale-110 transition-transform"></i>
                                 </span>
                                 <div class="flex flex-col">
                                     <span class="leading-none group-hover:text-white">Profil Saya</span>
-                                    <span class="text-[8px] sm:text-[9px] font-bold text-slate-400 group-hover:text-blue-100 mt-0.5 sm:mt-1">Kelola data profil mentor</span>
+                                    <span class="text-[8px] sm:text-[9px] font-bold text-slate-400 group-hover:text-emerald-100 mt-0.5 sm:mt-1">Kelola data profil mentor</span>
                                 </div>
                             </a>
 

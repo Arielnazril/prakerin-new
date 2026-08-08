@@ -12,6 +12,18 @@
     
     <!-- CSS Tailwind CDN Murni -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'greenDark': '#234F35',
+                        'greenLight': '#89C74A',
+                    }
+                }
+            }
+        }
+    </script>
     
     <style>
         body {
@@ -65,25 +77,25 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 min-h-screen flex items-center justify-center font-sans px-4 sm:px-6 relative overflow-hidden selection:bg-red-500 selection:text-white py-10">
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 min-h-screen flex items-center justify-center font-sans px-4 sm:px-6 relative overflow-hidden selection:bg-greenDark selection:text-white py-10">
 
     <!-- Container Partikel Floating Interaktif JS -->
     <div id="particlesContainer" class="absolute inset-0 pointer-events-none z-0"></div>
 
     <!-- Dekorasi Background Elegan (Statis Tanpa Efek JS) -->
-    <div id="bgGlowRed" class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[130px] pointer-events-none transition-transform duration-700 ease-out"></div>
-    <div id="bgGlowBlue" class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[130px] pointer-events-none transition-transform duration-700 ease-out"></div>
+    <div id="bgGlowRed" class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-emerald-700/20 rounded-full blur-[130px] pointer-events-none transition-transform duration-700 ease-out"></div>
+    <div id="bgGlowBlue" class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-greenDark/20 rounded-full blur-[130px] pointer-events-none transition-transform duration-700 ease-out"></div>
 
     <!-- Container Card Utama Layout 2 Kolom -->
-    <div id="mainLoginCard" class="w-full max-w-5xl bg-white/[0.97] backdrop-blur-xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border border-white/40 relative group overflow-hidden transition-all duration-500 hover:shadow-[0_35px_70px_-10px_rgba(239,68,68,0.15)] flex flex-col md:flex-row my-auto z-10">
+    <div id="mainLoginCard" class="w-full max-w-5xl bg-white/[0.97] backdrop-blur-xl rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] border border-white/40 relative group overflow-hidden transition-all duration-500 hover:shadow-[0_35px_70px_-10px_rgba(35,79,53,0.2)] flex flex-col md:flex-row my-auto z-10">
         
         <!-- Garis Aksen Atas yang Diperhalus -->
-        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 via-red-600 to-amber-500 transition-all duration-500 group-hover:h-2.5 z-20"></div>
+        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-greenDark via-emerald-600 to-greenLight transition-all duration-500 group-hover:h-2.5 z-20"></div>
 
-        <!-- SISI KIRI: PANEL INFORMASI ELEGAN (Tema Admin Merah/Dark Slate) -->
-        <div class="w-full md:w-5/12 bg-gradient-to-br from-slate-900 via-slate-950 to-red-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
+        <!-- SISI KIRI: PANEL INFORMASI ELEGAN (Tema Admin Hijau Tua/Dark Slate) -->
+        <div class="w-full md:w-5/12 bg-gradient-to-br from-slate-950 via-emerald-950 to-slate-950 p-8 sm:p-12 text-white flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800">
             <!-- Pattern / Mesh Overlay -->
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ef4444_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#89C74A_1px,transparent_1px)] [background-size:16px_16px]"></div>
             
             <div class="relative z-10">
                 <!-- Branding Header (Logo dengan Background Putih Solid Agar Jelas) -->
@@ -97,7 +109,7 @@
                 <!-- Hero Section Sisi Kiri -->
                 <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-4">
                     Portal Utama <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-400">Administrator</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-greenLight to-lime-300">Administrator</span>
                 </h1>
                 <p class="text-slate-300 text-sm leading-relaxed mb-8 font-normal">
                     Pusat kendali dan manajemen sistem terpadu untuk pengelolaan data siswa, pembimbing, mitra industri, serta verifikasi laporan Prakerin secara terpusat.
@@ -106,11 +118,11 @@
                 <!-- Feature Badges -->
                 <div class="space-y-3">
                     <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center gap-3 text-xs font-semibold text-slate-200 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-default">
-                        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-greenLight animate-pulse"></div>
                         Kontrol Akses & Hak Pengguna Sistem
                     </div>
                     <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center gap-3 text-xs font-semibold text-slate-200 transition-all duration-300 hover:bg-white/10 hover:translate-x-1 cursor-default">
-                        <div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></div>
                         Manajemen Data Master & Evaluasi
                     </div>
                 </div>
@@ -128,7 +140,7 @@
             <div class="mb-8">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-wider uppercase bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">LOGIN ADMINISTRATOR</h2>
                 <div class="flex items-center gap-2 mt-2">
-                    <span class="h-[3px] w-8 bg-red-500 rounded-full"></span>
+                    <span class="h-[3px] w-8 bg-gradient-to-r from-greenDark to-greenLight rounded-full"></span>
                     <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Sistem Informasi Manajemen Prakerin</p>
                 </div>
             </div>
@@ -154,13 +166,13 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2.5">USERNAME ADMIN</label>
                     <div class="relative group/input">
                         <!-- Icon SVG untuk Username -->
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-red-500 transition-colors duration-200">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-greenDark transition-colors duration-200">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                             </svg>
                         </div>
                         <input type="text" name="username" required autofocus
-                            class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500 focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
+                            class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-greenLight/20 focus:border-greenDark focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
                             placeholder="Masukkan username admin">
                     </div>
                 </div>
@@ -169,17 +181,17 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-widest mb-2.5">PASSWORD</label>
                     <div class="relative group/input">
                         <!-- Icon SVG untuk Password -->
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-red-500 transition-colors duration-200">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-greenDark transition-colors duration-200">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                             </svg>
                         </div>
                         <input type="password" id="inputPassword" name="password" required
-                            class="w-full pl-12 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500 focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
+                            class="w-full pl-12 pr-12 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-greenLight/20 focus:border-greenDark focus:bg-white outline-none transition-all duration-300 text-slate-800 placeholder-slate-400 font-semibold text-sm shadow-inner"
                             placeholder="••••••••">
                         
                         <!-- Tombol Interaktif Toggle Password JS -->
-                        <button type="button" id="togglePasswordBtn" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-red-500 transition-colors duration-200 cursor-pointer">
+                        <button type="button" id="togglePasswordBtn" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-greenDark transition-colors duration-200 cursor-pointer">
                             <svg id="eyeIconShow" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -193,7 +205,7 @@
 
                 <div class="pt-2">
                     <button type="submit" id="btnSubmitLogin"
-                        class="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-red-600 transition-all duration-300 shadow-xl shadow-slate-900/10 hover:shadow-red-600/20 transform hover:-translate-y-0.5 active:translate-y-0 tracking-widest text-xs uppercase relative overflow-hidden group/btn flex items-center justify-center gap-2">
+                        class="w-full py-4 bg-gradient-to-r from-greenDark via-emerald-900 to-greenDark hover:from-emerald-900 hover:to-slate-900 text-white font-bold rounded-xl transition-all duration-300 shadow-xl shadow-greenDark/20 hover:shadow-emerald-950/30 transform hover:-translate-y-0.5 active:translate-y-0 tracking-widest text-xs uppercase relative overflow-hidden group/btn flex items-center justify-center gap-2 cursor-pointer">
                         <span id="btnText">MASUK KE PANEL ADMIN</span>
                         <svg id="btnSpinner" class="w-4 h-4 text-white animate-spin hidden" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -204,7 +216,7 @@
             </form>
 
             <div class="mt-8 text-center border-t border-slate-100 pt-6">
-                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-red-600 font-bold uppercase tracking-wider transition-colors duration-200 group/link">
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-greenDark font-bold uppercase tracking-wider transition-colors duration-200 group/link">
                     <span class="transform group-hover/link:-translate-x-1.5 transition-transform duration-300">&larr;</span> Kembali ke Halaman Utama
                 </a>
             </div>
@@ -295,7 +307,7 @@
             // 5. Generator Partikel Melayang Latar Belakang
             const particlesContainer = document.getElementById('particlesContainer');
             if (particlesContainer) {
-                const particleColors = ['#ef4444', '#3b82f6', '#f59e0b', '#ffffff'];
+                const particleColors = ['#234F35', '#89C74A', '#10b981', '#ffffff'];
                 for (let i = 0; i < 20; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');

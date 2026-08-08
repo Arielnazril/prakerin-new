@@ -10,7 +10,7 @@
     <div class="bg-slate-900 p-6 sm:p-7 rounded-3xl border border-slate-800 shadow-xl shadow-slate-900/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
         <div class="flex items-center gap-3.5">
             <div class="p-3 bg-slate-800 text-slate-100 rounded-2xl shadow-md border border-slate-700/60">
-                <i class="fas fa-user-graduate text-2xl text-blue-400"></i>
+                <i class="fas fa-user-graduate text-2xl text-emerald-400"></i>
             </div>
             <div>
                 <h2 class="text-2xl font-black text-white tracking-tight">Daftar Siswa Bimbingan</h2>
@@ -21,13 +21,13 @@
         {{-- TAB SWITCHER BUTTONS --}}
         <div class="flex bg-slate-800/80 p-1.5 rounded-2xl border border-slate-700/80 w-full md:w-auto shadow-inner">
             <button @click="activeTab = 'aktif'"
-                :class="{ 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 font-extrabold': activeTab === 'aktif', 'text-slate-400 hover:text-white hover:bg-slate-700/50 font-bold': activeTab !== 'aktif' }"
+                :class="{ 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 font-extrabold': activeTab === 'aktif', 'text-slate-400 hover:text-white hover:bg-slate-700/50 font-bold': activeTab !== 'aktif' }"
                 class="flex-1 md:flex-none px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2">
                 <i class="fas fa-user-clock text-xs"></i> 
                 <span>Sedang Magang</span>
             </button>
             <button @click="activeTab = 'riwayat'"
-                :class="{ 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 font-extrabold': activeTab === 'riwayat', 'text-slate-400 hover:text-white hover:bg-slate-700/50 font-bold': activeTab !== 'riwayat' }"
+                :class="{ 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 font-extrabold': activeTab === 'riwayat', 'text-slate-400 hover:text-white hover:bg-slate-700/50 font-bold': activeTab !== 'riwayat' }"
                 class="flex-1 md:flex-none px-6 py-2.5 rounded-xl text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2 ml-1">
                 <i class="fas fa-history text-xs"></i> 
                 <span>Riwayat Alumni</span>
@@ -40,7 +40,7 @@
         <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-200/80 transition-all duration-300">
             
             {{-- STATUS BANNER --}}
-            <div class="px-7 py-4 border-b border-blue-100 bg-gradient-to-r from-blue-50/80 via-slate-50 to-white text-blue-900 text-xs font-black uppercase tracking-wider flex items-center">
+            <div class="px-7 py-4 border-b border-emerald-100 bg-gradient-to-r from-emerald-50/80 via-slate-50 to-white text-emerald-950 text-xs font-black uppercase tracking-wider flex items-center">
                 <span class="relative flex h-2.5 w-2.5 mr-3">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
@@ -70,11 +70,11 @@
                                 {{-- NAMA SISWA --}}
                                 <td class="px-7 py-5 whitespace-nowrap">
                                     <div class="flex items-center gap-3.5">
-                                        <div class="h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-xs shadow-md shadow-blue-500/20 uppercase border border-white/20 transform group-hover:scale-105 transition-transform">
+                                        <div class="h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 text-white font-black flex items-center justify-center text-xs shadow-md shadow-emerald-500/20 uppercase border border-white/20 transform group-hover:scale-105 transition-transform">
                                             {{ substr($placement->siswa->name, 0, 1) }}
                                         </div>
                                         <div>
-                                            <span class="font-bold text-slate-900 block leading-tight text-base group-hover:text-blue-600 transition-colors">{{ $placement->siswa->name }}</span>
+                                            <span class="font-bold text-slate-900 block leading-tight text-base group-hover:text-emerald-600 transition-colors">{{ $placement->siswa->name }}</span>
                                             <span class="text-xs text-slate-400 font-mono mt-1 block tracking-tight font-medium">{{ $placement->siswa->nomor_identitas }}</span>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                                 {{-- PERIODE --}}
                                 <td class="px-7 py-5 text-slate-600 font-semibold whitespace-nowrap">
                                     <div class="inline-flex items-center gap-2 text-xs bg-slate-50 border border-slate-200/80 px-3.5 py-2 rounded-xl font-mono text-slate-700 shadow-2xs">
-                                        <i class="far fa-calendar-alt text-blue-500"></i>
+                                        <i class="far fa-calendar-alt text-emerald-500"></i>
                                         <span>{{ $placement->tanggal_mulai->format('d M y') }}</span>
                                         <span class="text-slate-300 font-bold mx-0.5">•</span>
                                         <span>{{ $placement->tanggal_selesai->format('d M y') }}</span>
@@ -117,7 +117,7 @@
                                 {{-- AKSI --}}
                                 <td class="px-7 py-5 text-center whitespace-nowrap">
                                     @if(!$nilai)
-                                        <a href="{{ route('industri.penilaian.create', $placement->id) }}" class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all duration-200 active:scale-95 shadow-md shadow-blue-500/20 gap-2">
+                                        <a href="{{ route('industri.penilaian.create', $placement->id) }}" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all duration-200 active:scale-95 shadow-md shadow-emerald-500/20 gap-2">
                                             <i class="fas fa-plus text-[10px]"></i> 
                                             <span>Input Nilai</span>
                                         </a>
@@ -183,7 +183,7 @@
                                         <div class="h-10 w-10 shrink-0 rounded-2xl bg-slate-100 text-slate-500 font-black flex items-center justify-center text-xs border border-slate-200 uppercase shadow-2xs">
                                             {{ substr($history->siswa->name, 0, 1) }}
                                         </div>
-                                        <span class="text-slate-900 font-bold text-base group-hover:text-blue-600 transition-colors">{{ $history->siswa->name }}</span>
+                                        <span class="text-slate-900 font-bold text-base group-hover:text-emerald-600 transition-colors">{{ $history->siswa->name }}</span>
                                     </div>
                                 </td>
 
@@ -197,7 +197,7 @@
 
                                 {{-- NILAI AKHIR --}}
                                 <td class="px-7 py-5 text-center whitespace-nowrap">
-                                    <span class="inline-block bg-blue-50 border border-blue-200/80 text-blue-700 px-4 py-1.5 rounded-xl font-mono text-sm font-black shadow-2xs">
+                                    <span class="inline-block bg-emerald-50 border border-emerald-200/80 text-emerald-700 px-4 py-1.5 rounded-xl font-mono text-sm font-black shadow-2xs">
                                         {{ $nilaiFinal ? $nilaiFinal->nilai_akhir : '0' }}
                                     </span>
                                 </td>

@@ -1,17 +1,17 @@
 <aside id="sidebar" class="bg-[--color-primary-dark] text-white flex flex-col z-40 sidebar-transition h-screen shadow-2xl overflow-hidden fixed lg:static inset-y-0 left-0 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out w-64 max-w-[80vw] sm:max-w-xs lg:max-w-none">
 
     {{-- HEADER SIDEBAR --}}
-    <div class="h-16 flex items-center justify-between border-b border-white/10 shadow-sm bg-blue-950/40 relative overflow-hidden group px-3.5 sm:px-4 shrink-0">
+    <div class="h-16 flex items-center justify-between border-b border-white/10 shadow-sm bg-emerald-950/40 relative overflow-hidden group px-3.5 sm:px-4 shrink-0">
         {{-- Efek cahaya latar belakang --}}
-        <div class="absolute -right-10 -top-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-blue-500/20 pointer-events-none"></div>
+        <div class="absolute -right-10 -top-10 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-emerald-500/20 pointer-events-none"></div>
         
         <div class="flex items-center space-x-3 z-10 min-w-0 flex-1 pl-1 sm:pl-2">
             <div class="bg-white/95 p-1.5 rounded-xl shadow-md flex-shrink-0 sidebar-logo transition-all duration-300 transform group-hover:scale-105 border border-white/20">
                 <img src="{{ asset('img/logo_smk.png') }}" alt="Logo" class="h-6 w-6 object-contain">
             </div>
             <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap min-w-0">
-                <h1 class="text-sm font-black tracking-widest leading-none bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent truncate">SISWA</h1>
-                <p class="text-[9px] text-blue-300/90 font-bold uppercase tracking-widest mt-0.5 truncate">Area Magang</p>
+                <h1 class="text-sm font-black tracking-widest leading-none bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent truncate">SISWA</h1>
+                <p class="text-[9px] text-emerald-300/90 font-bold uppercase tracking-widest mt-0.5 truncate">Area Magang</p>
             </div>
         </div>
 
@@ -27,18 +27,18 @@
         @include('admin.partials.sidebar_item', ['route' => 'siswa.dashboard', 'icon' => 'fas fa-chart-pie', 'label' => 'Dashboard'])
         @include('admin.partials.sidebar_item', ['route' => 'siswa.transkrip.index', 'icon' => 'fas fa-file-alt', 'label' => 'Transkrip'])
 
-        <div class="pt-4 sm:pt-5 pb-1.5 px-3 text-[10px] font-black text-blue-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300 select-none">Kegiatan Harian</div>
+        <div class="pt-4 sm:pt-5 pb-1.5 px-3 text-[10px] font-black text-emerald-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300 select-none">Kegiatan Harian</div>
 
         @include('admin.partials.sidebar_item', ['route' => 'siswa.logbook.history', 'icon' => 'fas fa-book-open', 'label' => 'Riwayat Logbook'])
         @include('admin.partials.sidebar_item', ['route' => 'siswa.logbook.create', 'icon' => 'fas fa-edit', 'label' => 'Isi Logbook Baru'])
 
-        <div class="pt-4 sm:pt-5 pb-1.5 px-3 text-[10px] font-black text-blue-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300 select-none">Akun</div>
+        <div class="pt-4 sm:pt-5 pb-1.5 px-3 text-[10px] font-black text-emerald-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300 select-none">Akun</div>
 
         @include('admin.partials.sidebar_item', ['route' => 'profile.edit', 'icon' => 'fas fa-id-card', 'label' => 'Profil Saya'])
     </div>
 
     {{-- FOOTER SIDEBAR (TOMBOL MEMBUKA MODAL LOGOUT) --}}
-    <div class="p-3.5 sm:p-4 border-t border-white/10 bg-blue-950/20 backdrop-blur-sm shrink-0">
+    <div class="p-3.5 sm:p-4 border-t border-white/10 bg-emerald-950/20 backdrop-blur-sm shrink-0">
         <button type="button" onclick="openLogoutModal()" class="flex items-center justify-center w-full p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 transition-all duration-300 shadow-md shadow-red-900/30 hover:shadow-xl text-white group overflow-hidden active:scale-[0.98] transform cursor-pointer">
             <i class="fas fa-sign-out-alt text-base sidebar-icon transition-transform duration-300 group-hover:-translate-x-1 shrink-0"></i>
             <span class="ml-2.5 font-bold text-xs sm:text-sm sidebar-text whitespace-nowrap tracking-wide">Keluar</span>

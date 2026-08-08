@@ -3,23 +3,23 @@
 @section('page_title', 'Master Data Industri')
 
 @section('content')
-<div class="space-y-6 selection:bg-blue-600 selection:text-white animate-fade-in px-2 sm:px-0">
+<div class="space-y-6 selection:bg-[#234F35] selection:text-white animate-fade-in px-2 sm:px-0">
 
     {{-- HEADER SECTION --}}
-    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-[#234F35] p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <!-- Accent Glow Effects -->
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-[#89C74A]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-[#234F35]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
             <div class="space-y-1">
                 <div class="flex items-center space-x-3 mb-2">
-                    <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-400/20 uppercase tracking-widest">
+                    <span class="bg-[#89C74A]/20 text-[#89C74A] text-xs font-bold px-3 py-1 rounded-full border border-[#89C74A]/30 uppercase tracking-widest">
                         Master Data
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
-                    <span class="p-2.5 bg-white/10 text-blue-400 rounded-2xl text-xl backdrop-blur-md border border-white/10">
+                    <span class="p-2.5 bg-white/10 text-[#89C74A] rounded-2xl text-xl backdrop-blur-md border border-white/10">
                         <i class="fas fa-city"></i>
                     </span>
                     Daftar Mitra Industri
@@ -29,7 +29,7 @@
                 </p>
             </div>
             
-            <a href="{{ route('admin.instansi.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
+            <a href="{{ route('admin.instansi.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-[#234F35]/30 hover:shadow-xl hover:shadow-[#234F35]/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
                 <i class="fas fa-plus mr-2.5 text-xs"></i> Tambah Perusahaan
             </a>
         </div>
@@ -81,8 +81,8 @@
         <!-- Tab Pengelompokan Grade -->
         <div class="flex items-center bg-white p-1.5 rounded-2xl border border-slate-200/80 shadow-xs gap-1 overflow-x-auto">
             <button type="button" id="tabGradeA" onclick="switchGradeTab('A')" 
-                class="grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap">
-                <i class="fas fa-award text-amber-300"></i>
+                class="grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-[#234F35] to-emerald-800 text-white shadow-md cursor-pointer whitespace-nowrap">
+                <i class="fas fa-award text-[#89C74A]"></i>
                 <span>Grade A (Pemerintah/BUMN/Besar)</span>
                 <span id="badgeCountGradeA" class="bg-white/20 text-white px-2 py-0.5 rounded-lg text-[10px] font-black">
                     {{ $countGradeA }}
@@ -91,7 +91,7 @@
 
             <button type="button" id="tabGradeB" onclick="switchGradeTab('B')" 
                 class="grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap">
-                <i class="fas fa-certificate text-indigo-400"></i>
+                <i class="fas fa-certificate text-amber-500"></i>
                 <span>Grade B (Swasta/Menengah/UMKM)</span>
                 <span id="badgeCountGradeB" class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-black">
                     {{ $countGradeB }}
@@ -102,7 +102,7 @@
         <!-- Ringkasan Total & Input Pencarian -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs border border-blue-100">
+                <div class="w-9 h-9 rounded-xl bg-emerald-50 text-[#234F35] flex items-center justify-center text-sm shadow-xs border border-emerald-100">
                     <i class="fas fa-building"></i>
                 </div>
                 <div>
@@ -112,11 +112,11 @@
             </div>
 
             <div class="relative w-full sm:w-80 group">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-[#234F35] transition-colors">
                     <i class="fas fa-search text-sm"></i>
                 </span>
                 <input type="text" id="industriSearchInput" placeholder="Cari nama atau alamat industri..." 
-                    class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+                    class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all duration-200 shadow-xs">
             </div>
         </div>
     </div>
@@ -127,24 +127,24 @@
         @php
             $currentGrade = $getGrade($instansi);
         @endphp
-        <div data-grade="{{ $currentGrade }}" class="industri-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-100/90 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-200/80 transition-all duration-300 flex flex-col group overflow-hidden relative transform hover:-translate-y-1">
+        <div data-grade="{{ $currentGrade }}" class="industri-card bg-white rounded-3xl shadow-lg shadow-slate-200/50 border border-slate-100/90 hover:shadow-2xl hover:shadow-[#234F35]/10 hover:border-emerald-200/80 transition-all duration-300 flex flex-col group overflow-hidden relative transform hover:-translate-y-1">
             
             <!-- Banner Aksen Gradasi Card -->
-            <div class="h-2 w-full {{ $currentGrade === 'A' ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600' : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600' }} group-hover:opacity-90 transition-all"></div>
+            <div class="h-2 w-full {{ $currentGrade === 'A' ? 'bg-gradient-to-r from-[#234F35] via-emerald-600 to-[#89C74A]' : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600' }} group-hover:opacity-90 transition-all"></div>
 
             <div class="p-6 flex-1 flex flex-col justify-between space-y-5">
                 <div class="space-y-4">
                     <!-- Header Card: Icon, Badge Grade & Action Buttons -->
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center text-lg font-black shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center text-lg font-black shadow-md shadow-emerald-900/20 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
                                 {{ substr($instansi->nama_perusahaan, 0, 1) }}
                             </div>
 
                             <!-- Badge Grade Perusahaan -->
                             @if($currentGrade === 'A')
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs">
-                                    <i class="fas fa-star text-amber-400 text-[10px]"></i> Grade A
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-emerald-50 text-[#234F35] border border-emerald-200/80 shadow-2xs">
+                                    <i class="fas fa-star text-[#89C74A] text-[10px]"></i> Grade A
                                 </span>
                             @else
                                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs">
@@ -177,7 +177,7 @@
 
                     <!-- Nama & Alamat Perusahaan -->
                     <div>
-                        <h3 class="nama-perusahaan-text text-base sm:text-lg font-extrabold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mb-1.5 leading-snug tracking-tight">
+                        <h3 class="nama-perusahaan-text text-base sm:text-lg font-extrabold text-slate-800 group-hover:text-[#234F35] transition-colors duration-200 mb-1.5 leading-snug tracking-tight">
                             {{ $instansi->nama_perusahaan }}
                         </h3>
                         
@@ -190,27 +190,27 @@
                     <!-- Informasi Kontak & Website -->
                     <div class="p-3 bg-slate-50/80 rounded-2xl border border-slate-100 space-y-2 text-xs text-slate-600">
                         <div class="flex items-center text-slate-600">
-                            <div class="w-5 h-5 rounded-md bg-blue-100/70 text-blue-600 flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
+                            <div class="w-5 h-5 rounded-md bg-emerald-100/70 text-[#234F35] flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <span class="truncate font-medium">{{ $instansi->email_perusahaan ?? '-' }}</span>
                         </div>
                         <div class="flex items-center text-slate-600">
-                            <div class="w-5 h-5 rounded-md bg-emerald-100/70 text-emerald-600 flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
+                            <div class="w-5 h-5 rounded-md bg-emerald-100/70 text-[#234F35] flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
                                 <i class="fas fa-phone"></i>
                             </div>
                             <span class="font-medium">{{ $instansi->telepon ?? '-' }}</span>
                         </div>
                         {{-- Tampilan Website URL --}}
                         <div class="flex items-center text-slate-600">
-                            <div class="w-5 h-5 rounded-md bg-purple-100/70 text-purple-600 flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
+                            <div class="w-5 h-5 rounded-md bg-emerald-100/70 text-[#234F35] flex items-center justify-center mr-2.5 text-[10px] flex-shrink-0 font-bold">
                                 <i class="fas fa-globe"></i>
                             </div>
                             @if(!empty($instansi->website))
                                 <a href="{{ Str::startsWith($instansi->website, ['http://', 'https://']) ? $instansi->website : 'https://' . $instansi->website }}" 
                                    target="_blank" 
                                    rel="noopener noreferrer" 
-                                   class="truncate font-medium text-indigo-600 hover:text-indigo-800 hover:underline transition-colors"
+                                   class="truncate font-medium text-[#234F35] hover:text-emerald-800 hover:underline transition-colors"
                                    title="{{ $instansi->website }}">
                                     {{ $instansi->website }}
                                 </a>
@@ -225,10 +225,10 @@
                 <div class="pt-3 border-t border-slate-100 space-y-2.5">
                     <div class="flex items-center justify-between text-xs">
                         <span class="font-black text-slate-600 uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-                            <i class="fas fa-user-graduate text-indigo-500"></i> Siswa Magang
+                            <i class="fas fa-user-graduate text-[#234F35]"></i> Siswa Magang
                         </span>
                         @if(isset($instansi->siswa) && $instansi->siswa->count() > 0)
-                            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">
+                            <span class="text-[10px] font-bold text-[#234F35] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
                                 {{ $instansi->siswa->count() }} Orang
                             </span>
                         @endif
@@ -239,12 +239,12 @@
                         <div class="flex flex-col space-y-1.5">
                             {{-- Tampilkan maksimal 3 siswa pertama secara vertikal --}}
                             @foreach($instansi->siswa->take(3) as $siswa)
-                                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/90 border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all group/item">
+                                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/90 border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all group/item">
                                     <div class="flex items-center space-x-2.5 min-w-0">
-                                        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center text-[10px] font-bold uppercase flex-shrink-0 shadow-2xs">
+                                        <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center text-[10px] font-bold uppercase flex-shrink-0 shadow-2xs">
                                             {{ substr($siswa->name, 0, 1) }}
                                         </div>
-                                        <span class="text-xs font-semibold text-slate-700 group-hover/item:text-indigo-600 truncate transition-colors">
+                                        <span class="text-xs font-semibold text-slate-700 group-hover/item:text-[#234F35] truncate transition-colors">
                                             {{ $siswa->name }}
                                         </span>
                                     </div>
@@ -256,8 +256,8 @@
 
                             {{-- Badge Tambahan jika siswa lebih dari 3 --}}
                             @if($instansi->siswa->count() > 3)
-                                <div class="p-1.5 rounded-xl bg-slate-100/60 border border-slate-200/60 text-center hover:bg-indigo-50 hover:border-indigo-100 transition-colors cursor-default">
-                                    <span class="text-[10px] font-extrabold text-indigo-600">
+                                <div class="p-1.5 rounded-xl bg-slate-100/60 border border-slate-200/60 text-center hover:bg-emerald-50 hover:border-emerald-100 transition-colors cursor-default">
+                                    <span class="text-[10px] font-extrabold text-[#234F35]">
                                         +{{ $instansi->siswa->count() - 3 }} Siswa Lainnya
                                     </span>
                                 </div>
@@ -274,11 +274,11 @@
             </div>
 
             <!-- Footer Card (Siswa Magang) -->
-            <div class="bg-slate-50/80 px-6 py-3.5 border-t border-slate-100 text-xs text-slate-400 flex justify-between items-center rounded-b-3xl group-hover:bg-blue-50/30 transition-colors duration-300">
+            <div class="bg-slate-50/80 px-6 py-3.5 border-t border-slate-100 text-xs text-slate-400 flex justify-between items-center rounded-b-3xl group-hover:bg-emerald-50/30 transition-colors duration-300">
                 <span class="flex items-center font-medium text-[11px]">
                     <i class="far fa-calendar-alt mr-1.5 opacity-70"></i>{{ $instansi->created_at->diffForHumans() }}
                 </span>
-                <span class="font-black text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-xl text-[11px] shadow-2xs tracking-wide">
+                <span class="font-black text-[#234F35] bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-xl text-[11px] shadow-2xs tracking-wide">
                     <i class="fas fa-user-graduate mr-1 text-[10px]"></i> {{ $instansi->siswa_count ?? ($instansi->siswa ? $instansi->siswa->count() : 0) }} Siswa
                 </span>
             </div>
@@ -421,7 +421,7 @@
 
         if (grade === 'A') {
             // Style Aktif Tab Grade A
-            tabA.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            tabA.className = "grade-tab-btn px-5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all duration-200 bg-gradient-to-r from-[#234F35] to-emerald-800 text-white shadow-md cursor-pointer whitespace-nowrap";
             badgeA.className = "bg-white/20 text-white px-2 py-0.5 rounded-lg text-[10px] font-black";
 
             // Style Inaktif Tab Grade B

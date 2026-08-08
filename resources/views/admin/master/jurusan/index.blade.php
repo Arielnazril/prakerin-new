@@ -3,28 +3,28 @@
 @section('page_title', 'Master Data Jurusan')
 
 @section('content')
-<div class="space-y-8 selection:bg-indigo-500 selection:text-white animate-fade-in px-2 sm:px-0 font-sans antialiased">
+<div class="space-y-8 selection:bg-[#234F35] selection:text-white animate-fade-in px-2 sm:px-0 font-sans antialiased">
 
     <!-- Header Section Premium -->
-    <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-10 shadow-2xl shadow-indigo-950/30 border border-slate-800/80">
+    <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 sm:p-10 shadow-2xl shadow-[#234F35]/30 border border-slate-800/80">
         <!-- Glow Elements Background -->
-        <div class="absolute -right-16 -top-16 w-80 h-80 bg-gradient-to-br from-indigo-500/20 to-blue-600/0 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-16 -bottom-16 w-80 h-80 bg-gradient-to-tr from-violet-600/20 to-pink-500/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-16 -top-16 w-80 h-80 bg-gradient-to-br from-[#89C74A]/20 to-emerald-600/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-16 w-80 h-80 bg-gradient-to-tr from-[#234F35]/30 to-teal-500/0 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
             <div class="space-y-3 max-w-2xl">
                 <div class="flex items-center space-x-2">
-                    <span class="inline-flex items-center gap-1.5 bg-indigo-500/10 text-indigo-400 text-[11px] font-extrabold px-3.5 py-1 rounded-full border border-indigo-500/20 uppercase tracking-widest backdrop-blur-md">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <span class="inline-flex items-center gap-1.5 bg-[#89C74A]/10 text-[#89C74A] text-[11px] font-extrabold px-3.5 py-1 rounded-full border border-[#89C74A]/20 uppercase tracking-widest backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#89C74A] animate-pulse"></span>
                         Master Data
                     </span>
                     <span class="inline-flex items-center gap-1 bg-white/10 text-slate-300 text-[11px] font-bold px-3 py-1 rounded-full border border-white/10 backdrop-blur-md">
-                        <i class="fas fa-layer-group text-[10px] text-indigo-300"></i> {{ $jurusans->count() }} Total Jurusan
+                        <i class="fas fa-layer-group text-[10px] text-[#89C74A]"></i> {{ $jurusans->count() }} Total Jurusan
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-white flex items-center gap-3.5">
-                    <span class="p-3 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 text-indigo-400 rounded-2xl border border-indigo-500/30 backdrop-blur-xl shadow-inner flex items-center justify-center">
+                    <span class="p-3 bg-gradient-to-br from-[#234F35]/40 to-emerald-800/40 text-[#89C74A] rounded-2xl border border-[#89C74A]/30 backdrop-blur-xl shadow-inner flex items-center justify-center">
                         <i class="fas fa-graduation-cap"></i>
                     </span>
                     Daftar Jurusan
@@ -34,7 +34,7 @@
                 </p>
             </div>
             
-            <button onclick="openModal('addModal')" class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer flex-shrink-0 group">
+            <button onclick="openModal('addModal')" class="w-full sm:w-auto bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-7 rounded-2xl shadow-xl shadow-[#234F35]/25 hover:shadow-[#234F35]/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer flex-shrink-0 group">
                 <i class="fas fa-plus mr-2.5 text-xs transition-transform duration-300 group-hover:rotate-90"></i> Tambah Jurusan
             </button>
         </div>
@@ -50,10 +50,10 @@
                     <i class="fas fa-search text-xs"></i>
                 </span>
                 <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama atau kode jurusan..." 
-                    class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-2xs placeholder:text-slate-400">
+                    class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-[#234F35]/20 focus:border-[#234F35] outline-none transition-all shadow-2xs placeholder:text-slate-400">
             </div>
             <div class="text-xs text-slate-400 font-bold self-end sm:self-center">
-                Menampilkan <span id="visibleCount" class="text-indigo-600 font-extrabold">{{ $jurusans->count() }}</span> data
+                Menampilkan <span id="visibleCount" class="text-[#234F35] font-extrabold">{{ $jurusans->count() }}</span> data
             </div>
         </div>
 
@@ -69,22 +69,22 @@
                 </thead>
                 <tbody class="divide-y divide-slate-100 text-sm">
                     @forelse($jurusans as $index => $jurusan)
-                    <tr class="jurusan-row hover:bg-indigo-50/30 transition-colors duration-200 group">
-                        <td class="px-6 py-5 text-center text-slate-400 font-extrabold text-xs index-cell group-hover:text-indigo-600 transition-colors">
+                    <tr class="jurusan-row hover:bg-emerald-50/30 transition-colors duration-200 group">
+                        <td class="px-6 py-5 text-center text-slate-400 font-extrabold text-xs index-cell group-hover:text-[#234F35] transition-colors">
                             {{ sprintf('%02d', $index + 1) }}
                         </td>
                         <td class="px-6 py-5 jurusan-name">
                             <div class="flex items-center space-x-4">
-                                <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-200">
+                                <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-emerald-900/20 group-hover:scale-105 transition-transform duration-200">
                                     {{ substr($jurusan->nama_jurusan, 0, 1) }}
                                 </div>
-                                <div class="font-bold text-slate-800 tracking-tight text-base group-hover:text-indigo-600 transition-colors truncate">
+                                <div class="font-bold text-slate-800 tracking-tight text-base group-hover:text-[#234F35] transition-colors truncate">
                                     {{ $jurusan->nama_jurusan }}
                                 </div>
                             </div>
                         </td>
                         <td class="px-6 py-5 jurusan-code">
-                            <span class="inline-flex items-center bg-indigo-50 text-indigo-700 border border-indigo-100 text-xs font-black font-mono px-3.5 py-1.5 rounded-xl shadow-2xs tracking-wider uppercase group-hover:bg-indigo-100/80 transition-colors">
+                            <span class="inline-flex items-center bg-emerald-50 text-[#234F35] border border-emerald-200/80 text-xs font-black font-mono px-3.5 py-1.5 rounded-xl shadow-2xs tracking-wider uppercase group-hover:bg-emerald-100/80 transition-colors">
                                 <i class="fas fa-tag mr-2 opacity-60 text-[10px]"></i> {{ $jurusan->kode_jurusan }}
                             </span>
                         </td>
@@ -138,15 +138,15 @@
 <div id="addModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-md flex items-center justify-center transition-all duration-300 p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg border border-slate-100 transform transition-all scale-100 animate-modal-in overflow-hidden relative">
         <!-- Glow Overlay Inside Modal -->
-        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full blur-3xl opacity-20 pointer-events-none bg-indigo-500"></div>
+        <div class="absolute -right-20 -top-20 w-44 h-44 rounded-full blur-3xl opacity-20 pointer-events-none bg-[#89C74A]"></div>
 
         <!-- Header Strip -->
-        <div class="h-2 w-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-blue-600"></div>
+        <div class="h-2 w-full bg-gradient-to-r from-[#234F35] via-emerald-700 to-[#89C74A]"></div>
         
         <div class="px-7 pt-7 pb-4 flex justify-between items-center bg-white border-b border-slate-100/80">
             <div class="space-y-1">
                 <h3 class="font-black text-slate-900 tracking-tight text-xl flex items-center gap-2.5">
-                    <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs border border-indigo-100"><i class="fas fa-plus"></i></span>
+                    <span class="p-2 bg-emerald-50 text-[#234F35] rounded-xl text-xs border border-emerald-100"><i class="fas fa-plus"></i></span>
                     Tambah Jurusan Baru
                 </h3>
                 <p class="text-xs font-medium text-slate-400">Masukkan rincian informasi data kompetensi keahlian</p>
@@ -164,10 +164,10 @@
                 <div class="space-y-2">
                     <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider">Nama Lengkap Jurusan</label>
                     <div class="relative group/input">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-indigo-600 transition-colors">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-[#234F35] transition-colors">
                             <i class="fas fa-graduation-cap text-sm"></i>
                         </div>
-                        <input type="text" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-600 outline-none transition-all duration-200 font-semibold text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: Rekayasa Perangkat Lunak">
+                        <input type="text" name="nama_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-[#234F35]/15 focus:border-[#234F35] outline-none transition-all duration-200 font-semibold text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: Rekayasa Perangkat Lunak">
                     </div>
                 </div>
                 
@@ -175,10 +175,10 @@
                 <div class="space-y-2">
                     <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider">Singkatan / Kode Jurusan</label>
                     <div class="relative group/input">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-indigo-600 transition-colors">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within/input:text-[#234F35] transition-colors">
                             <i class="fas fa-font text-sm"></i>
                         </div>
-                        <input type="text" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-indigo-500/15 focus:border-indigo-600 outline-none transition-all duration-200 font-bold font-mono text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: RPL">
+                        <input type="text" name="kode_jurusan" required class="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 focus:bg-white focus:ring-4 focus:ring-[#234F35]/15 focus:border-[#234F35] outline-none transition-all duration-200 font-bold font-mono text-slate-800 placeholder:text-slate-400 text-sm shadow-2xs" placeholder="Contoh: RPL">
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                 <button type="button" onclick="closeModal('addModal')" class="px-5 py-3 text-xs font-bold text-slate-500 hover:bg-slate-100 rounded-xl transition-all uppercase tracking-wider cursor-pointer">
                     Batal
                 </button>
-                <button type="submit" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-6 py-3.5 rounded-xl font-extrabold hover:from-indigo-700 hover:to-blue-700 shadow-lg shadow-indigo-600/20 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase tracking-wider cursor-pointer flex items-center gap-2 text-xs">
+                <button type="submit" class="bg-gradient-to-r from-[#234F35] to-emerald-800 text-white px-6 py-3.5 rounded-xl font-extrabold hover:from-emerald-900 hover:to-[#234F35] shadow-lg shadow-[#234F35]/20 hover:-translate-y-0.5 active:translate-y-0 transition-all uppercase tracking-wider cursor-pointer flex items-center gap-2 text-xs">
                     <i class="fas fa-check-circle"></i> Simpan Data
                 </button>
             </div>

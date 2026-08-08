@@ -6,10 +6,10 @@
 
 <div class="space-y-6 animate-fade-in">
     <!-- HEADER SECTION -->
-    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <!-- Accent Glow Effects -->
         <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
@@ -36,7 +36,7 @@
         {{-- Total Siswa Keseluruhan --}}
         <div class="bg-white hover:bg-slate-50/80 transition-all p-5 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 flex items-center justify-between group">
             <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center font-bold text-lg shadow-inner group-hover:scale-105 transition-transform">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold text-lg shadow-inner group-hover:scale-105 transition-transform">
                     <i class="fas fa-users"></i>
                 </div>
                 <div>
@@ -44,7 +44,7 @@
                     <p class="text-xs font-semibold text-slate-600">Keseluruhan</p>
                 </div>
             </div>
-            <span class="text-sm font-black bg-blue-50 text-blue-700 px-3.5 py-1.5 rounded-2xl border border-blue-200/60 shadow-2xs whitespace-nowrap">
+            <span class="text-sm font-black bg-emerald-50 text-emerald-700 px-3.5 py-1.5 rounded-2xl border border-emerald-200/60 shadow-2xs whitespace-nowrap">
                 {{ $placements->count() }} Siswa
             </span>
         </div>
@@ -97,11 +97,11 @@
             </div>
 
             <div class="relative w-full sm:w-80 flex-shrink-0 group">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                     <i class="fas fa-search text-sm"></i>
                 </span>
                 <input type="text" id="nilaiSearchInput" placeholder="Cari nama siswa..." 
-                    class="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all duration-200 shadow-2xs">
+                    class="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all duration-200 shadow-2xs">
             </div>
         </div>
 
@@ -134,7 +134,7 @@
                         <td class="px-6 py-5 text-slate-400 font-extrabold text-center text-xs index-cell">{{ $rowNumber++ }}</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center space-x-3.5">
-                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-indigo-500/20">
+                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-emerald-500/20">
                                     {{ substr($p->siswa->name, 0, 1) }}
                                 </div>
                                 <div class="font-bold text-slate-800 name-cell leading-snug">{{ $p->siswa->name }}</div>

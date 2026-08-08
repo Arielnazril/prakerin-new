@@ -11,7 +11,7 @@
     <div>
         <div class="flex items-center gap-3">
             <div class="p-2.5 bg-slate-800 text-slate-100 rounded-2xl shadow-md border border-slate-700/60">
-                <i class="fas fa-clipboard-check text-xl text-blue-400"></i>
+                <i class="fas fa-clipboard-check text-xl text-emerald-400"></i>
             </div>
             <div>
                 <h2 class="text-2xl font-black text-white tracking-tight">Daftar Logbook Siswa</h2>
@@ -61,7 +61,7 @@
                         {{-- TANGGAL --}}
                         <td class="px-6 py-6 text-slate-700 whitespace-nowrap font-medium">
                             <div class="font-bold text-slate-800 flex items-center gap-1.5">
-                                <i class="far fa-calendar-alt text-xs text-blue-500"></i>
+                                <i class="far fa-calendar-alt text-xs text-emerald-500"></i>
                                 {{ $logbook->tanggal->format('d M Y') }}
                             </div>
                             <div class="text-[11px] text-slate-400 font-mono mt-1.5 inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200/60">
@@ -73,11 +73,11 @@
                         {{-- SISWA --}}
                         <td class="px-6 py-6 font-bold text-slate-800 whitespace-nowrap">
                             <div class="flex items-center gap-3">
-                                <div class="h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-black flex items-center justify-center text-xs shadow-md shadow-blue-500/20 uppercase border border-white/20 transform group-hover:scale-105 transition-transform">
+                                <div class="h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 text-white font-black flex items-center justify-center text-xs shadow-md shadow-emerald-500/20 uppercase border border-white/20 transform group-hover:scale-105 transition-transform">
                                     {{ substr($logbook->siswa->name, 0, 1) }}
                                 </div>
                                 <div>
-                                    <span class="block text-slate-800 group-hover:text-blue-600 transition-colors">{{ $logbook->siswa->name }}</span>
+                                    <span class="block text-slate-800 group-hover:text-emerald-600 transition-colors">{{ $logbook->siswa->name }}</span>
                                     <span class="text-[10px] text-slate-400 font-semibold tracking-wide uppercase mt-0.5 block">Siswa Magang</span>
                                 </div>
                             </div>
@@ -95,8 +95,8 @@
                         {{-- FOTO --}}
                         <td class="px-6 py-6 whitespace-nowrap">
                             @if($logbook->foto)
-                                <a href="{{ asset('storage/' . $logbook->foto) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs font-bold inline-flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100/80 px-3.5 py-2 rounded-xl border border-blue-200/80 transition-all shadow-2xs hover:shadow-xs group/img">
-                                    <i class="fas fa-image text-blue-500 group-hover/img:scale-110 transition-transform"></i> 
+                                <a href="{{ asset('storage/' . $logbook->foto) }}" target="_blank" class="text-emerald-600 hover:text-emerald-800 text-xs font-bold inline-flex items-center gap-1.5 bg-emerald-50/80 hover:bg-emerald-100/80 px-3.5 py-2 rounded-xl border border-emerald-200/80 transition-all shadow-2xs hover:shadow-xs group/img">
+                                    <i class="fas fa-image text-emerald-500 group-hover/img:scale-110 transition-transform"></i> 
                                     <span>Lihat Foto</span>
                                 </a>
                             @else
@@ -126,7 +126,7 @@
 
                         {{-- AKSI --}}
                         <td class="px-6 py-6 text-center whitespace-nowrap">
-                            <a href="{{ route('industri.validasi.show', $logbook->id) }}" class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 px-4 py-2 rounded-xl text-xs font-extrabold shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all active:scale-95 group/btn">
+                            <a href="{{ route('industri.validasi.show', $logbook->id) }}" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 px-4 py-2 rounded-xl text-xs font-extrabold shadow-md shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-500/30 transition-all active:scale-95 group/btn">
                                 <i class="fas fa-search mr-1.5 text-[10px] group-hover/btn:scale-110 transition-transform"></i> 
                                 <span>Periksa</span>
                             </a>

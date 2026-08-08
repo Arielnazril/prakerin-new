@@ -6,19 +6,19 @@
 <div class="space-y-8 select-none pb-12">
 
     {{-- KARTU UCAPAN SELAMAT DATANG (ELEGAN & INTERAKTIF) --}}
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 text-white shadow-xl shadow-slate-900/10 border border-slate-700/60 transition-all duration-500 hover:-translate-y-0.5 group">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-950 via-emerald-950 to-slate-950 p-6 sm:p-8 text-white shadow-xl shadow-slate-950/20 border border-slate-800 transition-all duration-500 hover:-translate-y-0.5 group">
         {{-- Light Glow Overlay & Decorative Blur --}}
-        <div class="absolute -right-12 -top-12 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl group-hover:bg-blue-400/30 transition-all duration-700 pointer-events-none"></div>
-        <div class="absolute -left-12 -bottom-12 w-56 h-56 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-400/30 transition-all duration-700 pointer-events-none"></div>
+        <div class="absolute -right-12 -top-12 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all duration-700 pointer-events-none"></div>
+        <div class="absolute -left-12 -bottom-12 w-56 h-56 bg-lime-500/20 rounded-full blur-2xl group-hover:bg-lime-400/30 transition-all duration-700 pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
             <div class="space-y-2 max-w-2xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-extrabold text-blue-300 tracking-wider uppercase">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Control Center
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-extrabold text-lime-300 tracking-wider uppercase">
+                    <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span> Control Center
                 </div>
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight flex flex-wrap items-center gap-2.5">
                     Selamat Datang, 
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-300 font-black tracking-wide">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-[#89C74A] font-black tracking-wide">
                         {{ Auth::user()->name ?? 'Admin' }}
                     </span>
                     <span class="inline-block animate-bounce text-2xl sm:text-3xl">👋</span>
@@ -28,10 +28,10 @@
 
             <div class="relative z-10 bg-white/10 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-white/15 text-white text-sm font-bold shadow-lg flex items-center shrink-0 gap-4 w-full sm:w-auto justify-between sm:justify-start">
                 <div class="flex items-center border-r border-white/20 pr-4 text-slate-200">
-                    <i class="far fa-calendar-alt mr-2.5 text-blue-400 text-base animate-pulse"></i> 
+                    <i class="far fa-calendar-alt mr-2.5 text-[#89C74A] text-base animate-pulse"></i> 
                     <span id="digital-date" class="font-bold text-xs sm:text-sm text-slate-100">{{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 </div>
-                <div class="flex items-center pl-1 font-mono tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md border border-blue-400/30 group-hover:scale-105 transition-transform">
+                <div class="flex items-center pl-1 font-mono tracking-wider bg-gradient-to-r from-[#234F35] to-emerald-900 text-white px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md border border-[#89C74A]/30 group-hover:scale-105 transition-transform">
                     <i class="far fa-clock mr-2 text-xs animate-spin" style="animation-duration: 8s;"></i>
                     <span id="digital-clock">00:00:00</span>
                 </div>
@@ -42,13 +42,13 @@
     {{-- QUICK ACTIONS BAR --}}
     <div class="flex flex-wrap items-center gap-3">
         <a href="{{ route('admin.siswa.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
-            <i class="fas fa-user-plus text-blue-500"></i> Kelola Siswa
+            <i class="fas fa-user-plus text-[#234F35]"></i> Kelola Siswa
         </a>
         <a href="{{ route('admin.guru.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
-            <i class="fas fa-chalkboard-teacher text-emerald-500"></i> Data Guru
+            <i class="fas fa-chalkboard-teacher text-emerald-600"></i> Data Guru
         </a>
         <a href="{{ route('admin.instansi.index') }}" class="px-4 py-2.5 rounded-2xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-2 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
-            <i class="fas fa-building text-purple-500"></i> Mitra Industri
+            <i class="fas fa-building text-teal-600"></i> Mitra Industri
         </a>
     </div>
 
@@ -56,25 +56,25 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5 sm:gap-6">
 
         {{-- Total Siswa --}}
-        <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-blue-500 group cursor-pointer flex flex-col justify-between h-48">
-            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-blue-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+        <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-[#234F35] group cursor-pointer flex flex-col justify-between h-48">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-600 transition-colors">Total Siswa</p>
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-[#234F35] transition-colors">Total Siswa</p>
                     <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $totalSiswa }}">0</h3>
                 </div>
-                <div class="p-3.5 bg-blue-50 text-blue-600 rounded-2xl border border-blue-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-500/30 group-hover:rotate-6 shrink-0">
+                <div class="p-3.5 bg-emerald-50 text-[#234F35] rounded-2xl border border-emerald-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-[#234F35] group-hover:to-emerald-800 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-900/30 group-hover:rotate-6 shrink-0">
                     <i class="fas fa-user-graduate text-xl"></i>
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
                 <span>Terdaftar Sistem</span>
-                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-blue-500"></i>
+                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#234F35]"></i>
             </div>
         </div>
 
         {{-- Guru Pembimbing --}}
-        <a href="{{ route('admin.guru.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-emerald-500 group cursor-pointer no-underline flex flex-col justify-between h-48">
+        <a href="{{ route('admin.guru.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-emerald-600 group cursor-pointer no-underline flex flex-col justify-between h-48">
             <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
@@ -92,38 +92,38 @@
         </a>
 
         {{-- Mitra Industri --}}
-        <a href="{{ route('admin.instansi.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-purple-500 group cursor-pointer no-underline flex flex-col justify-between h-48">
-            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-purple-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+        <a href="{{ route('admin.instansi.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-teal-600 group cursor-pointer no-underline flex flex-col justify-between h-48">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-teal-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-purple-600 transition-colors">Mitra Industri</p>
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-teal-600 transition-colors">Mitra Industri</p>
                     <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $totalIndustri }}">0</h3>
                 </div>
-                <div class="p-3.5 bg-purple-50 text-purple-600 rounded-2xl border border-purple-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-purple-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-purple-500/30 group-hover:rotate-6 shrink-0">
+                <div class="p-3.5 bg-teal-50 text-teal-600 rounded-2xl border border-teal-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-teal-600 group-hover:to-emerald-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-teal-500/30 group-hover:rotate-6 shrink-0">
                     <i class="fas fa-building text-xl"></i>
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
                 <span>Perusahaan Partner</span>
-                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-purple-500"></i>
+                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-teal-500"></i>
             </div>
         </a>
 
         {{-- Mentor Industri --}}
-        <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-cyan-500 group cursor-pointer flex flex-col justify-between h-48">
-            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-cyan-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+        <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-lime-600 group cursor-pointer flex flex-col justify-between h-48">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-lime-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-cyan-600 transition-colors">Mentor Industri</p>
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-lime-600 transition-colors">Mentor Industri</p>
                     <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $totalMentor }}">0</h3>
                 </div>
-                <div class="p-3.5 bg-cyan-50 text-cyan-600 rounded-2xl border border-cyan-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-cyan-600 group-hover:to-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-cyan-500/30 group-hover:rotate-6 shrink-0">
+                <div class="p-3.5 bg-lime-50 text-lime-700 rounded-2xl border border-lime-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-lime-600 group-hover:to-emerald-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-lime-500/30 group-hover:rotate-6 shrink-0">
                     <i class="fas fa-user-tie text-xl"></i>
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
                 <span>Pembimbing Lapangan</span>
-                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-cyan-500"></i>
+                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-lime-600"></i>
             </div>
         </div>
 
@@ -146,11 +146,11 @@
         </a>
 
         {{-- INFO TERKINI: Ringkasan Sisa Kuota Industri --}}
-        <a href="{{ route('admin.instansi.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-teal-500 group cursor-pointer no-underline flex flex-col justify-between h-48">
-            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-teal-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+        <a href="{{ route('admin.instansi.index') }}" class="block stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 hover:z-20 border-t-4 border-t-emerald-700 group cursor-pointer no-underline flex flex-col justify-between h-48">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-teal-600 transition-colors">Sisa Kuota Mitra</p>
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-emerald-800 transition-colors">Sisa Kuota Mitra</p>
                     @php
                         $dataInstansis = $instansis ?? collect();
                         $totalKuota = $dataInstansis->sum('kuota');
@@ -159,13 +159,13 @@
                     @endphp
                     <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $sisaKuota }}">0</h3>
                 </div>
-                <div class="p-3.5 bg-teal-50 text-teal-600 rounded-2xl border border-teal-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-teal-600 group-hover:to-emerald-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-teal-500/30 group-hover:rotate-6 shrink-0">
+                <div class="p-3.5 bg-emerald-50 text-emerald-800 rounded-2xl border border-emerald-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-[#234F35] group-hover:to-emerald-700 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-900/30 group-hover:rotate-6 shrink-0">
                     <i class="fas fa-users-slash text-xl"></i>
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
                 <span>Dari Total {{ $totalKuota }} Kuota</span>
-                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-teal-500"></i>
+                <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-emerald-800"></i>
             </div>
         </a>
 
@@ -174,20 +174,20 @@
     {{-- SECTION SEKSI DONUT CHART --}}
     <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-lg shadow-slate-200/50 transition-all duration-300 hover:shadow-xl relative overflow-hidden">
         {{-- Accent Background Glow --}}
-        <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-80 h-80 bg-emerald-50/50 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-4 border-b border-slate-100">
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="p-2 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100">
+                    <span class="p-2 bg-emerald-50 text-[#234F35] rounded-xl border border-emerald-100">
                         <i class="fas fa-chart-pie text-base"></i>
                     </span>
                     <h3 class="font-black text-slate-800 text-lg tracking-tight">Distribusi & Rasio Data</h3>
                 </div>
                 <p class="text-xs sm:text-sm text-slate-400 font-medium mt-1">Visualisasi persentase dan komparasi data statistik sistem Prakerin</p>
             </div>
-            <span class="px-3.5 py-1.5 rounded-2xl bg-indigo-50/80 text-indigo-700 border border-indigo-200/60 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-2xs">
-                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span> Real-Time Data
+            <span class="px-3.5 py-1.5 rounded-2xl bg-emerald-50/80 text-[#234F35] border border-emerald-200/60 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-2xs">
+                <span class="w-2 h-2 rounded-full bg-[#89C74A] animate-ping"></span> Real-Time Data
             </span>
         </div>
 
@@ -203,8 +203,8 @@
             <div class="lg:col-span-5 space-y-3">
                 <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
                     <div class="flex items-center gap-3">
-                        <span class="w-3.5 h-3.5 rounded-full bg-blue-500 ring-4 ring-blue-100 shrink-0 group-hover:scale-110 transition-transform"></span>
-                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-blue-600 transition-colors">Total Siswa</span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#234F35] ring-4 ring-emerald-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-[#234F35] transition-colors">Total Siswa</span>
                     </div>
                     <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalSiswa }}</span>
                 </div>
@@ -217,15 +217,15 @@
                 </div>
                 <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
                     <div class="flex items-center gap-3">
-                        <span class="w-3.5 h-3.5 rounded-full bg-purple-500 ring-4 ring-purple-100 shrink-0 group-hover:scale-110 transition-transform"></span>
-                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-purple-600 transition-colors">Mitra Industri</span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-teal-500 ring-4 ring-teal-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-teal-600 transition-colors">Mitra Industri</span>
                     </div>
                     <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalIndustri }}</span>
                 </div>
                 <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
                     <div class="flex items-center gap-3">
-                        <span class="w-3.5 h-3.5 rounded-full bg-cyan-500 ring-4 ring-cyan-100 shrink-0 group-hover:scale-110 transition-transform"></span>
-                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-cyan-600 transition-colors">Mentor Industri</span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#89C74A] ring-4 ring-lime-100 shrink-0 group-hover:scale-110 transition-transform"></span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-lime-700 transition-colors">Mentor Industri</span>
                     </div>
                     <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalMentor }}</span>
                 </div>
@@ -243,9 +243,9 @@
     {{-- INFORMASI TERKINI: MANAJEMEN KUOTA INDUSTRI --}}
     <div class="bg-white rounded-3xl shadow-md border border-slate-200/80 overflow-hidden transition-all duration-300 hover:shadow-xl relative z-10">
         {{-- Header Seksi Kuota --}}
-        <div class="px-6 sm:px-8 py-6 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-teal-50/80 via-white to-slate-50">
+        <div class="px-6 sm:px-8 py-6 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-emerald-50/80 via-white to-slate-50">
             <div class="flex items-center gap-4">
-                <div class="bg-gradient-to-tr from-teal-500 to-emerald-500 p-3.5 rounded-2xl text-white shadow-md shadow-teal-500/20 shrink-0">
+                <div class="bg-gradient-to-tr from-[#234F35] to-emerald-800 p-3.5 rounded-2xl text-white shadow-md shadow-emerald-900/20 shrink-0">
                     <i class="fas fa-warehouse text-xl"></i>
                 </div>
                 <div>
@@ -260,9 +260,9 @@
                         <i class="fas fa-search text-xs"></i>
                     </span>
                     <input type="text" id="kuotaSearchInput" placeholder="Cari nama mitra..." 
-                        class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all shadow-xs">
+                        class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-[#234F35] outline-none transition-all shadow-xs">
                 </div>
-                <a href="{{ route('admin.instansi.index') }}" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white text-xs font-black shadow-md shadow-teal-500/20 transition-all shrink-0 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
+                <a href="{{ route('admin.instansi.index') }}" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-slate-900 text-white text-xs font-black shadow-md shadow-emerald-900/20 transition-all shrink-0 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
                     <i class="fas fa-cog text-xs"></i> Kelola Kuota
                 </a>
             </div>
@@ -295,10 +295,10 @@
                     <tr class="kuota-row hover:bg-slate-50/90 transition-all duration-200 group divide-x divide-slate-200/80">
                         <td class="px-6 py-4 font-black text-slate-800 tracking-wide search-target-kuota">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 text-teal-600 font-bold text-sm flex items-center justify-center shrink-0 group-hover:bg-teal-500 group-hover:text-white transition-all shadow-2xs">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 text-[#234F35] font-bold text-sm flex items-center justify-center shrink-0 group-hover:bg-[#234F35] group-hover:text-white transition-all shadow-2xs">
                                     <i class="fas fa-building"></i>
                                 </div>
-                                <span class="text-sm font-black text-slate-800 group-hover:text-teal-600 transition-colors leading-snug">
+                                <span class="text-sm font-black text-slate-800 group-hover:text-[#234F35] transition-colors leading-snug">
                                     {{ $namaIndustri }}
                                 </span>
                             </div>
@@ -319,7 +319,7 @@
                                     <span class="text-slate-400 font-mono">{{ $kuotaTerpakai }}/{{ $kuotaTotal }}</span>
                                 </div>
                                 <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/60 flex shadow-inner">
-                                    <div class="h-full transition-all duration-500 rounded-full {{ $persen >= 100 ? 'bg-rose-500' : ($persen >= 80 ? 'bg-amber-500' : 'bg-gradient-to-r from-teal-400 to-emerald-500') }}" style="width: {{ $persen }}%"></div>
+                                    <div class="h-full transition-all duration-500 rounded-full {{ $persen >= 100 ? 'bg-rose-500' : ($persen >= 80 ? 'bg-amber-500' : 'bg-gradient-to-r from-[#234F35] to-[#89C74A]') }}" style="width: {{ $persen }}%"></div>
                                 </div>
                             </div>
                         </td>
@@ -362,7 +362,7 @@
     <div class="bg-white rounded-3xl shadow-sm overflow-hidden border border-slate-200/80 transition-all duration-300 hover:shadow-md">
         <div class="px-6 sm:px-8 py-5 border-b border-slate-200/80 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90">
             <div class="flex items-center">
-                <div class="bg-rose-50 p-3 rounded-2xl mr-4 border border-rose-100 text-rose-500 shadow-2xs group-hover:scale-105 transition-transform shrink-0">
+                <div class="bg-emerald-50 p-3 rounded-2xl mr-4 border border-emerald-100 text-[#234F35] shadow-2xs group-hover:scale-105 transition-transform shrink-0">
                     <i class="fas fa-user-plus text-lg animate-pulse"></i>
                 </div>
                 <div>
@@ -379,12 +379,12 @@
                         <i class="fas fa-search text-xs"></i>
                     </span>
                     <input type="text" id="verifySearchInput" placeholder="Cari nama, NIS, jurusan..." 
-                        class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 focus:bg-white outline-none transition-all shadow-2xs">
+                        class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-[#234F35] focus:bg-white outline-none transition-all shadow-2xs">
                 </div>
                 @endif
 
                 @if($siswaPending->count() > 0)
-                    <span class="bg-gradient-to-r from-rose-500 to-red-600 text-white py-1.5 px-4 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-sm shadow-rose-500/20 animate-pulse whitespace-nowrap border border-rose-600/10 shrink-0">
+                    <span class="bg-gradient-to-r from-[#234F35] to-emerald-800 text-white py-1.5 px-4 rounded-xl text-[11px] font-black uppercase tracking-wider shadow-sm shadow-emerald-900/20 animate-pulse whitespace-nowrap border border-emerald-900/10 shrink-0">
                         {{ $siswaPending->count() }} Perlu Tindakan
                     </span>
                 @else
@@ -411,23 +411,23 @@
                     <tr class="pending-row hover:bg-slate-50/90 transition-all duration-200 group divide-x divide-slate-200/80">
                         <td class="px-6 sm:px-8 py-4 font-extrabold text-slate-800 tracking-wide search-target">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform shrink-0">
+                                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#234F35] to-emerald-800 text-white font-black text-xs flex items-center justify-center shadow-md shadow-emerald-900/10 group-hover:scale-105 transition-transform shrink-0">
                                     {{ substr($siswa->name, 0, 1) }}
                                 </div>
-                                <span class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{{ $siswa->name }}</span>
+                                <span class="text-sm font-bold text-slate-800 group-hover:text-[#234F35] transition-colors">{{ $siswa->name }}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4 text-slate-500 font-mono text-xs font-semibold tracking-wider search-target">
                             <span class="bg-slate-100/80 group-hover:bg-white px-3 py-1.5 rounded-lg border border-slate-200/80 text-slate-700 shadow-2xs inline-block">{{ $siswa->nomor_identitas }}</span>
                         </td>
                         <td class="px-6 py-4 search-target">
-                            <span class="bg-indigo-50 text-indigo-700 group-hover:bg-indigo-100 group-hover:text-indigo-800 px-3 py-1 rounded-full text-[10px] font-black border border-indigo-200/70 uppercase tracking-wider shadow-2xs transition-colors inline-block">
+                            <span class="bg-emerald-50 text-[#234F35] group-hover:bg-emerald-100 px-3 py-1 rounded-full text-[10px] font-black border border-emerald-200/70 uppercase tracking-wider shadow-2xs transition-colors inline-block">
                                 {{ $siswa->jurusan->kode_jurusan ?? '-' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-slate-500 text-xs font-semibold">
                             <div class="flex items-center bg-slate-50/80 group-hover:bg-white w-max px-3 py-1.5 rounded-xl border border-slate-200/80 transition-colors shadow-2xs">
-                                <i class="far fa-calendar-alt mr-2 text-blue-500 text-xs"></i>
+                                <i class="far fa-calendar-alt mr-2 text-[#234F35] text-xs"></i>
                                 {{ $siswa->created_at->locale('id')->isoFormat('D MMMM Y') }}
                             </div>
                         </td>
@@ -436,7 +436,7 @@
                                 {{-- Form Terima dengan Konfirmasi Kustom --}}
                                 <form action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST" class="form-verify-approve">
                                     @csrf
-                                    <button type="button" data-name="{{ $siswa->name }}" class="btn-approve bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-black hover:bg-emerald-600 shadow-sm shadow-emerald-500/20 hover:shadow-md hover:shadow-emerald-500/30 transition-all flex items-center transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                                    <button type="button" data-name="{{ $siswa->name }}" class="btn-approve bg-emerald-600 text-white px-3.5 py-1.5 rounded-xl text-xs font-black hover:bg-emerald-700 shadow-sm shadow-emerald-600/20 hover:shadow-md hover:shadow-emerald-600/30 transition-all flex items-center transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
                                         <i class="fas fa-check mr-1.5 text-[10px]"></i> Terima
                                     </button>
                                 </form>
@@ -543,10 +543,10 @@
                             {{ $siswaMagang ?? 0 }}
                         ],
                         backgroundColor: [
-                            '#3b82f6', // Blue-500
+                            '#234F35', // Green Dark
                             '#10b981', // Emerald-500
-                            '#a855f7', // Purple-500
-                            '#06b6d4', // Cyan-500
+                            '#14b8a6', // Teal-500
+                            '#89C74A', // Green Light
                             '#f59e0b'  // Amber-500
                         ],
                         borderWidth: 4,
@@ -737,11 +737,11 @@
 
             if (type === 'approve') {
                 modalGlow.className = 'absolute -top-20 -right-20 w-44 h-44 rounded-full blur-3xl opacity-30 pointer-events-none bg-emerald-500 transition-colors duration-500';
-                modalIconBg.className = 'relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 bg-gradient-to-tr from-emerald-500 to-teal-400 text-white shadow-xl shadow-emerald-500/30 transform hover:scale-105 transition-all';
+                modalIconBg.className = 'relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 bg-gradient-to-tr from-[#234F35] to-emerald-600 text-white shadow-xl shadow-emerald-900/30 transform hover:scale-105 transition-all';
                 modalIcon.className = 'fas fa-user-check';
                 modalTitle.textContent = 'Terima Pendaftaran';
-                modalDescription.innerHTML = `Apakah Anda yakin ingin menyetujui pendaftaran siswa <span class="font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">${targetName}</span>? Akun siswa akan diaktifkan secara otomatis.`;
-                btnConfirmModal.className = 'flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-500/25 transition-all duration-200 text-xs outline-none cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 tracking-wide';
+                modalDescription.innerHTML = `Apakah Anda yakin ingin menyetujui pendaftaran siswa <span class="font-extrabold text-[#234F35] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">${targetName}</span>? Akun siswa akan diaktifkan secara otomatis.`;
+                btnConfirmModal.className = 'flex-1 bg-gradient-to-r from-[#234F35] to-emerald-700 hover:from-emerald-800 hover:to-slate-900 text-white font-extrabold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-900/25 transition-all duration-200 text-xs outline-none cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0 tracking-wide';
             } else {
                 modalGlow.className = 'absolute -top-20 -right-20 w-44 h-44 rounded-full blur-3xl opacity-30 pointer-events-none bg-rose-500 transition-colors duration-500';
                 modalIconBg.className = 'relative h-20 w-20 rounded-3xl flex items-center justify-center text-3xl mb-5 bg-gradient-to-tr from-rose-500 to-red-500 text-white shadow-xl shadow-rose-500/30 transform hover:scale-105 transition-all';

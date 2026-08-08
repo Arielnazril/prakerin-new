@@ -6,14 +6,14 @@
 <div class="space-y-8 animate-fade-in">
 
     <!-- HEADER SECTION -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <!-- Accent Glow Effects -->
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10">
             <div class="flex items-center space-x-3 mb-2">
-                <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-400/20 uppercase tracking-widest">
+                <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-400/20 uppercase tracking-widest">
                     Manajemen Prakerin
                 </span>
             </div>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="relative z-10 flex-shrink-0">
-            <a href="{{ route('admin.placement.calculate') }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs sm:text-sm uppercase tracking-wider group cursor-pointer whitespace-nowrap">
+            <a href="{{ route('admin.placement.calculate') }}" class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs sm:text-sm uppercase tracking-wider group cursor-pointer whitespace-nowrap">
                 <i class="fas fa-plus-circle mr-2 text-base transition-transform group-hover:rotate-90 duration-300"></i> Plotting Baru
             </a>
         </div>
@@ -75,20 +75,20 @@
             </div>
 
             {{-- Statistik Siswa Selesai --}}
-            <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50/80 to-blue-50/40 hover:from-indigo-100/70 hover:to-blue-100/50 transition-all duration-300 p-4 rounded-2xl border border-indigo-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
-                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all"></div>
+            <div class="relative overflow-hidden bg-gradient-to-br from-teal-50/80 to-emerald-50/40 hover:from-teal-100/70 hover:to-emerald-100/50 transition-all duration-300 p-4 rounded-2xl border border-teal-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
+                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-teal-500/10 rounded-full blur-xl group-hover:bg-teal-500/20 transition-all"></div>
                 
                 <div class="flex items-center space-x-3.5 relative z-10">
-                    <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold shadow-xs border border-indigo-200/50 group-hover:scale-105 transition-transform duration-300">
-                        <i class="fas fa-check-circle text-sm text-indigo-600"></i>
+                    <div class="w-11 h-11 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center font-bold shadow-xs border border-teal-200/50 group-hover:scale-105 transition-transform duration-300">
+                        <i class="fas fa-check-circle text-sm text-teal-600"></i>
                     </div>
                     <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-indigo-600/80">Lulus / Selesai</p>
-                        <p class="text-xs font-bold text-indigo-900 mt-0.5">Selesai Prakerin</p>
+                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-teal-600/80">Lulus / Selesai</p>
+                        <p class="text-xs font-bold text-teal-900 mt-0.5">Selesai Prakerin</p>
                     </div>
                 </div>
                 
-                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-indigo-700 px-3.5 py-1.5 rounded-xl border border-indigo-200/80 shadow-xs whitespace-nowrap">
+                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-teal-700 px-3.5 py-1.5 rounded-xl border border-teal-200/80 shadow-xs whitespace-nowrap">
                     {{ $placements->where('status', 'selesai')->count() }} Siswa
                 </span>
             </div>
@@ -97,11 +97,11 @@
         
         <!-- Input Pencarian -->
         <div class="relative w-full lg:w-80 group flex-shrink-0">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors duration-200">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors duration-200">
                 <i class="fas fa-search text-sm"></i>
             </span>
             <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, atau guru..." 
-                class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
+                class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
         </div>
     </div>
 
@@ -139,7 +139,7 @@
     <!-- TAB NAVIGASI KATEGORI GRADE INSTANSI -->
     <div class="flex items-center space-x-2 bg-slate-200/60 p-1.5 rounded-2xl w-fit border border-slate-200/80 shadow-inner">
         <button type="button" onclick="switchGradeTab('all')" id="tab_btn_all" 
-            class="tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-blue-600 shadow-sm cursor-pointer">
+            class="tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-emerald-600 shadow-sm cursor-pointer">
             <i class="fas fa-layer-group text-xs"></i>
             <span>Semua Penempatan</span>
             <span class="px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 text-slate-600 ml-1">{{ $placements->count() }}</span>
@@ -244,7 +244,7 @@
                         {{-- Kolom Guru Pembimbing --}}
                         <td class="px-3 py-3">
                             <div class="flex items-center text-slate-700 text-xs font-semibold" title="Guru Sekolah">
-                                <span class="w-5 h-5 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-blue-100">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
                                 <span class="leading-snug guru-cell text-slate-800 font-bold" title="{{ $placement->guru->name }}">{{ $placement->guru->name }}</span>
@@ -282,7 +282,7 @@
                                     Sedang Magang
                                 </span>
                             @elseif($placement->status == 'selesai')
-                                <span class="inline-flex items-center justify-center bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-blue-200/80 whitespace-nowrap shadow-2xs">
+                                <span class="inline-flex items-center justify-center bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-teal-200/80 whitespace-nowrap shadow-2xs">
                                     <i class="fas fa-check text-[8px] mr-1"></i> Selesai
                                 </span>
                             @else
@@ -349,7 +349,7 @@
                         {{-- Kolom Guru Pembimbing --}}
                         <td class="px-3 py-3">
                             <div class="flex items-center text-slate-700 text-xs font-semibold" title="Guru Sekolah">
-                                <span class="w-5 h-5 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-blue-100">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
                                 <span class="leading-snug guru-cell text-slate-800 font-bold" title="{{ $placement->guru->name }}">{{ $placement->guru->name }}</span>
@@ -387,7 +387,7 @@
                                     Sedang Magang
                                 </span>
                             @elseif($placement->status == 'selesai')
-                                <span class="inline-flex items-center justify-center bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-blue-200/80 whitespace-nowrap shadow-2xs">
+                                <span class="inline-flex items-center justify-center bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-teal-200/80 whitespace-nowrap shadow-2xs">
                                     <i class="fas fa-check text-[8px] mr-1"></i> Selesai
                                 </span>
                             @else
@@ -423,7 +423,7 @@
                                 </div>
                                 <p class="font-bold text-slate-700 text-base">Belum Ada Plotting</p>
                                 <p class="text-xs text-slate-400 mt-1 mb-4">Belum ada data siswa yang ditempatkan ke instansi magang.</p>
-                                <a href="{{ route('admin.placement.create') }}" class="inline-flex items-center text-xs font-black text-blue-600 bg-blue-50 border border-blue-200/80 px-4 py-2.5 rounded-xl hover:bg-blue-100 transition shadow-2xs">
+                                <a href="{{ route('admin.placement.create') }}" class="inline-flex items-center text-xs font-black text-emerald-600 bg-emerald-50 border border-emerald-200/80 px-4 py-2.5 rounded-xl hover:bg-emerald-100 transition shadow-2xs">
                                     <i class="fas fa-plus mr-2"></i> Mulai Plotting Sekarang
                                 </a>
                             </div>
@@ -577,7 +577,7 @@
                     @if($placement->status == 'aktif')
                         <span class="text-emerald-700">Aktif</span>
                     @elseif($placement->status == 'selesai')
-                        <span class="text-blue-700">Selesai</span>
+                        <span class="text-teal-700">Selesai</span>
                     @else
                         <span class="text-rose-700">Batal</span>
                     @endif
@@ -703,7 +703,7 @@
 
         // Set style tab aktif & header
         if (tabName === 'all') {
-            btnAll.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-blue-600 shadow-sm cursor-pointer";
+            btnAll.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-emerald-600 shadow-sm cursor-pointer";
             if (title) title.textContent = "Daftar Penempatan Magang (Semua)";
             if (subtitle) subtitle.textContent = "Menampilkan seluruh data plotting siswa dari semua kategori instansi.";
         } else if (tabName === 'grade_a') {

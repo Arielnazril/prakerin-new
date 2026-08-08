@@ -6,18 +6,18 @@
 
 <div class="space-y-6 select-none pb-12 antialiased">
     
-    {{-- TOP BAR SECTION (DARK SLATE & AMBER ACCENT) --}}
+    {{-- TOP BAR SECTION (DARK SLATE & EMERALD ACCENT) --}}
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900 p-6 sm:p-7 rounded-3xl border border-slate-800 shadow-xl shadow-slate-900/20 relative overflow-hidden group">
         {{-- Elegant Accent Elements --}}
-        <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-amber-500/10 via-amber-500/5 to-transparent pointer-events-none"></div>
-        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-600/15 rounded-full blur-2xl group-hover:bg-amber-600/25 transition-all duration-700 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-emerald-500/10 via-emerald-500/5 to-transparent pointer-events-none"></div>
+        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-600/15 rounded-full blur-2xl group-hover:bg-emerald-600/25 transition-all duration-700 pointer-events-none"></div>
 
         <div class="relative z-10 space-y-1">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-extrabold text-amber-400 tracking-wider uppercase mb-1">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Activity Logs
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-extrabold text-emerald-400 tracking-wider uppercase mb-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Activity Logs
             </div>
             <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-                <span class="w-2 h-7 bg-amber-500 rounded-full inline-block"></span>
+                <span class="w-2 h-7 bg-emerald-500 rounded-full inline-block"></span>
                 Jurnal Kegiatan
             </h2>
             <p class="text-xs sm:text-sm text-slate-300 font-medium pl-4">
@@ -25,7 +25,7 @@
             </p>
         </div>
         
-        <a href="{{ route('siswa.logbook.create') }}" class="relative z-10 w-full sm:w-auto bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-amber-900/30 flex items-center justify-center transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95 text-sm border border-amber-500/30 shrink-0">
+        <a href="{{ route('siswa.logbook.create') }}" class="relative z-10 w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg shadow-emerald-900/30 flex items-center justify-center transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95 text-sm border border-emerald-500/30 shrink-0">
             <i class="fas fa-plus-circle mr-2 text-base"></i> Tulis Kegiatan
         </a>
     </div>
@@ -93,12 +93,12 @@
                 <div class="md:w-1/5 flex flex-row md:flex-col justify-between md:justify-start border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-5">
                     <div class="text-center md:text-left">
                         <span class="block text-4xl font-black text-slate-900 tracking-tight leading-none font-mono">{{ $logbook->tanggal->format('d') }}</span>
-                        <span class="block text-xs font-extrabold text-amber-700 uppercase tracking-widest mt-1.5">{{ $logbook->tanggal->format('M Y') }}</span>
+                        <span class="block text-xs font-extrabold text-emerald-700 uppercase tracking-widest mt-1.5">{{ $logbook->tanggal->format('M Y') }}</span>
                     </div>
                     <div class="text-right md:text-left md:mt-5">
                         <span class="block text-[10px] text-slate-400 font-black uppercase tracking-wider">Jam Kerja</span>
                         <span class="inline-flex items-center text-xs font-mono font-bold text-slate-800 bg-slate-100 border border-slate-200/80 px-2.5 py-1.5 rounded-xl mt-1 shadow-2xs">
-                            <i class="far fa-clock mr-1.5 text-amber-600"></i>
+                            <i class="far fa-clock mr-1.5 text-emerald-600"></i>
                             {{ \Carbon\Carbon::parse($logbook->jam_masuk)->format('H:i') }} - {{ \Carbon\Carbon::parse($logbook->jam_keluar)->format('H:i') }}
                         </span>
                     </div>
@@ -111,7 +111,7 @@
                             <i class="fas fa-clipboard-list mr-2 text-slate-800"></i> Deskripsi Kegiatan
                         </span>
                         @if($logbook->foto)
-                            <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60">
+                            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200/60">
                                 <i class="fas fa-camera mr-1"></i> Dokumentasi
                             </span>
                         @endif
@@ -153,7 +153,7 @@
 
                     {{-- Actions Container (Edit & Hapus Selalu Tersedia) --}}
                     <div class="flex space-x-2">
-                        <a href="{{ route('siswa.logbook.edit', $logbook->id) }}" class="text-amber-700 hover:text-white hover:bg-amber-600 border border-amber-200 hover:border-amber-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-amber-50/50 text-sm" title="Edit Logbook">
+                        <a href="{{ route('siswa.logbook.edit', $logbook->id) }}" class="text-emerald-700 hover:text-white hover:bg-emerald-600 border border-emerald-200 hover:border-emerald-600 p-2.5 rounded-xl transition shadow-2xs active:scale-95 bg-emerald-50/50 text-sm" title="Edit Logbook">
                             <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{ route('siswa.logbook.destroy', $logbook->id) }}" method="POST" class="delete-logbook-form">
@@ -170,7 +170,7 @@
             @if($logbook->catatan_pembimbing)
                 <div class="mt-5 bg-slate-900/5 p-4 rounded-2xl border border-slate-200/80 text-sm text-slate-800">
                     <span class="font-extrabold text-slate-900 block mb-1 text-xs uppercase tracking-wider flex items-center">
-                        <i class="fas fa-comment-dots mr-1.5 text-amber-600 text-sm"></i> Catatan Mentor / Pembimbing:
+                        <i class="fas fa-comment-dots mr-1.5 text-emerald-600 text-sm"></i> Catatan Mentor / Pembimbing:
                     </span>
                     <p class="italic text-slate-700 font-medium leading-relaxed">"{{ $logbook->catatan_pembimbing }}"</p>
                 </div>

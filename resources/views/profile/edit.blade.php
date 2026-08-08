@@ -37,10 +37,10 @@
     {{-- HEADER PROFILE DENGAN AVATAR INISIAL --}}
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 transition-all duration-300 hover:shadow-md relative overflow-hidden group/header">
         {{-- Decorative background gradient blur effect --}}
-        <div class="absolute -right-16 -top-16 w-36 h-36 bg-blue-500/5 rounded-full blur-2xl transition-all duration-500 group-hover/header:scale-150"></div>
+        <div class="absolute -right-16 -top-16 w-36 h-36 bg-emerald-500/5 rounded-full blur-2xl transition-all duration-500 group-hover/header:scale-150"></div>
         
         <div class="flex items-center space-x-3.5 sm:space-x-4 z-10 w-full sm:w-auto">
-            <div class="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-lg shadow-blue-500/20 transform hover:scale-105 hover:rotate-3 transition-all duration-300 select-none shrink-0">
+            <div class="h-14 w-14 sm:h-16 sm:w-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 text-white flex items-center justify-center font-black text-xl sm:text-2xl shadow-lg shadow-emerald-500/20 transform hover:scale-105 hover:rotate-3 transition-all duration-300 select-none shrink-0">
                 {{ substr($user->name, 0, 1) }}
             </div>
             <div class="min-w-0 flex-1">
@@ -51,10 +51,10 @@
             </div>
         </div>
         
-        <div class="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-50 to-indigo-50/60 text-blue-700 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest border border-blue-100 shadow-3xs flex items-center gap-2 select-none z-10 self-start sm:self-center shrink-0">
+        <div class="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-emerald-50 to-teal-50/60 text-emerald-700 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest border border-emerald-100 shadow-3xs flex items-center gap-2 select-none z-10 self-start sm:self-center shrink-0">
             <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
             </span>
             Role: {{ $user->role }}
         </div>
@@ -63,8 +63,8 @@
     {{-- INFORMASI PRIBADI --}}
     <div class="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-xs border border-gray-100/90 transition-all duration-300 hover:shadow-md group/card">
         <div class="border-b border-gray-100 pb-4 sm:pb-5 mb-5 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-2">
-            <h3 class="text-base sm:text-lg font-black text-gray-800 flex items-center tracking-tight transition-colors duration-200 group-focus-within/card:text-blue-600">
-                <span class="p-2 sm:p-2.5 bg-blue-50 text-blue-600 rounded-xl mr-2.5 sm:mr-3 border border-blue-100/50 shadow-3xs transition-transform duration-300 group-focus-within/card:scale-105 shrink-0">
+            <h3 class="text-base sm:text-lg font-black text-gray-800 flex items-center tracking-tight transition-colors duration-200 group-focus-within/card:text-emerald-600">
+                <span class="p-2 sm:p-2.5 bg-emerald-50 text-emerald-600 rounded-xl mr-2.5 sm:mr-3 border border-emerald-100/50 shadow-3xs transition-transform duration-300 group-focus-within/card:scale-105 shrink-0">
                     <i class="fas fa-id-card text-sm sm:text-base"></i>
                 </span> 
                 Informasi Pribadi
@@ -80,24 +80,24 @@
 
                 {{-- Nama Lengkap --}}
                 <div class="group/section">
-                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-blue-600">Nama Lengkap</label>
+                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-emerald-600">Nama Lengkap</label>
                     <div class="relative shadow-3xs rounded-xl">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-blue-500 transition-colors duration-200">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-emerald-500 transition-colors duration-200">
                             <i class="fas fa-user text-sm"></i>
                         </span>
-                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
+                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
                     </div>
                     @error('name') <span class="text-red-500 text-xs mt-2 block font-bold tracking-wide flex items-center gap-1.5 animate-fadeIn"><i class="fas fa-exclamation-circle text-[10px]"></i> {{ $message }}</span> @enderror
                 </div>
 
                 {{-- Username --}}
                 <div class="group/section">
-                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-blue-600">Username</label>
+                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-emerald-600">Username</label>
                     <div class="relative shadow-3xs rounded-xl">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-blue-500 transition-colors duration-200">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-emerald-500 transition-colors duration-200">
                             <i class="fas fa-at text-sm"></i>
                         </span>
-                        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
+                        <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
                     </div>
                     @error('username') <span class="text-red-500 text-xs mt-2 block font-bold tracking-wide flex items-center gap-1.5 animate-fadeIn"><i class="fas fa-exclamation-circle text-[10px]"></i> {{ $message }}</span> @enderror
                 </div>
@@ -115,19 +115,19 @@
                         </div>
                     </div>
                     <p class="text-[10px] sm:text-[11px] text-gray-400 mt-2 flex items-start gap-1.5 font-medium leading-relaxed">
-                        <i class="fas fa-info-circle text-[11px] text-blue-500/80 mt-0.5 shrink-0"></i> 
+                        <i class="fas fa-info-circle text-[11px] text-emerald-500/80 mt-0.5 shrink-0"></i> 
                         <span>Hubungi pihak kurikulum/admin jika ingin mengubah nomor identitas sistem Anda.</span>
                     </p>
                 </div>
 
                 {{-- Alamat Email --}}
                 <div class="group/section">
-                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-blue-600">Alamat Email</label>
+                    <label class="block text-xs font-black uppercase tracking-wider text-gray-500 mb-2 transition-colors duration-200 group-focus-within/section:text-emerald-600">Alamat Email</label>
                     <div class="relative shadow-3xs rounded-xl">
-                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-blue-500 transition-colors duration-200">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400 group-focus-within/section:text-emerald-500 transition-colors duration-200">
                             <i class="fas fa-envelope text-sm"></i>
                         </span>
-                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
+                        <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full pl-11 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 focus:outline-hidden transition-all duration-200 text-gray-800 text-sm font-semibold bg-white placeholder:text-gray-300" required>
                     </div>
                     @error('email') <span class="text-red-500 text-xs mt-2 block font-bold tracking-wide flex items-center gap-1.5 animate-fadeIn"><i class="fas fa-exclamation-circle text-[10px]"></i> {{ $message }}</span> @enderror
                 </div>
@@ -147,8 +147,8 @@
                 {{-- Kondisional Khusus Siswa --}}
                 @if($user->role == 'siswa')
                 <div class="col-span-1 md:col-span-2 border-t border-gray-100 pt-5 sm:pt-6 mt-1 sm:mt-2 bg-gray-50/50 -mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-8 md:px-8 pb-4 rounded-b-2xl">
-                    <p class="text-xs font-black text-blue-600 uppercase tracking-widest mb-3.5 sm:mb-4 flex items-center">
-                        <i class="fas fa-graduation-cap mr-2.5 text-sm bg-blue-100/80 p-1.5 rounded-lg shadow-3xs"></i> Data Akademik Internal
+                    <p class="text-xs font-black text-emerald-600 uppercase tracking-widest mb-3.5 sm:mb-4 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2.5 text-sm bg-emerald-100/80 p-1.5 rounded-lg shadow-3xs"></i> Data Akademik Internal
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
                         <div>
@@ -180,7 +180,7 @@
 
             {{-- Tombol Aksi & Notifikasi --}}
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-4 border-t border-gray-50">
-                <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black py-3 px-6 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-blue-500/10 active:scale-[0.99] flex items-center justify-center tracking-wide text-sm cursor-pointer select-none">
+                <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black py-3 px-6 rounded-xl hover:from-emerald-700 hover:to-teal-700 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-emerald-500/10 active:scale-[0.99] flex items-center justify-center tracking-wide text-sm cursor-pointer select-none">
                     <i class="fas fa-save mr-2 text-xs opacity-90"></i> Simpan Profil
                 </button>
 

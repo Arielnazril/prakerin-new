@@ -53,7 +53,7 @@
             justify-content: center !important;
             gap: 15px !important;
             margin-bottom: 12px !important;
-            border-bottom: 2px solid #0f172a !important;
+            border-bottom: 2px solid #234F35 !important;
             padding-bottom: 8px !important;
             text-align: center !important;
         }
@@ -191,23 +191,28 @@
     }
 </style>
 
-<div class="max-w-7xl mx-auto space-y-8 pb-12 animate-fade-in">
+<div class="max-w-7xl mx-auto space-y-8 pb-12 animate-fade-in selection:bg-[#234F35] selection:text-white font-sans antialiased">
 
     <!-- HEADER SECTION -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden border border-slate-700/50">
-        <div class="absolute -right-12 -bottom-12 w-56 h-56 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-12 -top-12 w-56 h-56 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden border border-slate-800">
+        <div class="absolute -right-12 -bottom-12 w-56 h-56 bg-gradient-to-br from-[#89C74A]/20 to-emerald-600/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-12 -top-12 w-56 h-56 bg-gradient-to-tr from-[#234F35]/30 to-teal-500/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
         <div class="relative z-10 space-y-2">
             <div class="flex items-center space-x-2">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-black bg-blue-500/20 text-blue-300 border border-blue-400/30 tracking-widest uppercase shadow-xs backdrop-blur-xs">
-                    <i class="fas fa-brain mr-1.5 text-blue-400"></i> Sistem Pendukung Keputusan
+                <span class="inline-flex items-center gap-1.5 bg-[#89C74A]/10 text-[#89C74A] text-[10px] sm:text-xs font-black px-3.5 py-1 rounded-full border border-[#89C74A]/20 tracking-widest uppercase backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#89C74A] animate-pulse"></span>
+                    <i class="fas fa-brain text-[#89C74A]"></i> Sistem Pendukung Keputusan
                 </span>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
-                Rekomendasi<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-indigo-200"> Penempatan</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight flex items-center gap-3">
+                <span class="p-2.5 bg-gradient-to-br from-[#234F35]/40 to-emerald-800/40 text-[#89C74A] rounded-2xl border border-[#89C74A]/30 backdrop-blur-xl shadow-inner flex items-center justify-center">
+                    <i class="fas fa-calculator text-base"></i>
+                </span>
+                Rekomendasi <span class="text-[#89C74A]"> Penempatan</span>
             </h2>
-            <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-400 font-medium max-w-2xl leading-relaxed">
                 Hitung dan tentukan rekomendasi lokasi magang siswa berdasarkan kriteria akademik, kehadiran, dan kuota industri.
             </p>
         </div>
@@ -219,7 +224,7 @@
         <!-- FORM INPUT NILAI SISWA INTERAKTIF -->
         <div class="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 transition-all relative z-30">
             <div class="flex items-center space-x-3.5 mb-6 pb-4 border-b border-slate-100">
-                <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-extrabold border border-blue-100/80 shadow-xs flex-shrink-0">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-[#234F35] flex items-center justify-center font-extrabold border border-emerald-100/80 shadow-xs flex-shrink-0">
                     <i class="fas fa-user-check text-sm"></i>
                 </div>
                 <div>
@@ -317,7 +322,7 @@
 
                     <!-- Trigger Button Minimalis -->
                     <div id="customDropdownTrigger" onclick="toggleCustomDropdown()" 
-                        class="w-full px-4 py-2.5 bg-slate-50 hover:bg-white border border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/10 rounded-xl text-xs sm:text-sm font-medium text-slate-700 outline-none transition-all cursor-pointer relative flex items-center justify-between min-h-[44px]">
+                        class="w-full px-4 py-2.5 bg-slate-50 hover:bg-white border border-slate-200 focus-within:border-[#234F35] focus-within:ring-2 focus-within:ring-[#234F35]/20 rounded-xl text-xs sm:text-sm font-medium text-slate-700 outline-none transition-all cursor-pointer relative flex items-center justify-between min-h-[44px]">
                         
                         <div class="flex items-center space-x-2.5 truncate pr-6">
                             <i class="fas fa-user-circle text-slate-400 text-sm flex-shrink-0"></i>
@@ -338,7 +343,7 @@
                             <div class="relative">
                                 <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                                 <input type="text" id="inputSearchDropdownSiswa" oninput="filterSiswaDropdown()" placeholder="Cari nama atau NIS siswa..." autocomplete="off"
-                                    class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 shadow-xs">
+                                    class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#234F35] focus:ring-2 focus:ring-[#234F35]/20 shadow-xs">
                             </div>
                         </div>
 
@@ -416,11 +421,11 @@
                                     data-jurusan="{{ $namaJurusan }}" 
                                     data-c1="{{ $siswa->nilai_akademik ?? $siswa->c1 ?? '' }}" 
                                     data-c2="{{ $siswa->kehadiran ?? $siswa->c2 ?? '' }}"
-                                    class="custom-option-item p-2.5 hover:bg-blue-50/80 rounded-xl transition-colors cursor-pointer flex items-center justify-between gap-3 group border border-transparent hover:border-blue-100">
+                                    class="custom-option-item p-2.5 hover:bg-emerald-50/80 rounded-xl transition-colors cursor-pointer flex items-center justify-between gap-3 group border border-transparent hover:border-emerald-100">
                                     
                                     <div class="flex items-center space-x-3 min-w-0">
                                         <div class="min-w-0 flex-1">
-                                            <div class="font-extrabold text-slate-800 text-xs sm:text-sm group-hover:text-blue-600 truncate transition-colors item-nama">
+                                            <div class="font-extrabold text-slate-800 text-xs sm:text-sm group-hover:text-[#234F35] truncate transition-colors item-nama">
                                                 {{ $namaSiswa }}
                                             </div>
                                             <div class="text-[11px] text-slate-400 font-medium truncate item-nis">
@@ -430,7 +435,7 @@
                                     </div>
 
                                     <!-- Badge Jurusan Minimalis -->
-                                    <span class="text-[11px] text-slate-600 font-bold bg-slate-100 group-hover:bg-blue-100 group-hover:text-blue-700 px-2.5 py-1 rounded-lg flex-shrink-0 truncate transition-colors border border-slate-200/50 group-hover:border-blue-200">
+                                    <span class="text-[11px] text-slate-600 font-bold bg-slate-100 group-hover:bg-emerald-100 group-hover:text-[#234F35] px-2.5 py-1 rounded-lg flex-shrink-0 truncate transition-colors border border-slate-200/50 group-hover:border-emerald-200">
                                         {{ $namaJurusan }}
                                     </span>
                                 </div>
@@ -451,7 +456,7 @@
                             <i class="fas fa-graduation-cap text-xs"></i>
                         </span>
                         <input type="number" id="inputNilaiC1" min="0" max="100" step="0.1" required placeholder="Nilai Hard Skill (0-100)" 
-                            class="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-xs">
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:bg-white focus:ring-4 focus:ring-[#234F35]/15 focus:border-[#234F35] outline-none transition-all shadow-xs">
                     </div>
                 </div>
 
@@ -463,13 +468,13 @@
                             <i class="fas fa-user-check text-xs"></i>
                         </span>
                         <input type="number" id="inputNilaiC2" min="0" max="100" step="0.1" required placeholder="Nilai Soft Skill (0-100)" 
-                            class="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all shadow-xs">
+                            class="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 focus:bg-white focus:ring-4 focus:ring-[#234F35]/15 focus:border-[#234F35] outline-none transition-all shadow-xs">
                     </div>
                 </div>
 
                 <!-- Tombol Hitung -->
                 <div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer border border-blue-400/20">
+                    <button type="submit" class="w-full bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md shadow-[#234F35]/20 hover:shadow-lg hover:shadow-[#234F35]/30 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer border border-emerald-400/20">
                         <i class="fas fa-calculator text-sm"></i>
                         <span>Hitung & Rekomendasikan</span>
                     </button>
@@ -480,10 +485,12 @@
         <!-- MODAL POPUP BERHASIL ELEGAN (DENGAN DROPDOWN PILIHAN INSTANSI) -->
         <div id="modalKalkulasiSukses" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 transition-all duration-300">
             <div onclick="tutupModalSukses()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity"></div>
-            <div id="modalCardContent" class="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-sm w-full p-6 text-center relative z-10 transform scale-95 opacity-0 transition-all duration-300">
+            <div id="modalCardContent" class="bg-white rounded-3xl shadow-2xl border border-slate-100 max-w-sm w-full p-6 text-center relative z-10 transform scale-95 opacity-0 transition-all duration-300 overflow-hidden">
+                <div class="absolute -right-16 -top-16 w-32 h-32 rounded-full blur-2xl opacity-20 pointer-events-none bg-[#89C74A]"></div>
+                
                 <div class="relative w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                     <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping"></div>
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/30 relative z-10">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#234F35] to-[#89C74A] text-white flex items-center justify-center text-2xl shadow-lg shadow-[#234F35]/30 relative z-10">
                         <i class="fas fa-check"></i>
                     </div>
                 </div>
@@ -498,15 +505,15 @@
                     </div>
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-slate-400 font-medium">Nilai C1 (Akademik):</span>
-                        <span id="popNilaiC1" class="font-bold text-blue-600">-</span>
+                        <span id="popNilaiC1" class="font-bold text-[#234F35]">-</span>
                     </div>
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-slate-400 font-medium">Nilai C2 (Kehadiran):</span>
-                        <span id="popNilaiC2" class="font-bold text-indigo-600">-</span>
+                        <span id="popNilaiC2" class="font-bold text-emerald-700">-</span>
                     </div>
                     <div class="flex justify-between items-center text-xs">
                         <span class="text-slate-400 font-medium">Hasil Kelayakan:</span>
-                        <span id="popGradeBadge" class="font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200">Grade A</span>
+                        <span id="popGradeBadge" class="font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-[#234F35] border border-emerald-200">Grade A</span>
                     </div>
 
                     <!-- DROPDOWN PILIHAN INSTANSI INTERAKTIF DALAM MODAL -->
@@ -515,7 +522,7 @@
                             Pilih Instansi Penempatan (Admin):
                         </label>
                         <div class="relative">
-                            <select id="popSelectInstansi" onchange="ubahInstansiModal(this.value)" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-extrabold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition-all cursor-pointer shadow-2xs">
+                            <select id="popSelectInstansi" onchange="ubahInstansiModal(this.value)" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-extrabold text-slate-800 focus:ring-2 focus:ring-[#234F35]/20 outline-none transition-all cursor-pointer shadow-2xs">
                                 <!-- Dynamic Options via JavaScript -->
                             </select>
                         </div>
@@ -540,7 +547,7 @@
     <div class="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div class="flex items-center space-x-3.5">
-                <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-extrabold border border-indigo-100 shadow-xs flex-shrink-0">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-50 text-[#234F35] flex items-center justify-center font-extrabold border border-emerald-100 shadow-xs flex-shrink-0">
                     <i class="fas fa-sliders-h text-sm"></i>
                 </div>
                 <div>
@@ -549,7 +556,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-2">
-                <button type="button" onclick="bukaModalAturSemuaKuota()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold px-4 py-2 rounded-xl text-xs transition-all flex items-center space-x-2 border border-indigo-200/80 cursor-pointer shadow-2xs">
+                <button type="button" onclick="bukaModalAturSemuaKuota()" class="bg-emerald-50 hover:bg-emerald-100 text-[#234F35] font-bold px-4 py-2 rounded-xl text-xs transition-all flex items-center space-x-2 border border-emerald-200/80 cursor-pointer shadow-2xs">
                     <i class="fas fa-sliders-h text-xs"></i>
                     <span>Set Seragam Kuota</span>
                 </button>
@@ -561,7 +568,7 @@
             <button type="button" onclick="filterCardKuota('ALL')" id="btnFilterKuotaALL" class="btn-filter-kuota bg-slate-900 text-white font-extrabold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition-all cursor-pointer">
                 Semua Instansi
             </button>
-            <button type="button" onclick="filterCardKuota('GRADE_A')" id="btnFilterKuotaA" class="btn-filter-kuota bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 font-extrabold px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer">
+            <button type="button" onclick="filterCardKuota('GRADE_A')" id="btnFilterKuotaA" class="btn-filter-kuota bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-[#234F35] font-extrabold px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer">
                 Grade A
             </button>
             <button type="button" onclick="filterCardKuota('GRADE_B')" id="btnFilterKuotaB" class="btn-filter-kuota bg-slate-100 hover:bg-amber-50 text-slate-600 hover:text-amber-700 font-extrabold px-3.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer">
@@ -578,22 +585,22 @@
     <!-- KATEGORI INSTANSI GRADE A & B (TAMPILAN WEB NORMAL) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Card Grade A -->
-        <div class="bg-gradient-to-br from-emerald-50/90 via-teal-50/40 to-white p-6 rounded-3xl border border-emerald-200/80 shadow-md shadow-emerald-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div class="bg-gradient-to-br from-emerald-50/90 via-emerald-50/40 to-white p-6 rounded-3xl border border-emerald-200/80 shadow-md shadow-emerald-900/5 relative overflow-hidden transition-all duration-300 hover:shadow-xl">
             <div class="flex items-center justify-between mb-5 pb-3 border-b border-emerald-100/80">
                 <div class="flex items-center space-x-3">
-                    <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-sm shadow-md shadow-emerald-600/30 flex-shrink-0">
+                    <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-sm shadow-md shadow-emerald-900/20 flex-shrink-0">
                         <i class="fas fa-award text-base"></i>
                     </span>
                     <div>
-                        <h3 class="font-extrabold text-emerald-950 text-base leading-snug">Instansi Grade A (Pemerintah/BUMN/Besar)</h3>
-                        <p class="text-[11px] text-emerald-700 font-semibold mt-0.5">Syarat Fuzzy: High Output (Nilai = 1.0)</p>
+                        <h3 class="font-extrabold text-[#234F35] text-base leading-snug">Instansi Grade A (Pemerintah/BUMN/Besar)</h3>
+                        <p class="text-[11px] text-emerald-800 font-semibold mt-0.5">Syarat Fuzzy: High Output (Nilai = 1.0)</p>
                     </div>
                 </div>
-                <span class="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/90 px-3.5 py-1.5 rounded-full border border-emerald-200/80 shadow-2xs">6 Instansi</span>
+                <span class="text-[11px] font-extrabold text-[#234F35] bg-emerald-100/90 px-3.5 py-1.5 rounded-full border border-emerald-200/80 shadow-2xs">6 Instansi</span>
             </div>
             
             <!-- Grid Item Instansi Grade A -->
-            <div id="containerKuotaGradeA" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-emerald-950">
+            <div id="containerKuotaGradeA" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-[#234F35]">
                 <!-- Render via JS JavaScript updateCardKuotaMonitoring() -->
             </div>
         </div>
@@ -643,31 +650,31 @@
             <!-- CARD METODE FIS FUZZY SUGENO -->
             <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50/90 via-teal-50/40 to-emerald-50/30 hover:from-emerald-100/80 transition-all duration-300 p-5 rounded-2xl border border-emerald-200/80 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[88px]">
                 <div class="flex items-center space-x-4 relative z-10">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold shadow-xs border border-emerald-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
-                        <i class="fas fa-brain text-lg text-emerald-600"></i>
+                    <div class="w-12 h-12 rounded-xl bg-[#234F35]/10 text-[#234F35] flex items-center justify-center font-bold shadow-xs border border-emerald-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                        <i class="fas fa-brain text-lg text-[#234F35]"></i>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-600/80">Metode FIS</span>
-                        <span class="text-sm font-black text-emerald-950 mt-0.5">Fuzzy Sugeno</span>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#234F35]">Metode FIS</span>
+                        <span class="text-sm font-black text-slate-900 mt-0.5">Fuzzy Sugeno</span>
                     </div>
                 </div>
-                <button type="button" onclick="openRuleModal('Umum', '-', '-', '-')" class="relative z-10 text-xs font-black bg-white hover:bg-emerald-600 hover:text-white text-emerald-700 px-3 py-2 rounded-xl border border-emerald-200/80 shadow-2xs whitespace-nowrap ml-3 transition-all flex items-center space-x-1.5 cursor-pointer active:scale-95">
+                <button type="button" onclick="openRuleModal('Umum', '-', '-', '-')" class="relative z-10 text-xs font-black bg-white hover:bg-[#234F35] hover:text-white text-[#234F35] px-3 py-2 rounded-xl border border-emerald-200/80 shadow-2xs whitespace-nowrap ml-3 transition-all flex items-center space-x-1.5 cursor-pointer active:scale-95">
                     <i class="fas fa-table text-xs"></i>
                     <span>9 Rules</span>
                 </button>
             </div>
 
-            <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50/90 via-blue-50/40 to-indigo-50/30 hover:from-indigo-100/80 transition-all duration-300 p-5 rounded-2xl border border-indigo-200/80 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[88px]">
+            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50/50 via-teal-50/30 to-slate-50 hover:from-emerald-100/50 transition-all duration-300 p-5 rounded-2xl border border-emerald-200/60 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[88px]">
                 <div class="flex items-center space-x-4 relative z-10">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold shadow-xs border border-indigo-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
-                        <i class="fas fa-sort-amount-down text-lg text-indigo-600"></i>
+                    <div class="w-12 h-12 rounded-xl bg-[#234F35]/10 text-[#234F35] flex items-center justify-center font-bold shadow-xs border border-emerald-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                        <i class="fas fa-sort-amount-down text-lg text-[#234F35]"></i>
                     </div>
                     <div class="flex flex-col justify-center">
-                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600/80">Pembobotan</span>
-                        <span class="text-sm font-black text-indigo-950 mt-0.5">Metode SAW</span>
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#234F35]">Pembobotan</span>
+                        <span class="text-sm font-black text-slate-900 mt-0.5">Metode SAW</span>
                     </div>
                 </div>
-                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-indigo-700 px-3.5 py-2 rounded-xl border border-indigo-200/80 shadow-2xs whitespace-nowrap ml-3">
+                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-[#234F35] px-3.5 py-2 rounded-xl border border-emerald-200/80 shadow-2xs whitespace-nowrap ml-3">
                     W1: 0.6 | W2: 0.4
                 </span>
             </div>
@@ -676,11 +683,11 @@
         <!-- BARIS INPUT PENCARIAN & CETAK PDF -->
         <div class="flex flex-col lg:flex-row items-center gap-4">
             <div class="relative flex items-center w-full group flex-1">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors duration-200">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#234F35] transition-colors duration-200">
                     <i class="fas fa-search text-sm"></i>
                 </div>
                 <input type="text" id="calculateSearchInput" placeholder="Cari nama siswa..." 
-                    class="w-full h-12 pl-11 pr-4 bg-slate-50/80 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all duration-200 shadow-2xs">
+                    class="w-full h-12 pl-11 pr-4 bg-slate-50/80 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-2xl text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all duration-200 shadow-2xs">
             </div>
 
             <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full lg:w-auto flex-shrink-0">
@@ -690,7 +697,7 @@
                     <input type="hidden" name="spk_data_json" id="pdfShiftDataJson">
                 </form>
 
-                <button id="btnCetakPDF" type="button" onclick="eksporAtauCetakLaporanSPK()" class="h-12 w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-5 rounded-2xl shadow-md shadow-emerald-600/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider group cursor-pointer whitespace-nowrap border border-emerald-400/20">
+                <button id="btnCetakPDF" type="button" onclick="eksporAtauCetakLaporanSPK()" class="h-12 w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-bold px-5 rounded-2xl shadow-md shadow-[#234F35]/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider group cursor-pointer whitespace-nowrap border border-emerald-400/20">
                     <i id="btnCetakPDFIcon" class="fas fa-file-pdf mr-2 text-sm transition-transform group-hover:scale-110 duration-300"></i>
                     <span id="btnCetakPDFText">Cetak Lap. SPK</span>
                 </button>
@@ -718,7 +725,7 @@
             <div class="print-card-box">
                 <div class="print-card-header">
                     <span>Grade A (Pemerintah/BUMN/Besar)</span>
-                    <span style="color: #047857;">[Score 1.0]</span>
+                    <span style="color: #234F35;">[Score 1.0]</span>
                 </div>
                 <div class="print-card-grid">
                     <div class="print-card-item">• Pengadilan Tinggi</div>
@@ -808,11 +815,11 @@
             </div>
             <div>
                 <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Batas Maksimum Kuota</label>
-                <input type="number" id="editKuotaInput" min="1" max="100" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="number" id="editKuotaInput" min="1" max="100" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#234F35]/20 outline-none">
             </div>
             <div class="pt-2 flex items-center justify-end space-x-2">
                 <button type="button" onclick="closeKuotaModal()" class="px-4 py-2 bg-slate-100 text-slate-600 font-extrabold rounded-xl text-xs hover:bg-slate-200 transition-all cursor-pointer">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-extrabold rounded-xl text-xs hover:bg-blue-500 transition-all cursor-pointer shadow-md shadow-blue-600/20">Simpan Kuota</button>
+                <button type="submit" class="px-4 py-2 bg-[#234F35] text-white font-extrabold rounded-xl text-xs hover:bg-emerald-900 transition-all cursor-pointer shadow-md shadow-[#234F35]/20">Simpan Kuota</button>
             </div>
         </form>
     </div>
@@ -833,11 +840,11 @@
         <form onsubmit="simpanSemuaKuotaSeragam(event)" class="p-6 space-y-4">
             <div>
                 <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Nilai Kuota Maksimal Baru</label>
-                <input type="number" id="inputSemuaKuotaGlobal" min="1" max="100" value="5" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="number" id="inputSemuaKuotaGlobal" min="1" max="100" value="5" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#234F35]/20 outline-none">
             </div>
             <div class="pt-2 flex items-center justify-end space-x-2">
                 <button type="button" onclick="tutupModalAturSemuaKuota()" class="px-4 py-2 bg-slate-100 text-slate-600 font-extrabold rounded-xl text-xs hover:bg-slate-200 transition-all cursor-pointer">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white font-extrabold rounded-xl text-xs hover:bg-indigo-500 transition-all cursor-pointer shadow-md shadow-indigo-600/20">Terapkan Ke Semua</button>
+                <button type="submit" class="px-4 py-2 bg-[#234F35] text-white font-extrabold rounded-xl text-xs hover:bg-emerald-900 transition-all cursor-pointer shadow-md shadow-[#234F35]/20">Terapkan Ke Semua</button>
             </div>
         </form>
     </div>
@@ -863,15 +870,15 @@
             </div>
             <div>
                 <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Nilai Akademik (C1)</label>
-                <input type="number" id="editNilaiC1" min="0" max="100" step="0.1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="number" id="editNilaiC1" min="0" max="100" step="0.1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#234F35]/20 outline-none">
             </div>
             <div>
                 <label class="block text-xs font-extrabold text-slate-600 uppercase mb-1">Nilai Kehadiran (C2)</label>
-                <input type="number" id="editNilaiC2" min="0" max="100" step="0.1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                <input type="number" id="editNilaiC2" min="0" max="100" step="0.1" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#234F35]/20 outline-none">
             </div>
             <div class="pt-2 flex items-center justify-end space-x-2">
                 <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-slate-100 text-slate-600 font-extrabold rounded-xl text-xs hover:bg-slate-200 transition-all cursor-pointer">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-extrabold rounded-xl text-xs hover:bg-blue-500 transition-all cursor-pointer shadow-md shadow-blue-600/20">Simpan Perubahan</button>
+                <button type="submit" class="px-4 py-2 bg-[#234F35] text-white font-extrabold rounded-xl text-xs hover:bg-emerald-900 transition-all cursor-pointer shadow-md shadow-[#234F35]/20">Simpan Perubahan</button>
             </div>
         </form>
     </div>
@@ -896,7 +903,7 @@
 <div id="ruleModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-2xl overflow-hidden animate-fade-in my-8">
         <div class="p-6 bg-slate-900 text-white flex justify-between items-center relative overflow-hidden">
-            <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-[#89C74A]/10 rounded-full blur-2xl pointer-events-none"></div>
             <div class="relative z-10">
                 <h3 class="font-black text-lg text-white" id="modalStudentName">Detail Evaluasi Fuzzy Sugeno</h3>
                 <p class="text-xs text-slate-300 mt-0.5 font-medium">Analisis 9 Rule Keputusan Penempatan Magang</p>
@@ -915,9 +922,9 @@
                     <p class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Soft Skill (C2)</p>
                     <p class="text-base font-black text-slate-800 mt-1" id="modalC2">-</p>
                 </div>
-                <div class="bg-blue-50/80 p-3.5 rounded-2xl border border-blue-100 shadow-2xs">
-                    <p class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Score Defuzifikasi</p>
-                    <p class="text-base font-black text-blue-700 mt-1" id="modalScore">-</p>
+                <div class="bg-emerald-50/80 p-3.5 rounded-2xl border border-emerald-100 shadow-2xs">
+                    <p class="text-[10px] font-extrabold text-[#234F35] uppercase tracking-wider">Score Defuzifikasi</p>
+                    <p class="text-base font-black text-[#234F35] mt-1" id="modalScore">-</p>
                 </div>
             </div>
 
@@ -959,8 +966,8 @@
                         </tr>
                         <tr class="hover:bg-emerald-50/60 transition-colors">
                             <td class="p-3.5 font-bold text-slate-500">Rule 6</td>
-                            <td class="p-3.5 font-bold text-emerald-950">Hard Skill Cukup & Soft Skill Sangat Baik</td>
-                            <td class="p-3.5 text-center font-bold text-emerald-800 bg-emerald-100/70">Grade A (1.0)</td>
+                            <td class="p-3.5 font-bold text-[#234F35]">Hard Skill Cukup & Soft Skill Sangat Baik</td>
+                            <td class="p-3.5 text-center font-bold text-[#234F35] bg-emerald-100/70">Grade A (1.0)</td>
                         </tr>
                         <tr class="hover:bg-slate-50/80 transition-colors">
                             <td class="p-3.5 font-bold text-slate-500">Rule 7</td>
@@ -969,13 +976,13 @@
                         </tr>
                         <tr class="hover:bg-emerald-50/60 transition-colors">
                             <td class="p-3.5 font-bold text-slate-500">Rule 8</td>
-                            <td class="p-3.5 font-bold text-emerald-950">Hard Skill Baik & Soft Skill Cukup</td>
-                            <td class="p-3.5 text-center font-bold text-emerald-800 bg-emerald-100/70">Grade A (1.0)</td>
+                            <td class="p-3.5 font-bold text-[#234F35]">Hard Skill Baik & Soft Skill Cukup</td>
+                            <td class="p-3.5 text-center font-bold text-[#234F35] bg-emerald-100/70">Grade A (1.0)</td>
                         </tr>
                         <tr class="hover:bg-emerald-50/60 transition-colors">
                             <td class="p-3.5 font-bold text-slate-500">Rule 9</td>
-                            <td class="p-3.5 font-bold text-emerald-950">Hard Skill Baik & Soft Skill Sangat Baik</td>
-                            <td class="p-3.5 text-center font-bold text-emerald-800 bg-emerald-100/70">Grade A (1.0)</td>
+                            <td class="p-3.5 font-bold text-[#234F35]">Hard Skill Baik & Soft Skill Sangat Baik</td>
+                            <td class="p-3.5 text-center font-bold text-[#234F35] bg-emerald-100/70">Grade A (1.0)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1004,41 +1011,41 @@
             
             <!-- LANGKAH 1: FUZZIFIKASI -->
             <div class="space-y-2.5">
-                <div class="flex items-center space-x-2 text-blue-700 font-extrabold text-sm border-b border-blue-100 pb-1.5">
-                    <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs">1</span>
+                <div class="flex items-center space-x-2 text-[#234F35] font-extrabold text-sm border-b border-emerald-100 pb-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-100 text-[#234F35] flex items-center justify-center text-xs">1</span>
                     <h4>Tahap Fuzzifikasi (Kategori Himpunan Fuzzy)</h4>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80">
                     <div>
                         <span class="font-extrabold text-slate-500 uppercase">Nilai Hard Skill (C1): <strong id="m_c1_val" class="text-slate-800"></strong></span>
-                        <p class="mt-1 font-bold text-blue-600" id="m_c1_cat">-</p>
+                        <p class="mt-1 font-bold text-[#234F35]" id="m_c1_cat">-</p>
                     </div>
                     <div>
                         <span class="font-extrabold text-slate-500 uppercase">Nilai Kehadiran (C2): <strong id="m_c2_val" class="text-slate-800"></strong></span>
-                        <p class="mt-1 font-bold text-indigo-600" id="m_c2_cat">-</p>
+                        <p class="mt-1 font-bold text-emerald-700" id="m_c2_cat">-</p>
                     </div>
                 </div>
             </div>
 
             <!-- LANGKAH 2: EVALUASI SUGENO -->
             <div class="space-y-2.5">
-                <div class="flex items-center space-x-2 text-emerald-700 font-extrabold text-sm border-b border-emerald-100 pb-1.5">
-                    <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">2</span>
+                <div class="flex items-center space-x-2 text-[#234F35] font-extrabold text-sm border-b border-emerald-100 pb-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-100 text-[#234F35] flex items-center justify-center text-xs">2</span>
                     <h4>Tahap Inferensi & Defuzzifikasi Fuzzy Sugeno</h4>
                 </div>
                 <div class="bg-emerald-50/60 p-3.5 rounded-2xl border border-emerald-200/80 space-y-2">
-                    <p class="font-medium">Rule Aktif Terpenuhi: <strong id="m_sugeno_rule" class="text-emerald-900 font-bold">Rule -</strong></p>
+                    <p class="font-medium">Rule Aktif Terpenuhi: <strong id="m_sugeno_rule" class="text-[#234F35] font-bold">Rule -</strong></p>
                     <div class="flex justify-between items-center bg-white p-2.5 rounded-xl border border-emerald-100">
                         <span class="font-extrabold text-slate-600">Output Defuzzifikasi ($z$):</span>
-                        <span id="m_sugeno_score" class="font-black text-emerald-700 text-sm"></span>
+                        <span id="m_sugeno_score" class="font-black text-[#234F35] text-sm"></span>
                     </div>
                 </div>
             </div>
 
             <!-- LANGKAH 3: NORMALISASI SAW & PREFERENSI -->
             <div class="space-y-2.5">
-                <div class="flex items-center space-x-2 text-indigo-700 font-extrabold text-sm border-b border-indigo-100 pb-1.5">
-                    <span class="w-6 h-6 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs">3</span>
+                <div class="flex items-center space-x-2 text-[#234F35] font-extrabold text-sm border-b border-emerald-100 pb-1.5">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-100 text-[#234F35] flex items-center justify-center text-xs">3</span>
                     <h4>Tahap Pembobotan & Normalisasi SAW (Simple Additive Weighting)</h4>
                 </div>
                 <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-3">
@@ -1052,12 +1059,12 @@
                             <span id="m_r2_val" class="font-extrabold text-slate-800 text-xs"></span>
                         </div>
                     </div>
-                    <div class="p-3 bg-indigo-50/80 rounded-xl border border-indigo-100 space-y-1">
-                        <span class="font-extrabold text-indigo-900">Rumus Nilai Preferensi ($V_i$):</span>
-                        <p class="font-mono text-[11px] text-indigo-800" id="m_saw_formula">$V_i = (W_1 \times r_1) + (W_2 \times r_2)$</p>
+                    <div class="p-3 bg-emerald-50/80 rounded-xl border border-emerald-100 space-y-1">
+                        <span class="font-extrabold text-[#234F35]">Rumus Nilai Preferensi ($V_i$):</span>
+                        <p class="font-mono text-[11px] text-[#234F35]" id="m_saw_formula">$V_i = (W_1 \times r_1) + (W_2 \times r_2)$</p>
                         <div class="pt-1 flex justify-between items-center">
                             <span class="font-extrabold text-slate-700">Skor Akhir Preferensi ($V$):</span>
-                            <span id="m_v_final" class="font-black text-indigo-700 text-sm"></span>
+                            <span id="m_v_final" class="font-black text-[#234F35] text-sm"></span>
                         </div>
                     </div>
                 </div>
@@ -1400,7 +1407,7 @@
                 return `
                     <div class="flex items-start justify-between p-3 rounded-2xl border ${isFull ? 'border-rose-200 bg-rose-50/50' : 'border-emerald-100 bg-white/90 hover:bg-white'} shadow-2xs hover:shadow-md transition-all duration-200 group relative">
                         <div class="flex items-start space-x-2.5 min-w-0 pr-2">
-                            <div class="w-7 h-7 rounded-lg bg-emerald-100/80 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-100/80 text-[#234F35] flex items-center justify-center flex-shrink-0 mt-0.5">
                                 <i class="${item.icon} text-xs"></i>
                             </div>
                             <div class="min-w-0 flex-1">
@@ -1408,13 +1415,13 @@
                                     ${item.nama}
                                 </span>
                                 <span class="truncate flex items-center gap-1 text-[9.5px] font-medium text-slate-400 mt-1" title="${item.alamat}">
-                                    <i class="fas fa-map-marker-alt text-[8.5px] text-emerald-600/70 flex-shrink-0"></i>
+                                    <i class="fas fa-map-marker-alt text-[8.5px] text-[#234F35]/70 flex-shrink-0"></i>
                                     <span class="truncate">${item.alamat}</span>
                                 </span>
                             </div>
                         </div>
                         <div class="flex items-center space-x-1.5 flex-shrink-0">
-                            <span class="text-[9px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-emerald-100 text-emerald-800 border border-emerald-200/60'}">
+                            <span class="text-[9px] font-black px-2 py-0.5 rounded-md flex-shrink-0 ${isFull ? 'bg-rose-600 text-white' : 'bg-emerald-100 text-[#234F35] border border-emerald-200/60'}">
                                 ${isFull ? 'FULL' : `Sisa ${sisa}`}
                             </span>
                         </div>
@@ -1479,17 +1486,17 @@
                     <div class="bg-slate-50/70 hover:bg-white border ${isFull ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200/80'} rounded-2xl p-4 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col justify-between space-y-3 relative overflow-hidden group">
                         <div class="flex items-start justify-between gap-2">
                             <div class="flex items-center space-x-3 min-w-0">
-                                <div class="w-9 h-9 rounded-xl ${isGradeA ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'} flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                <div class="w-9 h-9 rounded-xl ${isGradeA ? 'bg-emerald-100 text-[#234F35]' : 'bg-amber-100 text-amber-700'} flex items-center justify-center font-bold text-sm flex-shrink-0">
                                     <i class="${item.icon}"></i>
                                 </div>
                                 <div class="min-w-0 flex-1">
                                     <h4 class="font-extrabold text-slate-800 text-xs truncate leading-snug" title="${item.nama}">${item.nama}</h4>
-                                    <span class="inline-flex items-center text-[9px] font-black px-1.5 py-0.2 rounded mt-0.5 ${isGradeA ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/60' : 'bg-amber-50 text-amber-700 border border-amber-200/60'}">
+                                    <span class="inline-flex items-center text-[9px] font-black px-1.5 py-0.2 rounded mt-0.5 ${isGradeA ? 'bg-emerald-50 text-[#234F35] border border-emerald-200/60' : 'bg-amber-50 text-amber-700 border border-amber-200/60'}">
                                         Grade ${item.grade}
                                     </span>
                                 </div>
                             </div>
-                            <button type="button" onclick="openKuotaModal('${safeInstansiNama}')" class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-indigo-600 hover:border-indigo-200 transition-colors shadow-2xs cursor-pointer flex-shrink-0" title="Ubah Kuota">
+                            <button type="button" onclick="openKuotaModal('${safeInstansiNama}')" class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-[#234F35] hover:border-emerald-200 transition-colors shadow-2xs cursor-pointer flex-shrink-0" title="Ubah Kuota">
                                 <i class="fas fa-edit text-xs"></i>
                             </button>
                         </div>
@@ -1500,7 +1507,7 @@
                                 <span class="${isFull ? 'text-rose-600 font-black' : 'text-slate-500'}">Sisa ${sisa} Slot</span>
                             </div>
                             <div class="w-full h-2 bg-slate-200/70 rounded-full overflow-hidden">
-                                <div class="h-full transition-all duration-500 rounded-full ${isFull ? 'bg-rose-500' : (percent > 70 ? 'bg-amber-500' : 'bg-indigo-600')}" style="width: ${percent}%;"></div>
+                                <div class="h-full transition-all duration-500 rounded-full ${isFull ? 'bg-rose-500' : (percent > 70 ? 'bg-amber-500' : 'bg-[#234F35]')}" style="width: ${percent}%;"></div>
                             </div>
                         </div>
                     </div>
@@ -1584,7 +1591,7 @@
         if (c2 && c2 !== '') document.getElementById('inputNilaiC2').value = c2;
 
         if (labelDisplay) {
-            labelDisplay.innerHTML = `<span class="font-bold text-slate-800">${nama}</span> <span class="text-xs text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">NIS: ${nis}</span> <span class="text-xs text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100 font-bold">${jurusan}</span>`;
+            labelDisplay.innerHTML = `<span class="font-bold text-slate-800">${nama}</span> <span class="text-xs text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">NIS: ${nis}</span> <span class="text-xs text-[#234F35] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 font-bold">${jurusan}</span>`;
         }
 
         toggleCustomDropdown();
@@ -1676,7 +1683,7 @@
         if (popBadge) {
             if (grade === 'A') {
                 popBadge.textContent = "Grade A (Rekomendasi Utama)";
-                popBadge.className = "font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200";
+                popBadge.className = "font-extrabold px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-[#234F35] border border-emerald-200";
             } else {
                 popBadge.textContent = "Grade B (Rekomendasi Menengah)";
                 popBadge.className = "font-extrabold px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800 border border-amber-200";
@@ -1893,7 +1900,7 @@
             tr.id = 'row_siswa_' + rowIdAttr;
             tr.setAttribute('data-nama-siswa', row.nama);
             tr.setAttribute('data-id-siswa', row.id || '');
-            tr.className = "calculate-row hover:bg-slate-50/80 transition-colors duration-150 border-b border-slate-200 divide-x divide-slate-200";
+            tr.className = "calculate-row hover:bg-emerald-50/30 transition-colors duration-150 border-b border-slate-200 divide-x divide-slate-200";
 
             let targetInstansiList = isGradeA ? instansiGradeA : instansiGradeB;
             let kuotaTracker = isGradeA ? kuotaTerpakaiA : kuotaTerpakaiB;
@@ -1934,7 +1941,7 @@
                 </td>
                 <td class="px-2.5 py-2.5 align-middle col-siswa">
                     <div class="flex items-center space-x-2 overflow-hidden">
-                        <div class="h-7 w-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-black text-[11px] flex-shrink-0 shadow-xs no-print">
+                        <div class="h-7 w-7 rounded-lg bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-[11px] flex-shrink-0 shadow-xs no-print">
                             ${row.nama.charAt(0).toUpperCase()}
                         </div>
                         <div class="min-w-0 flex-1">
@@ -1943,7 +1950,7 @@
                                 <span class="text-[9px] text-slate-500 font-extrabold bg-slate-100 px-1 py-0.2 rounded border border-slate-200/60 truncate">
                                     NIS: ${row.nis || '-'}
                                 </span>
-                                <span class="text-[9px] text-blue-600 font-extrabold bg-blue-50 px-1 py-0.2 rounded border border-blue-100 truncate">
+                                <span class="text-[9px] text-[#234F35] font-extrabold bg-emerald-50 px-1 py-0.2 rounded border border-emerald-100 truncate">
                                     ${row.jurusan || 'TKJ'}
                                 </span>
                             </div>
@@ -1958,8 +1965,8 @@
                 </td>
                 <td class="px-1.5 py-2.5 text-center align-middle">
                     <div class="inline-flex flex-col items-center gap-0.5">
-                        <span class="font-black text-[10px] px-1.5 py-0.5 rounded leading-tight border ${isGradeA ? 'bg-emerald-50 text-emerald-700 border-emerald-200/60' : 'bg-amber-50 text-amber-700 border-amber-200/60'}">${row.fuzzyScore}</span>
-                        <span class="text-[8.5px] font-extrabold px-1 py-0.2 rounded leading-tight whitespace-nowrap ${isGradeA ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                        <span class="font-black text-[10px] px-1.5 py-0.5 rounded leading-tight border ${isGradeA ? 'bg-emerald-50 text-[#234F35] border-emerald-200/60' : 'bg-amber-50 text-amber-700 border-amber-200/60'}">${row.fuzzyScore}</span>
+                        <span class="text-[8.5px] font-extrabold px-1 py-0.2 rounded leading-tight whitespace-nowrap ${isGradeA ? 'bg-emerald-100 text-[#234F35]' : 'bg-amber-100 text-amber-800'}">
                             Grade ${row.grade} (${row.fuzzyScore})
                         </span>
                     </div>
@@ -1967,12 +1974,12 @@
                 <td class="px-1.5 py-2.5 text-center align-middle text-slate-600 text-[11px] font-bold">${row.r1}</td>
                 <td class="px-1.5 py-2.5 text-center align-middle text-slate-600 text-[11px] font-bold">${row.r2}</td>
                 <td class="px-1.5 py-2.5 text-center align-middle">
-                    <span class="inline-flex items-center justify-center font-black border px-1.5 py-0.5 rounded-lg text-xs shadow-2xs ${isGradeA ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">${row.finalScore}</span>
+                    <span class="inline-flex items-center justify-center font-black border px-1.5 py-0.5 rounded-lg text-xs shadow-2xs ${isGradeA ? 'bg-emerald-50 text-[#234F35] border-emerald-200' : 'bg-amber-50 text-amber-700 border-amber-200'}">${row.finalScore}</span>
                 </td>
                 <td class="px-2.5 py-2.5 align-middle col-rekomendasi">
                     <div class="relative w-full print-select-container">
-                        <div class="instansi-kunci-display w-full border rounded-xl px-2.5 py-1.5 text-[11px] font-bold flex items-center space-x-1.5 shadow-2xs truncate ${isGradeA ? 'bg-emerald-50/80 text-emerald-900 border-emerald-200' : 'bg-amber-50/80 text-amber-900 border-amber-200'}">
-                            <i class="${isGradeA ? 'fas fa-star text-emerald-600' : 'fas fa-circle text-amber-600'} text-[10px] flex-shrink-0"></i>
+                        <div class="instansi-kunci-display w-full border rounded-xl px-2.5 py-1.5 text-[11px] font-bold flex items-center space-x-1.5 shadow-2xs truncate ${isGradeA ? 'bg-emerald-50/80 text-[#234F35] border-emerald-200' : 'bg-amber-50/80 text-amber-900 border-amber-200'}">
+                            <i class="${isGradeA ? 'fas fa-star text-[#234F35]' : 'fas fa-circle text-amber-600'} text-[10px] flex-shrink-0"></i>
                             <span class="truncate">${defaultInstansi}</span>
                             <i class="fas fa-lock text-[9px] opacity-40 ml-auto flex-shrink-0" title="Terkunci Hasil Kalkulasi"></i>
                         </div>
@@ -1985,14 +1992,14 @@
                 </td>
                 <td class="px-1.5 py-2.5 text-center align-middle no-print">
                     <div class="flex items-center justify-center space-x-1">
-                        <button type="button" onclick="mulaiPenempatanDirect('${safeNama}', '${safeId}', this)" class="p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold transition-all cursor-pointer shadow-2xs flex items-center space-x-1" title="Mulai Penempatan">
+                        <button type="button" onclick="mulaiPenempatanDirect('${safeNama}', '${safeId}', this)" class="p-1.5 rounded-lg bg-[#234F35] hover:bg-emerald-900 text-white font-extrabold transition-all cursor-pointer shadow-2xs flex items-center space-x-1" title="Mulai Penempatan">
                             <i class="fas fa-paper-plane text-xs"></i>
                             <span class="text-[10px] hidden sm:inline">Plotting</span>
                         </button>
-                        <button type="button" onclick="openMathBreakdownModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}', '${row.r1}', '${row.r2}', '${row.finalScore}', '${row.rule}')" class="p-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200/80 transition-all cursor-pointer shadow-2xs" title="Breakdown Matematis SPK">
+                        <button type="button" onclick="openMathBreakdownModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}', '${row.r1}', '${row.r2}', '${row.finalScore}', '${row.rule}')" class="p-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-[#234F35] border border-emerald-200/80 transition-all cursor-pointer shadow-2xs" title="Breakdown Matematis SPK">
                             <i class="fas fa-square-root-alt text-xs"></i>
                         </button>
-                        <button type="button" onclick="openRuleModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 border border-slate-200/80 hover:border-blue-200 transition-all cursor-pointer shadow-2xs" title="Lihat Evaluasi Rule">
+                        <button type="button" onclick="openRuleModal('${safeNama}', '${row.c1}', '${row.c2}', '${row.fuzzyScore}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-[#234F35] border border-slate-200/80 hover:border-emerald-200 transition-all cursor-pointer shadow-2xs" title="Lihat Evaluasi Rule">
                             <i class="fas fa-eye text-xs"></i>
                         </button>
                         <button type="button" onclick="editSiswaSPK('${safeNama}')" class="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 border border-amber-200/80 transition-all cursor-pointer shadow-2xs" title="Edit Nilai Siswa">

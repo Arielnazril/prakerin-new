@@ -1,9 +1,9 @@
-<aside id="sidebar" class="bg-[--color-primary-dark] text-white flex flex-col z-30 sidebar-transition h-screen shadow-[5px_0_30px_rgba(0,0,0,0.25)] border-r border-white/5 overflow-hidden {{-- Default width diatur via JS/Layout --}}">
+<aside id="sidebar" class="bg-[#234F35] text-white flex flex-col z-30 sidebar-transition h-screen shadow-[5px_0_30px_rgba(0,0,0,0.25)] border-r border-white/5 overflow-hidden {{-- Default width diatur via JS/Layout --}}">
 
     <!-- Header Sidebar - Efek Glassmorphism & Pendaran Premium -->
-    <div class="h-16 flex items-center justify-center border-b border-white/10 shadow-sm bg-gradient-to-r from-blue-900/40 via-blue-900/60 to-blue-900/40 backdrop-blur-md relative group/header">
+    <div class="h-16 flex items-center justify-center border-b border-white/10 shadow-sm bg-gradient-to-r from-emerald-950/40 via-[#234F35]/60 to-emerald-950/40 backdrop-blur-md relative group/header">
         <!-- Aksen garis bawah menyala tipis -->
-        <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#89C74A]/40 to-transparent"></div>
         
         <div class="flex items-center space-x-3 px-4 w-full justify-start sm:justify-center">
             <!-- Kontainer Logo Premium -->
@@ -12,21 +12,21 @@
             </div>
             <!-- Teks Judul Panel -->
             <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap">
-                <h1 class="text-sm font-extrabold tracking-wider leading-none bg-gradient-to-r from-white via-slate-100 to-blue-100 bg-clip-text text-transparent">E-PRAKERIN</h1>
-                <p class="text-[9px] text-blue-300/90 font-bold uppercase tracking-widest mt-0.5">Admin Panel</p>
+                <h1 class="text-sm font-extrabold tracking-wider leading-none bg-gradient-to-r from-white via-slate-100 to-emerald-100 bg-clip-text text-transparent">E-PRAKERIN</h1>
+                <p class="text-[9px] text-[#89C74A] font-bold uppercase tracking-widest mt-0.5">Admin Panel</p>
             </div>
         </div>
     </div>
 
     <!-- Area Menu Navigasi Utama -->
-    <div class="flex-1 overflow-y-auto py-5 px-3 custom-scrollbar space-y-1.5 selection:bg-blue-600 selection:text-white">
+    <div class="flex-1 overflow-y-auto py-5 px-3 custom-scrollbar space-y-1.5 selection:bg-[#234F35] selection:text-white">
 
         @include('admin.partials.sidebar_item', ['route' => 'dashboard', 'icon' => 'fas fa-chart-pie', 'label' => 'Dashboard'])
 
         <!-- Kategori: Master Data -->
         <div class="flex items-center pt-5 pb-2 px-3 gap-2 sidebar-text whitespace-nowrap">
-            <span class="text-[9px] font-black text-blue-400/80 uppercase tracking-widest">Master Data</span>
-            <span class="h-[1px] flex-1 bg-gradient-to-r from-blue-400/20 to-transparent rounded"></span>
+            <span class="text-[9px] font-black text-[#89C74A] uppercase tracking-widest">Master Data</span>
+            <span class="h-[1px] flex-1 bg-gradient-to-r from-[#89C74A]/30 to-transparent rounded"></span>
         </div>
 
         @include('admin.partials.sidebar_item', ['route' => 'admin.siswa.index', 'icon' => 'fas fa-user-graduate', 'label' => 'Data Siswa'])
@@ -37,8 +37,8 @@
 
         <!-- Kategori: Magang -->
         <div class="flex items-center pt-5 pb-2 px-3 gap-2 sidebar-text whitespace-nowrap">
-            <span class="text-[9px] font-black text-blue-400/80 uppercase tracking-widest">Magang</span>
-            <span class="h-[1px] flex-1 bg-gradient-to-r from-blue-400/20 to-transparent rounded"></span>
+            <span class="text-[9px] font-black text-[#89C74A] uppercase tracking-widest">Magang</span>
+            <span class="h-[1px] flex-1 bg-gradient-to-r from-[#89C74A]/30 to-transparent rounded"></span>
         </div>
 
         @include('admin.partials.sidebar_item', ['route' => 'admin.placement.calculate', 'icon' => 'fas fa-calculator', 'label' => 'Kalkulasi Rekomendasi'])

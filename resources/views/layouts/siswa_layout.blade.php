@@ -10,10 +10,9 @@
 
     <style>
         :root {
-            /* Warna Siswa kita bedakan sedikit biar fresh (Misal: Nuansa Emerald/Teal atau tetap Biru) */
-            /* Kita pakai Biru sama seperti admin biar konsisten */
-            --color-primary-dark: #1e3a8a;
-            --color-primary-light: #2563eb;
+            /* Nuansa Emerald / Teal Hijau Segar */
+            --color-primary-dark: #064e3b;
+            --color-primary-light: #059669;
             --sidebar-width: 16rem;
             --sidebar-collapsed-width: 5rem;
         }
@@ -47,19 +46,19 @@
                 {{-- AREA PROFIL HEADER DENGAN DROPDOWN RUNDOWN (ICON USER PUTIH BERSIH) --}}
                 <div class="relative shrink-0 my-auto" id="user-dropdown-wrapper">
                     {{-- Button Trigger Profil - Responsif & Proporsional di Mobile --}}
-                    <button type="button" onclick="toggleUserDropdown()" class="flex items-center gap-2 sm:gap-3.5 p-1.5 pl-3 pr-1.5 sm:p-2 sm:pl-4 sm:pr-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-600 text-white border sm:border-2 border-blue-400/50 shadow-md sm:shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 hover:border-white/80 transition-all duration-300 focus:outline-none cursor-pointer group transform hover:-translate-y-0.5">
+                    <button type="button" onclick="toggleUserDropdown()" class="flex items-center gap-2 sm:gap-3.5 p-1.5 pl-3 pr-1.5 sm:p-2 sm:pl-4 sm:pr-2 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-600 text-white border sm:border-2 border-emerald-400/50 shadow-md sm:shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/50 hover:border-white/80 transition-all duration-300 focus:outline-none cursor-pointer group transform hover:-translate-y-0.5">
                         <div class="text-right select-none max-w-[90px] xs:max-w-[120px] sm:max-w-none">
-                            <div class="text-[11px] sm:text-sm font-black text-white group-hover:text-blue-100 transition-colors flex items-center justify-end gap-1 sm:gap-2">
+                            <div class="text-[11px] sm:text-sm font-black text-white group-hover:text-emerald-100 transition-colors flex items-center justify-end gap-1 sm:gap-2">
                                 <span class="truncate leading-tight">{{ Auth::user()->name }}</span>
-                                <span class="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full bg-white/20 border border-white/40 group-hover:bg-white group-hover:text-blue-700 flex items-center justify-center transition-all duration-300 shrink-0 shadow-xs">
-                                    <i class="fas fa-chevron-down text-[7px] sm:text-[8px] text-white group-hover:text-blue-700 transition-transform duration-300" id="dropdown-chevron"></i>
+                                <span class="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full bg-white/20 border border-white/40 group-hover:bg-white group-hover:text-emerald-700 flex items-center justify-center transition-all duration-300 shrink-0 shadow-xs">
+                                    <i class="fas fa-chevron-down text-[7px] sm:text-[8px] text-white group-hover:text-emerald-700 transition-transform duration-300" id="dropdown-chevron"></i>
                                 </span>
                             </div>
                             <div class="text-[8px] sm:text-[9px] text-amber-300 font-black tracking-wider sm:tracking-widest uppercase mt-0.5 sm:mt-1 drop-shadow-xs truncate">SISWA MAGANG</div>
                         </div>
 
                         {{-- Avatar Icon - Warna Putih Bersih --}}
-                        <div class="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-white text-blue-700 font-black text-xs sm:text-base flex items-center justify-center shadow-md shadow-black/20 transform group-hover:scale-105 group-hover:rotate-3 transition duration-300 shrink-0 border sm:border-2 border-blue-200/80 relative">
+                        <div class="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-white text-emerald-700 font-black text-xs sm:text-base flex items-center justify-center shadow-md shadow-black/20 transform group-hover:scale-105 group-hover:rotate-3 transition duration-300 shrink-0 border sm:border-2 border-emerald-200/80 relative">
                             {{ substr(Auth::user()->name, 0, 1) }}
                             {{-- Indikator Titik Aktif Menyala --}}
                             <span class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 bg-emerald-400 border border-slate-900 sm:border-2 rounded-full shadow-xs animate-pulse"></span>
@@ -67,15 +66,15 @@
                     </button>
 
                     {{-- MENU DROPDOWN RUNDOWN (WARNA KONTRAS & POPPING) --}}
-                    <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 sm:mt-3 w-64 sm:w-70 bg-white rounded-xl sm:rounded-2xl shadow-2xl shadow-blue-950/40 border sm:border-2 border-blue-500/30 ring-2 sm:ring-4 ring-blue-500/10 py-0 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 overflow-hidden">
+                    <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 sm:mt-3 w-64 sm:w-70 bg-white rounded-xl sm:rounded-2xl shadow-2xl shadow-emerald-950/40 border sm:border-2 border-emerald-500/30 ring-2 sm:ring-4 ring-emerald-500/10 py-0 z-50 transform origin-top-right transition-all duration-200 opacity-0 scale-95 overflow-hidden">
                         
-                        {{-- Header Info Pengguna - Vibrant Blue Gradient --}}
-                        <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 bg-gradient-to-br from-blue-700 via-indigo-700 to-blue-900 text-white border-b sm:border-b-2 border-blue-500/30 flex items-center gap-2.5 sm:gap-3 relative overflow-hidden">
+                        {{-- Header Info Pengguna - Vibrant Emerald Gradient --}}
+                        <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 bg-gradient-to-br from-emerald-700 via-teal-700 to-emerald-900 text-white border-b sm:border-b-2 border-emerald-500/30 flex items-center gap-2.5 sm:gap-3 relative overflow-hidden">
                             {{-- Hiasan Aksesori Pattern --}}
                             <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-md pointer-events-none"></div>
 
                             {{-- Avatar Icon di Dropdown Header - Warna Putih --}}
-                            <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-blue-800 flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-black/20 shrink-0 border sm:border-2 border-white/90">
+                            <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-white text-emerald-800 flex items-center justify-center font-black text-xs sm:text-sm shadow-lg shadow-black/20 shrink-0 border sm:border-2 border-white/90">
                                 {{ substr(Auth::user()->name, 0, 1) }}
                             </div>
                             <div class="min-w-0 flex-1 z-10">
@@ -87,13 +86,13 @@
                         {{-- Daftar Item Rundown --}}
                         <div class="p-1.5 sm:p-2 space-y-1 sm:space-y-1.5 bg-slate-50">
                             {{-- Menu Halaman Profil --}}
-                            <a href="{{ route('profile.edit') }}" class="flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-slate-700 hover:bg-blue-600 hover:text-white border border-slate-200/80 hover:border-blue-500 shadow-2xs hover:shadow-md hover:shadow-blue-500/30 transition duration-200 gap-2.5 sm:gap-3.5 group">
-                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-blue-100 text-blue-700 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-blue-600 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-blue-200 group-hover:border-transparent">
+                            <a href="{{ route('profile.edit') }}" class="flex items-center px-2.5 py-2 sm:px-3.5 sm:py-3 rounded-lg sm:rounded-xl text-xs font-black text-slate-700 hover:bg-emerald-600 hover:text-white border border-slate-200/80 hover:border-emerald-500 shadow-2xs hover:shadow-md hover:shadow-emerald-500/30 transition duration-200 gap-2.5 sm:gap-3.5 group">
+                                <span class="h-7 w-7 sm:h-8 sm:w-8 bg-emerald-100 text-emerald-700 rounded-md sm:rounded-lg group-hover:bg-white group-hover:text-emerald-600 transition duration-200 flex items-center justify-center shrink-0 shadow-xs border border-emerald-200 group-hover:border-transparent">
                                     <i class="fas fa-id-card text-xs sm:text-sm group-hover:scale-110 transition-transform"></i>
                                 </span>
                                 <div class="flex flex-col">
                                     <span class="leading-none group-hover:text-white">Profil Saya</span>
-                                    <span class="text-[8px] sm:text-[9px] font-bold text-slate-400 group-hover:text-blue-100 mt-0.5 sm:mt-1">Kelola data akun</span>
+                                    <span class="text-[8px] sm:text-[9px] font-bold text-slate-400 group-hover:text-emerald-100 mt-0.5 sm:mt-1">Kelola data akun</span>
                                 </div>
                             </a>
 
@@ -114,13 +113,13 @@
 
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-4 md:p-6 lg:p-8">
                 @if(session('success'))
-                    <div class="mb-6 bg-blue-50 border-l-4 border-[--color-primary-light] text-blue-800 p-4 rounded-xl shadow-sm flex items-start gap-3">
-                        <div class="bg-blue-100 text-[--color-primary-light] p-1.5 rounded-lg shrink-0 mt-0.5">
+                    <div class="mb-6 bg-emerald-50 border-l-4 border-[--color-primary-light] text-emerald-800 p-4 rounded-xl shadow-sm flex items-start gap-3">
+                        <div class="bg-emerald-100 text-[--color-primary-light] p-1.5 rounded-lg shrink-0 mt-0.5">
                             <i class="fas fa-check-circle text-sm"></i>
                         </div>
                         <div>
                             <p class="font-bold text-sm">Sukses</p>
-                            <p class="text-xs text-blue-700/90 mt-0.5">{{ session('success') }}</p>
+                            <p class="text-xs text-emerald-700/90 mt-0.5">{{ session('success') }}</p>
                         </div>
                     </div>
                 @endif

@@ -1,17 +1,17 @@
-<aside id="sidebar" class="bg-[--color-primary-dark] text-white flex flex-col z-30 sidebar-transition h-screen shadow-2xl overflow-hidden fixed lg:static inset-y-0 left-0">
+<aside id="sidebar" class="bg-emerald-950 text-white flex flex-col z-30 sidebar-transition h-screen shadow-2xl overflow-hidden fixed lg:static inset-y-0 left-0">
 
     {{-- HEADER SIDEBAR --}}
-    <div class="h-16 flex items-center justify-center border-b border-white/10 shadow-sm bg-blue-950/40 relative overflow-hidden group">
+    <div class="h-16 flex items-center justify-center border-b border-white/10 shadow-sm bg-emerald-950/40 relative overflow-hidden group">
         {{-- Efek cahaya latar belakang halus --}}
-        <div class="absolute -right-10 -top-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-blue-500/20"></div>
+        <div class="absolute -right-10 -top-10 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-emerald-500/20"></div>
         
         <div class="flex items-center space-x-3 px-4 z-10 w-full justify-start pl-6">
             <div class="bg-white/95 p-1.5 rounded-xl shadow-md flex-shrink-0 sidebar-logo transition-all duration-300 transform group-hover:scale-105 border border-white/20">
                 <img src="{{ asset('img/logo_smk.png') }}" alt="Logo" class="h-6 w-6 object-contain">
             </div>
             <div class="sidebar-header-text transition-all duration-300 overflow-hidden whitespace-nowrap">
-                <h1 class="text-sm font-black tracking-widest leading-none bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">GURU</h1>
-                <p class="text-[9px] text-blue-300/90 font-bold uppercase tracking-widest mt-0.5">Academic Panel</p>
+                <h1 class="text-sm font-black tracking-widest leading-none bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent">GURU</h1>
+                <p class="text-[9px] text-emerald-300/90 font-bold uppercase tracking-widest mt-0.5">Academic Panel</p>
             </div>
         </div>
     </div>
@@ -21,18 +21,18 @@
 
         @include('admin.partials.sidebar_item', ['route' => 'dashboard', 'icon' => 'fas fa-chart-pie', 'label' => 'Dashboard'])
 
-        <div class="pt-5 pb-1.5 px-3 text-[10px] font-black text-blue-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">Akademik</div>
+        <div class="pt-5 pb-1.5 px-3 text-[10px] font-black text-emerald-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">Akademik</div>
 
         {{-- UPDATE LABEL DISINI --}}
         @include('admin.partials.sidebar_item', ['route' => 'guru.penilaian.index', 'icon' => 'fas fa-clipboard-check', 'label' => 'Penilaian & Riwayat'])
 
-        <div class="pt-5 pb-1.5 px-3 text-[10px] font-black text-blue-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">Pengaturan</div>
+        <div class="pt-5 pb-1.5 px-3 text-[10px] font-black text-emerald-300/70 uppercase tracking-widest sidebar-text whitespace-nowrap transition-all duration-300">Pengaturan</div>
 
         @include('admin.partials.sidebar_item', ['route' => 'profile.edit', 'icon' => 'fas fa-id-card', 'label' => 'Profil Saya'])
     </div>
 
     {{-- FOOTER SIDEBAR (TOMBOL KELUAR) --}}
-    <div class="p-4 border-t border-white/10 bg-blue-950/20 backdrop-blur-sm">
+    <div class="p-4 border-t border-white/10 bg-emerald-950/20 backdrop-blur-sm">
         {{-- Mengubah type button agar memicu pop up konfirmasi terlebih dahulu --}}
         <button type="button" onclick="openLogoutModal()" class="flex items-center justify-center w-full p-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 transition-all duration-300 shadow-md shadow-red-900/30 hover:shadow-xl text-white group overflow-hidden active:scale-[0.98] transform cursor-pointer">
             <i class="fas fa-power-off text-base sidebar-icon transition-transform duration-300 group-hover:rotate-45"></i>

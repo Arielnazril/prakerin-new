@@ -10,12 +10,12 @@
             <div class="flex items-center space-x-4">
                 <!-- ICON BACK: Mengarah ke Halaman Kalkulasi Rekomendasi Penempatan -->
                 <a href="{{ route('admin.placement.calculate') }}" 
-                   class="flex items-center justify-center w-11 h-11 rounded-2xl bg-white text-slate-500 hover:text-blue-600 shadow-sm hover:shadow-md border border-slate-200/80 hover:border-blue-300 hover:bg-blue-50/50 transition-all duration-300 group">
+                   class="flex items-center justify-center w-11 h-11 rounded-2xl bg-white text-slate-500 hover:text-emerald-600 shadow-sm hover:shadow-md border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all duration-300 group">
                     <i class="fas fa-arrow-left text-base transition-transform group-hover:-translate-x-1"></i>
                 </a>
                 <div>
                     <div class="flex items-center space-x-2">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200/60 uppercase tracking-wider">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 uppercase tracking-wider">
                             Penempatan Baru
                         </span>
                     </div>
@@ -47,7 +47,7 @@
 
             <!-- Decorative Top Progress Bar with Subtle Gradient -->
             <div class="h-1.5 w-full bg-slate-100/80">
-                <div class="h-1.5 bg-gradient-to-r from-blue-600 via-[--color-primary-dark] to-indigo-700 w-1/3 rounded-r-full shadow-sm"></div>
+                <div class="h-1.5 bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-700 w-1/3 rounded-r-full shadow-sm"></div>
             </div>
 
             <form id="formPlottingMagang" action="{{ route('admin.placement.store') }}" method="POST" class="p-6 sm:p-10 space-y-10">
@@ -57,7 +57,7 @@
                 <div class="space-y-6">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                         <h3 class="text-base font-extrabold text-slate-900 flex items-center tracking-wide">
-                            <span class="bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-md shadow-blue-500/20 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-blue-50">1</span>
+                            <span class="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-md shadow-emerald-500/20 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-emerald-50">1</span>
                             Data Siswa & Masa Magang
                         </h3>
                     </div>
@@ -70,29 +70,29 @@
                             </label>
 
                             <!-- Container Tampilan Locked untuk Siswa Terpilih (SPK) -->
-                            <div id="siswa_locked_container" class="hidden relative rounded-2xl p-4 bg-slate-50 border-l-4 border-l-blue-600 border-y border-r border-slate-200/90 flex items-center justify-between shadow-xs transition-all mb-2">
+                            <div id="siswa_locked_container" class="hidden relative rounded-2xl p-4 bg-slate-50 border-l-4 border-l-emerald-600 border-y border-r border-slate-200/90 flex items-center justify-between shadow-xs transition-all mb-2">
                                 <div class="flex items-center space-x-3.5">
-                                    <div class="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center shrink-0 shadow-xs">
                                         <i class="fas fa-user-graduate text-base"></i>
                                     </div>
                                     <div>
                                         <div id="siswa_locked_name" class="font-black text-slate-800 text-sm leading-snug">-</div>
-                                        <div class="text-[10px] text-blue-600 font-bold uppercase tracking-wider flex items-center mt-0.5">
+                                        <div class="text-[10px] text-emerald-600 font-bold uppercase tracking-wider flex items-center mt-0.5">
                                             <i class="fas fa-lock text-[9px] mr-1"></i> Terkunci Otomatis Dari Kalkulasi SPK
                                         </div>
                                     </div>
                                 </div>
-                                <span class="px-3 py-1 rounded-xl text-xs font-black bg-blue-100 text-blue-800 border border-blue-200 shadow-2xs">
+                                <span class="px-3 py-1 rounded-xl text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
                                     Siswa Terpilih
                                 </span>
                             </div>
 
                             <div id="siswa_select_wrapper" class="relative rounded-2xl shadow-xs group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                                     <i class="fas fa-graduation-cap text-base"></i>
                                 </div>
                                 <select id="siswa_select" name="siswa_id"
-                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
                                     required>
                                     <option value="" disabled selected>-- Cari dan Pilih Nama Siswa --</option>
                                     @foreach ($siswas as $siswa)
@@ -121,11 +121,11 @@
                                 <span class="text-rose-500 ml-1">*</span>
                             </label>
                             <div class="relative rounded-2xl shadow-xs group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                                     <i class="fas fa-calendar-alt text-base"></i>
                                 </div>
                                 <input type="date" id="input_tanggal_mulai" name="tanggal_mulai"
-                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
+                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
                                     required>
                             </div>
                         </div>
@@ -136,11 +136,11 @@
                                 <span class="text-rose-500 ml-1">*</span>
                             </label>
                             <div class="relative rounded-2xl shadow-xs group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                                     <i class="fas fa-calendar-check text-base"></i>
                                 </div>
                                 <input type="date" id="input_tanggal_selesai" name="tanggal_selesai"
-                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
+                                    class="w-full pl-11 pr-4 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white text-slate-800 font-semibold transition-all duration-200 text-sm cursor-pointer"
                                     required>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                 <div class="space-y-6">
                     <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                         <h3 class="text-base font-extrabold text-slate-900 flex items-center tracking-wide">
-                            <span class="bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-md shadow-blue-500/20 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-blue-50">2</span>
+                            <span class="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-md shadow-emerald-500/20 w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs mr-3 ring-4 ring-emerald-50">2</span>
                             Lokasi Penempatan & Pembimbing
                         </h3>
                     </div>
@@ -164,30 +164,30 @@
                             </label>
                             
                             <!-- Container Tampilan Locked (Tampil Jika Hasil SPK) -->
-                            <div id="instansi_locked_container" class="hidden relative rounded-2xl p-4 bg-slate-50 border-l-4 border-l-blue-600 border-y border-r border-slate-200/90 flex items-center justify-between shadow-xs transition-all">
+                            <div id="instansi_locked_container" class="hidden relative rounded-2xl p-4 bg-slate-50 border-l-4 border-l-emerald-600 border-y border-r border-slate-200/90 flex items-center justify-between shadow-xs transition-all">
                                 <div class="flex items-center space-x-3.5">
-                                    <div class="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center shrink-0 shadow-xs">
                                         <i class="fas fa-building text-base"></i>
                                     </div>
                                     <div>
                                         <div id="instansi_locked_name" class="font-black text-slate-800 text-sm leading-snug">-</div>
-                                        <div class="text-[10px] text-blue-600 font-bold uppercase tracking-wider flex items-center mt-0.5">
+                                        <div class="text-[10px] text-emerald-600 font-bold uppercase tracking-wider flex items-center mt-0.5">
                                             <i class="fas fa-lock text-[9px] mr-1"></i> Terkunci Otomatis (SPK)
                                         </div>
                                     </div>
                                 </div>
-                                <span id="instansi_locked_grade_badge" class="px-3 py-1 rounded-xl text-xs font-black bg-blue-100 text-blue-800 border border-blue-200 shadow-2xs">
+                                <span id="instansi_locked_grade_badge" class="px-3 py-1 rounded-xl text-xs font-black bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs">
                                     Grade -
                                 </span>
                             </div>
 
                             <!-- Native Select Dropdown (Disembunyikan atau Diberi Hidden Input Jika Terkunci) -->
                             <div id="instansi_select_wrapper" class="relative rounded-2xl shadow-xs group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                                     <i class="fas fa-building text-base"></i>
                                 </div>
                                 <select id="instansi_select" name="instansi_id"
-                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
                                     required onchange="filterMentors()">
                                     <option value="" disabled selected>-- Pilih Perusahaan --</option>
                                     @foreach ($instansis as $instansi)
@@ -207,11 +207,11 @@
                                 <span class="text-rose-500 ml-1">*</span>
                             </label>
                             <div class="relative rounded-2xl shadow-xs group">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
                                     <i class="fas fa-chalkboard-teacher text-base"></i>
                                 </div>
                                 <select id="guru_select" name="guru_id"
-                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
+                                    class="w-full pl-11 pr-10 py-3.5 border border-slate-200/90 rounded-2xl focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 bg-slate-50/50 hover:bg-slate-50 focus:bg-white font-semibold text-slate-800 transition-all duration-200 appearance-none cursor-pointer text-sm"
                                     required>
                                     <option value="" disabled selected>-- Pilih Guru Pembimbing --</option>
                                     @foreach ($gurus as $guru)
@@ -247,7 +247,7 @@
                             
                             <!-- Dynamic Hint Box -->
                             <div id="mentor_hint_container" class="mt-3 p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 flex items-start space-x-3 transition-all duration-300 shadow-xs">
-                                <div class="mt-0.5 text-blue-500 shrink-0" id="hint_icon_wrapper">
+                                <div class="mt-0.5 text-emerald-500 shrink-0" id="hint_icon_wrapper">
                                     <i class="fas fa-info-circle text-sm" id="hint_icon"></i>
                                 </div>
                                 <p class="text-xs text-slate-600 font-medium leading-relaxed" id="mentor_hint">
@@ -266,7 +266,7 @@
                         Batal
                     </a>
                     <button type="submit" id="btn_submit_plotting"
-                        class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-[--color-primary-dark] text-white font-extrabold py-3.5 px-10 rounded-2xl hover:from-blue-700 hover:to-blue-900 shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer">
+                        class="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-800 text-white font-extrabold py-3.5 px-10 rounded-2xl hover:from-emerald-700 hover:to-emerald-900 shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:shadow-emerald-600/35 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center text-xs uppercase tracking-wider cursor-pointer">
                         <i class="fas fa-save mr-2 text-sm"></i> Simpan Penempatan
                     </button>
                 </div>
@@ -278,9 +278,9 @@
     <!-- POPUP MODAL HASIL REKOMENDASI MAGANG SPK (TEXT KHUSUS KHUSUS UNTUK ADMIN) -->
     <div id="modalRekomendasiMagang" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/70 backdrop-blur-md flex items-center justify-center p-4">
         <div id="modalContentMagang" class="bg-white rounded-3xl shadow-2xl border border-slate-100 w-full max-w-md overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
-            <div class="p-8 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white text-center relative overflow-hidden">
-                <div class="absolute -right-12 -bottom-12 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="absolute -left-12 -top-12 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="p-8 bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white text-center relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-12 -top-12 w-40 h-40 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
                 
                 <div class="w-20 h-20 bg-emerald-500/20 border border-emerald-400/40 rounded-3xl flex items-center justify-center mx-auto mb-4 text-emerald-400 text-3xl shadow-xl shadow-emerald-950/50 backdrop-blur-sm animate-bounce-subtle">
                     <i class="fas fa-check-circle"></i>
@@ -290,9 +290,9 @@
             </div>
 
             <div class="p-6 sm:p-8 space-y-6 text-center bg-white">
-                <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-slate-700 text-sm font-medium leading-relaxed">
+                <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-slate-700 text-sm font-medium leading-relaxed">
                     Rekomendasi Penempatan Instansi: <br>
-                    <strong id="modalNamaPerusahaan" class="text-blue-700 font-black text-base block mt-1"></strong>
+                    <strong id="modalNamaPerusahaan" class="text-emerald-700 font-black text-base block mt-1"></strong>
                 </div>
 
                 <div class="p-4 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3 text-left">
@@ -357,7 +357,7 @@
             mentorSelect.disabled = false;
             
             mentorSelect.classList.remove('bg-slate-100/80', 'text-slate-400', 'cursor-not-allowed', 'border-slate-200/80');
-            mentorSelect.classList.add('bg-slate-50/50', 'hover:bg-slate-50', 'focus:bg-white', 'text-slate-800', 'border-slate-200/90', 'focus:ring-4', 'focus:ring-blue-500/10', 'focus:border-blue-600', 'cursor-pointer');
+            mentorSelect.classList.add('bg-slate-50/50', 'hover:bg-slate-50', 'focus:bg-white', 'text-slate-800', 'border-slate-200/90', 'focus:ring-4', 'focus:ring-emerald-500/10', 'focus:border-emerald-600', 'cursor-pointer');
             
             const innerIcon = mentorIcon.querySelector('i');
             if(innerIcon) {
@@ -383,8 +383,8 @@
                 });
 
                 mentorHint.textContent = "Mentor yang ditampilkan dikunci secara otomatis hanya untuk instansi terpilih.";
-                mentorHintContainer.className = "mt-3 p-4 rounded-2xl bg-blue-50/80 border border-blue-200/70 flex items-start space-x-3 transition-all duration-300 shadow-xs";
-                hintIconWrapper.className = "mt-0.5 text-blue-600 shrink-0";
+                mentorHintContainer.className = "mt-3 p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/70 flex items-start space-x-3 transition-all duration-300 shadow-xs";
+                hintIconWrapper.className = "mt-0.5 text-emerald-600 shrink-0";
                 hintIcon.className = "fas fa-check-circle text-sm";
             } else {
                 defaultOpt.textContent = "-- Tidak Ada Mentor di Perusahaan Ini --";
@@ -616,7 +616,7 @@
 
                 if (btnSubmit) {
                     btnSubmit.disabled = true;
-                    btnSubmit.classList.remove('hover:from-blue-700', 'hover:to-blue-900', 'hover:-translate-y-0.5', 'cursor-pointer');
+                    btnSubmit.classList.remove('hover:from-emerald-700', 'hover:to-emerald-900', 'hover:-translate-y-0.5', 'cursor-pointer');
                     btnSubmit.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-400');
                 }
 

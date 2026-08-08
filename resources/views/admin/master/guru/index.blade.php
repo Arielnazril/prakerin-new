@@ -3,23 +3,23 @@
 @section('page_title', 'Master Data Guru')
 
 @section('content')
-<div class="space-y-6 selection:bg-blue-600 selection:text-white animate-fade-in px-2 sm:px-0">
+<div class="space-y-6 selection:bg-[#234F35] selection:text-white animate-fade-in px-2 sm:px-0">
 
     <!-- Header Section Modern & Elegan -->
-    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-[#234F35] p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <!-- Accent Glow Effects -->
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-[#89C74A]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-[#234F35]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
             <div class="space-y-1">
                 <div class="flex items-center space-x-3 mb-2">
-                    <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-400/20 uppercase tracking-widest">
+                    <span class="bg-[#89C74A]/20 text-[#89C74A] text-xs font-bold px-3 py-1 rounded-full border border-[#89C74A]/30 uppercase tracking-widest">
                         Master Data
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
-                    <span class="p-2.5 bg-white/10 text-blue-400 rounded-2xl text-xl backdrop-blur-md border border-white/10">
+                    <span class="p-2.5 bg-white/10 text-[#89C74A] rounded-2xl text-xl backdrop-blur-md border border-white/10">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </span>
                     Data Guru Pembimbing
@@ -29,7 +29,7 @@
                 </p>
             </div>
             
-            <a href="{{ route('admin.guru.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
+            <a href="{{ route('admin.guru.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-[#234F35]/30 hover:shadow-xl hover:shadow-[#234F35]/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
                 <i class="fas fa-user-plus mr-2.5 text-xs"></i> Tambah Guru
             </a>
         </div>
@@ -38,7 +38,7 @@
     <!-- Kotak Informasi Total & Pencarian Modern -->
     <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
         <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs border border-blue-100">
+            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-[#234F35] flex items-center justify-center text-sm shadow-xs border border-emerald-100">
                 <i class="fas fa-users"></i>
             </div>
             <div>
@@ -48,11 +48,11 @@
         </div>
 
         <div class="relative w-full sm:w-80 group">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-[#234F35] transition-colors">
                 <i class="fas fa-search text-sm"></i>
             </span>
             <input type="text" id="guruSearchInput" placeholder="Cari nama atau NIP guru..." 
-                class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+                class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all duration-200 shadow-xs">
         </div>
     </div>
 
@@ -77,10 +77,10 @@
                         </td>
                         <td class="px-5 py-4 font-medium text-slate-800 name-cell">
                             <div class="flex items-center space-x-3.5">
-                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-indigo-500/20 uppercase">
+                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-emerald-900/20 uppercase">
                                     {{ substr($guru->name, 0, 2) }}
                                 </div>
-                                <span class="font-bold text-slate-800 tracking-tight text-base group-hover:text-blue-600 transition-colors truncate name-text">
+                                <span class="font-bold text-slate-800 tracking-tight text-base group-hover:text-[#234F35] transition-colors truncate name-text">
                                     {{ $guru->name }}
                                 </span>
                             </div>
@@ -89,15 +89,15 @@
                             <span class="font-mono text-xs font-semibold text-slate-700 bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200/60 inline-flex items-center gap-1.5">
                                 <i class="fas fa-id-badge text-slate-400 text-xs"></i>
                                 <span class="nip-value">{{ $guru->nomor_identitas }}</span>
-                                <button type="button" onclick="copyToClipboard('{{ $guru->nomor_identitas }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer" title="Salin NIP">
+                                <button type="button" onclick="copyToClipboard('{{ $guru->nomor_identitas }}', this)" class="text-slate-400 hover:text-[#234F35] focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer" title="Salin NIP">
                                     <i class="far fa-copy text-xs"></i>
                                 </button>
                             </span>
                         </td>
                         <td class="px-5 py-4 text-slate-600 text-sm font-medium">
                             @if($guru->no_hp)
-                                <span class="inline-flex items-center gap-1.5 text-slate-700 whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-xl">
-                                    <i class="fab fa-whatsapp text-emerald-500 text-sm"></i>
+                                <span class="inline-flex items-center gap-1.5 text-[#234F35] whitespace-nowrap bg-emerald-50 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-xl">
+                                    <i class="fab fa-whatsapp text-[#234F35] text-sm"></i>
                                     {{ $guru->no_hp }}
                                 </span>
                             @else
@@ -212,7 +212,7 @@
             const icon = btnElement.querySelector('i');
             
             // Ubah tampilan icon menjadi ceklis hijau
-            icon.className = 'fas fa-check text-emerald-500 text-xs';
+            icon.className = 'fas fa-check text-[#89C74A] text-xs';
             btnElement.setAttribute('title', 'Tersalin!');
 
             // Kembalikan ke icon awal setelah 1.5 detik

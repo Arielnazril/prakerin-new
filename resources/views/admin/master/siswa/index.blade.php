@@ -3,15 +3,15 @@
 @section('page_title', 'Manajemen Data Siswa')
 
 @section('content')
-<div class="space-y-8 selection:bg-blue-600 selection:text-white px-2 sm:px-0 select-none font-sans antialiased">
+<div class="space-y-8 selection:bg-[#234F35] selection:text-white px-2 sm:px-0 select-none font-sans antialiased">
 
     {{-- TABEL PENDAFTARAN BARU (BUTUH VERIFIKASI) - TAMPILAN TERBARU & MODERN --}}
     @if($siswaPending->count() > 0)
-    <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-rose-100/80">
+    <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden border border-emerald-100/80">
         {{-- Header Card --}}
-        <div class="px-6 py-5 border-b border-rose-100/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-rose-50/80 via-white to-rose-50/20">
+        <div class="px-6 py-5 border-b border-emerald-100/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-emerald-50/80 via-white to-emerald-50/20">
             <div class="flex items-center gap-3.5">
-                <div class="w-11 h-11 bg-rose-500/10 rounded-2xl flex items-center justify-center border border-rose-200/50 text-rose-600 shadow-sm shrink-0">
+                <div class="w-11 h-11 bg-[#234F35]/10 rounded-2xl flex items-center justify-center border border-emerald-200/50 text-[#234F35] shadow-sm shrink-0">
                     <i class="fas fa-user-plus text-lg animate-pulse"></i>
                 </div>
                 <div>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-red-600 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-sm shadow-rose-500/20 uppercase tracking-wider border border-rose-400/30">
+                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#234F35] to-emerald-800 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-sm shadow-emerald-900/20 uppercase tracking-wider border border-[#89C74A]/30">
                     <i class="fas fa-clock text-[10px] animate-pulse"></i> {{ $siswaPending->count() }} Perlu Tindakan
                 </span>
             </div>
@@ -29,8 +29,8 @@
 
         {{-- Table Content --}}
         <div class="overflow-x-auto p-4 sm:p-6">
-            <table class="w-full text-left border-collapse min-w-[650px] border border-rose-200/80 rounded-2xl overflow-hidden shadow-2xs">
-                <thead class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-extrabold tracking-widest border-b border-rose-200/80 divide-x divide-rose-200/80">
+            <table class="w-full text-left border-collapse min-w-[650px] border border-emerald-200/80 rounded-2xl overflow-hidden shadow-2xs">
+                <thead class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-extrabold tracking-widest border-b border-emerald-200/80 divide-x divide-emerald-200/80">
                     <tr>
                         <th class="px-6 py-3.5">Waktu Daftar</th>
                         <th class="px-6 py-3.5">Nama Siswa</th>
@@ -39,25 +39,25 @@
                         <th class="px-6 py-3.5 text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-rose-100 bg-white">
+                <tbody class="divide-y divide-emerald-100 bg-white">
                     @foreach($siswaPending as $siswa)
-                    <tr class="hover:bg-rose-50/30 transition-colors duration-200 group divide-x divide-rose-100">
+                    <tr class="hover:bg-emerald-50/30 transition-colors duration-200 group divide-x divide-emerald-100">
                         {{-- Waktu Daftar --}}
                         <td class="px-6 py-4 text-xs text-slate-500 font-medium">
-                            <div class="inline-flex items-center bg-slate-50 group-hover:bg-white px-3 py-1 rounded-lg border border-slate-200/60 group-hover:border-rose-200 transition-colors shadow-2xs">
-                                <i class="far fa-clock mr-1.5 text-rose-500 text-xs"></i>
+                            <div class="inline-flex items-center bg-slate-50 group-hover:bg-white px-3 py-1 rounded-lg border border-slate-200/60 group-hover:border-emerald-200 transition-colors shadow-2xs">
+                                <i class="far fa-clock mr-1.5 text-[#234F35] text-xs"></i>
                                 <span>{{ $siswa->created_at->diffForHumans() }}</span>
                             </div>
                         </td>
 
                         {{-- Nama Siswa & Avatar Icon --}}
-                        <td class="px-6 py-4 font-bold text-slate-800 group-hover:text-rose-600 transition-colors duration-150 text-sm">
+                        <td class="px-6 py-4 font-bold text-slate-800 group-hover:text-[#234F35] transition-colors duration-150 text-sm">
                             <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-rose-500 to-red-500 text-white font-black text-xs flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
+                                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#234F35] to-emerald-700 text-white font-black text-xs flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
                                     {{ substr($siswa->name, 0, 1) }}
                                 </div>
                                 <div class="flex flex-col">
-                                    <span class="tracking-wide text-slate-800 group-hover:text-rose-600 font-bold transition-colors">{{ $siswa->name }}</span>
+                                    <span class="tracking-wide text-slate-800 group-hover:text-[#234F35] font-bold transition-colors">{{ $siswa->name }}</span>
                                     <span class="text-[10px] text-slate-400 font-normal">Pendaftar Barusan</span>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                         <td class="px-6 py-4 text-slate-600 font-mono text-xs font-semibold">
                             <div class="inline-flex items-center gap-1.5 bg-slate-50 group-hover:bg-white px-2.5 py-1 rounded-md border border-slate-200/80 shadow-2xs">
                                 <span>{{ $siswa->nomor_identitas }}</span>
-                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
+                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-[#234F35] focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
                                     <i class="far fa-copy text-xs"></i>
                                 </button>
                             </div>
@@ -75,8 +75,8 @@
 
                         {{-- Jurusan DENGAN ICON --}}
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 group-hover:bg-rose-100/80 px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-rose-200/60 uppercase tracking-wider shadow-2xs">
-                                <i class="fas fa-graduation-cap text-rose-500 text-xs"></i>
+                            <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-[#234F35] group-hover:bg-emerald-100/80 px-2.5 py-1 rounded-lg text-[10px] font-extrabold border border-emerald-200/60 uppercase tracking-wider shadow-2xs">
+                                <i class="fas fa-graduation-cap text-[#234F35] text-xs"></i>
                                 <span>{{ $siswa->jurusan->kode_jurusan ?? '-' }}</span>
                             </span>
                         </td>
@@ -86,7 +86,7 @@
                             <div class="flex justify-center items-center gap-2">
                                 <form id="verify-form-{{ $siswa->id }}" action="{{ route('admin.siswa.verify', $siswa->id) }}" method="POST">
                                     @csrf
-                                    <button type="button" onclick="confirmVerify('verify-form-{{ $siswa->id }}', '{{ $siswa->name }}')" class="bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-emerald-600 shadow-sm hover:shadow-emerald-500/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+                                    <button type="button" onclick="confirmVerify('verify-form-{{ $siswa->id }}', '{{ $siswa->name }}')" class="bg-[#234F35] text-white px-3.5 py-1.5 rounded-xl text-xs font-extrabold hover:bg-emerald-900 shadow-sm hover:shadow-emerald-900/20 transition-all flex items-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
                                         <i class="fas fa-check mr-1.5 text-[10px]"></i> Terima
                                     </button>
                                 </form>
@@ -120,12 +120,12 @@
                         <i class="fas fa-search text-slate-400 text-xs"></i>
                     </span>
                     <input type="text" id="siswaSearchInput" placeholder="Cari nama atau NIS siswa..." 
-                        class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 bg-white outline-none transition-all duration-200 placeholder:text-slate-400">
+                        class="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:ring-4 focus:ring-emerald-900/10 focus:border-[#234F35] bg-white outline-none transition-all duration-200 placeholder:text-slate-400">
                 </div>
 
                 {{-- INFORMASI TOTAL SISWA AKTIF --}}
-                <div class="bg-blue-50/80 text-blue-700 border border-blue-100 px-4 py-2 rounded-xl font-bold text-xs text-center whitespace-nowrap shadow-2xs flex items-center justify-center gap-1.5">
-                    <i class="fas fa-users text-blue-500 text-xs"></i>
+                <div class="bg-emerald-50/80 text-[#234F35] border border-emerald-200 px-4 py-2 rounded-xl font-bold text-xs text-center whitespace-nowrap shadow-2xs flex items-center justify-center gap-1.5">
+                    <i class="fas fa-users text-[#234F35] text-xs"></i>
                     <span>Total: {{ $siswaAktif->count() }} Siswa</span>
                 </div>
             </div>
@@ -149,8 +149,8 @@
                         <td class="px-6 py-4 text-slate-400 text-xs font-medium index-cell">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 font-bold text-slate-800 name-cell">
                             <span class="text-sm text-slate-800 tracking-wide">{{ $siswa->name }}</span>
-                            <span class="flex items-center gap-1 text-[10px] font-medium text-emerald-600 mt-0.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Akun Aktif
+                            <span class="flex items-center gap-1 text-[10px] font-medium text-[#234F35] mt-0.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#89C74A] animate-pulse"></span> Akun Aktif
                             </span>
                         </td>
                         
@@ -158,7 +158,7 @@
                         <td class="px-6 py-4 font-mono text-xs font-semibold text-slate-600 nis-cell">
                             <div class="inline-flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-md border border-slate-200/70">
                                 <span>{{ $siswa->nomor_identitas }}</span>
-                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
+                                <button type="button" onclick="copyToClipboard('{{ $siswa->nomor_identitas }}', this)" class="text-slate-400 hover:text-[#234F35] focus:outline-none transition-colors p-0.5 cursor-pointer" title="Salin NIS">
                                     <i class="far fa-copy text-xs"></i>
                                 </button>
                             </div>
@@ -166,8 +166,8 @@
 
                         {{-- Jurusan DENGAN ICON --}}
                         <td class="px-6 py-4">
-                            <span class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase tracking-wider">
-                                <i class="fas fa-graduation-cap text-blue-500 text-xs"></i>
+                            <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-[#234F35] border border-emerald-200 text-[10px] font-extrabold px-2.5 py-1 rounded-lg uppercase tracking-wider">
+                                <i class="fas fa-graduation-cap text-[#234F35] text-xs"></i>
                                 <span>{{ $siswa->jurusan->kode_jurusan ?? '-' }}</span>
                             </span>
                         </td>
@@ -183,7 +183,7 @@
                                 {{ $siswa->email }}
                             </div>
                             <div class="flex items-center text-slate-500">
-                                <i class="fab fa-whatsapp text-emerald-500 mr-2 w-3.5 text-center text-sm"></i>
+                                <i class="fab fa-whatsapp text-[#234F35] mr-2 w-3.5 text-center text-sm"></i>
                                 <span class="text-slate-600">{{ $siswa->no_hp ?? '-' }}</span>
                             </div>
                         </td>
@@ -252,7 +252,7 @@
 
                 <!-- Card Highlight Target Name -->
                 <div class="bg-slate-50 border border-slate-200/70 rounded-2xl p-3 my-3 flex items-center justify-center gap-3">
-                    <div class="w-8 h-8 rounded-xl bg-slate-800 text-white font-black text-xs flex items-center justify-center shrink-0">
+                    <div class="w-8 h-8 rounded-xl bg-[#234F35] text-white font-black text-xs flex items-center justify-center shrink-0">
                         <i class="fas fa-user text-xs"></i>
                     </div>
                     <span id="modalTargetName" class="font-bold text-slate-800 text-sm tracking-wide truncate max-w-[220px]"></span>
@@ -301,7 +301,7 @@
             const icon = btnElement.querySelector('i');
             
             // Ubah tampilan icon menjadi ceklis hijau
-            icon.className = 'fas fa-check text-emerald-500 text-xs';
+            icon.className = 'fas fa-check text-[#89C74A] text-xs';
             btnElement.setAttribute('title', 'Tersalin!');
 
             // Kembalikan ke icon awal setelah 1.5 detik
@@ -325,7 +325,7 @@
                 borderRadius: '24px',
                 padding: '2rem',
                 confirmButtonText: 'Lanjutkan',
-                confirmButtonColor: '#0f172a',
+                confirmButtonColor: '#234F35',
                 customClass: {
                     popup: 'shadow-2xl border border-slate-100',
                     confirmButton: 'px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider'
@@ -389,7 +389,7 @@
             html: 'Aktifkan pendaftaran & akses akun untuk siswa <b>' + namaSiswa + '</b>?',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#10b981',
+            confirmButtonColor: '#234F35',
             cancelButtonColor: '#94a3b8',
             confirmButtonText: 'Ya, Terima',
             cancelButtonText: 'Batal',

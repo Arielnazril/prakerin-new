@@ -3,23 +3,23 @@
 @section('page_title', 'Master Mentor Industri')
 
 @section('content')
-<div class="space-y-6 selection:bg-blue-600 selection:text-white animate-fade-in px-2 sm:px-0">
+<div class="space-y-6 selection:bg-[#234F35] selection:text-white animate-fade-in px-2 sm:px-0">
 
     <!-- Header Section -->
-    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-[#234F35] p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
         <!-- Accent Glow Effects -->
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-[#89C74A]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-[#234F35]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-5">
             <div class="space-y-1">
                 <div class="flex items-center space-x-3 mb-2">
-                    <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-400/20 uppercase tracking-widest">
+                    <span class="bg-[#89C74A]/20 text-[#89C74A] text-xs font-bold px-3 py-1 rounded-full border border-[#89C74A]/30 uppercase tracking-widest">
                         Master Data
                     </span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
-                    <span class="p-2.5 bg-white/10 text-blue-400 rounded-2xl text-xl backdrop-blur-md border border-white/10">
+                    <span class="p-2.5 bg-white/10 text-[#89C74A] rounded-2xl text-xl backdrop-blur-md border border-white/10">
                         <i class="fas fa-user-tie"></i>
                     </span>
                     Mentor Lapangan
@@ -29,7 +29,7 @@
                 </p>
             </div>
             
-            <a href="{{ route('admin.pembimbing.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-600/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
+            <a href="{{ route('admin.pembimbing.create') }}" class="w-full sm:w-auto bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-lg shadow-[#234F35]/30 hover:shadow-xl hover:shadow-[#234F35]/40 transition-all duration-300 flex items-center justify-center transform hover:-translate-y-0.5 active:translate-y-0 text-xs uppercase tracking-wider whitespace-nowrap cursor-pointer flex-shrink-0">
                 <i class="fas fa-plus mr-2.5 text-xs"></i> Tambah Mentor
             </a>
         </div>
@@ -74,8 +74,8 @@
     <!-- BARIS 1: Tab Filter Grade Mentor (Diberi space khusus agar tidak berdempetan) -->
     <div class="flex items-center bg-white p-2 rounded-2xl border border-slate-200/80 shadow-xs gap-2 overflow-x-auto">
         <button type="button" id="tabGradeA" onclick="switchGradeTab('A')" 
-            class="grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap">
-            <i class="fas fa-award text-amber-300 text-sm"></i>
+            class="grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-[#234F35] to-emerald-800 text-white shadow-md cursor-pointer whitespace-nowrap">
+            <i class="fas fa-award text-[#89C74A] text-sm"></i>
             <span>Mentor Grade A (Pemerintah/BUMN/Besar)</span>
             <span id="badgeCountGradeA" class="bg-white/20 text-white px-2.5 py-0.5 rounded-lg text-[11px] font-black">
                 {{ $countGradeA }}
@@ -84,7 +84,7 @@
 
         <button type="button" id="tabGradeB" onclick="switchGradeTab('B')" 
             class="grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap">
-            <i class="fas fa-certificate text-indigo-400 text-sm"></i>
+            <i class="fas fa-certificate text-amber-500 text-sm"></i>
             <span>Mentor Grade B (Swasta/Menengah/UMKM)</span>
             <span id="badgeCountGradeB" class="bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-lg text-[11px] font-black">
                 {{ $countGradeB }}
@@ -95,7 +95,7 @@
     <!-- BARIS 2: Total Ringkasan & Kotak Pencarian -->
     <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
         <div class="text-sm text-slate-700 bg-white border border-slate-200/80 px-5 py-3.5 rounded-2xl font-semibold shadow-xs flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shadow-xs border border-blue-100 flex-shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#234F35] flex items-center justify-center text-base shadow-xs border border-emerald-100 flex-shrink-0">
                 <i class="fas fa-users"></i>
             </div>
             <div>
@@ -105,24 +105,24 @@
         </div>
 
         <div class="relative w-full sm:w-80 group">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-blue-600 transition-colors">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-[#234F35] transition-colors">
                 <i class="fas fa-search text-sm"></i>
             </span>
             <input type="text" id="mentorSearchInput" placeholder="Cari nama mentor atau perusahaan..." 
-                class="w-full pl-10 pr-4 py-3.5 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 outline-none transition-all duration-200 shadow-xs">
+                class="w-full pl-10 pr-4 py-3.5 border border-slate-200 rounded-2xl text-sm font-medium bg-white text-slate-800 placeholder:text-slate-400 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all duration-200 shadow-xs">
         </div>
     </div>
 
     <!-- Table Container -->
     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden transition-all duration-300 p-4 sm:p-6">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse min-w-[850px] table-fixed border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
+            <table class="w-full text-left border-collapse min-w-[900px] table-fixed border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
                 <thead>
                     <tr class="bg-slate-100/80 border-b border-slate-200/80 text-slate-600 uppercase text-[11px] font-black tracking-wider divide-x divide-slate-200/80">
                         <th class="px-4 py-4 text-center w-14">No.</th>
-                        <th class="px-5 py-4 w-[24%]">Nama Mentor</th>
-                        <th class="px-5 py-4 w-[32%]">Perusahaan (Instansi)</th>
-                        <th class="px-5 py-4 w-[20%]">Username Login</th>
+                        <th class="px-5 py-4 w-[25%]">Nama Mentor</th>
+                        <th class="px-5 py-4 w-[33%]">Perusahaan (Instansi)</th>
+                        <th class="px-5 py-4 w-[18%]">Username Login</th>
                         <th class="px-5 py-4 w-[14%]">Kontak</th>
                         <th class="px-4 py-4 text-center w-24">Aksi</th>
                     </tr>
@@ -138,29 +138,33 @@
                         </td>
                         <td class="px-5 py-4 name-cell">
                             <div class="flex items-center space-x-3.5">
-                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-indigo-500/20 uppercase">
+                                <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-sm flex-shrink-0 shadow-md shadow-emerald-900/20 uppercase">
                                     {{ substr($mentor->name, 0, 1) }}
                                 </div>
-                                <div class="font-bold text-slate-800 tracking-tight text-base group-hover:text-blue-600 transition-colors truncate">
+                                <div class="font-bold text-slate-800 tracking-tight text-base group-hover:text-[#234F35] transition-colors truncate">
                                     {{ $mentor->name }}
                                 </div>
                             </div>
                         </td>
+                        
+                        {{-- BARIS KAMPUS/PERUSAHAAN DIRAPIKAN AGAR TIDAK BERDEMPETAN --}}
                         <td class="px-5 py-4 company-cell">
                             @if(isset($mentor->instansi->nama_perusahaan))
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="font-bold text-slate-800 text-sm">
+                                <div class="flex flex-col items-start gap-1.5 leading-snug">
+                                    <span class="font-bold text-slate-800 text-sm tracking-tight">
                                         {{ $mentor->instansi->nama_perusahaan }}
                                     </span>
-                                    @if($mentorGrade === 'A')
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs whitespace-nowrap">
-                                            <i class="fas fa-star text-amber-400 text-[8px]"></i> GRADE A
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs whitespace-nowrap">
-                                            <i class="fas fa-certificate text-amber-500 text-[8px]"></i> GRADE B
-                                        </span>
-                                    @endif
+                                    <div>
+                                        @if($mentorGrade === 'A')
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-emerald-50 text-[#234F35] border border-emerald-200/80 shadow-2xs whitespace-nowrap">
+                                                <i class="fas fa-star text-[#89C74A] text-[8px]"></i> GRADE A
+                                            </span>
+                                        @else
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-amber-50 text-amber-700 border border-amber-200/80 shadow-2xs whitespace-nowrap">
+                                                <i class="fas fa-certificate text-amber-500 text-[8px]"></i> GRADE B
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             @else
                                 <span class="inline-flex items-center bg-slate-100 text-slate-500 border border-slate-200/60 text-xs font-bold px-3 py-1.5 rounded-xl shadow-2xs">
@@ -169,19 +173,20 @@
                                 </span>
                             @endif
                         </td>
+
                         <td class="px-5 py-4">
                             <span class="font-mono text-xs font-semibold text-slate-700 bg-slate-100 px-2.5 py-1.5 rounded-xl border border-slate-200/60 inline-flex items-center gap-1.5">
                                 <i class="fas fa-user-circle text-slate-400 text-xs"></i>
                                 <span class="truncate max-w-[120px]">{{ $mentor->username }}</span>
-                                <button type="button" onclick="copyToClipboard('{{ $mentor->username }}', this)" class="text-slate-400 hover:text-blue-600 focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer flex-shrink-0" title="Salin Username">
+                                <button type="button" onclick="copyToClipboard('{{ $mentor->username }}', this)" class="text-slate-400 hover:text-[#234F35] focus:outline-none transition-colors p-0.5 ml-1 cursor-pointer flex-shrink-0" title="Salin Username">
                                     <i class="far fa-copy text-xs"></i>
                                 </button>
                             </span>
                         </td>
                         <td class="px-5 py-4 text-slate-600 text-sm font-medium">
                             @if($mentor->no_hp)
-                                <span class="inline-flex items-center gap-1.5 text-slate-700 whitespace-nowrap bg-emerald-50 text-emerald-700 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-xl">
-                                    <i class="fab fa-whatsapp text-emerald-500 text-sm"></i>
+                                <span class="inline-flex items-center gap-1.5 text-[#234F35] whitespace-nowrap bg-emerald-50 border border-emerald-200/60 text-xs font-bold px-3 py-1.5 rounded-xl">
+                                    <i class="fab fa-whatsapp text-[#234F35] text-sm"></i>
                                     {{ $mentor->no_hp }}
                                 </span>
                             @else
@@ -296,7 +301,7 @@
             const icon = btnElement.querySelector('i');
             
             // Ubah tampilan icon menjadi ceklis hijau
-            icon.className = 'fas fa-check text-emerald-500 text-xs';
+            icon.className = 'fas fa-check text-[#89C74A] text-xs';
             btnElement.setAttribute('title', 'Tersalin!');
 
             // Kembalikan ke icon awal setelah 1.5 detik
@@ -321,7 +326,7 @@
         if (!tabA || !tabB) return;
 
         if (grade === 'A') {
-            tabA.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md cursor-pointer whitespace-nowrap";
+            tabA.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 bg-gradient-to-r from-[#234F35] to-emerald-800 text-white shadow-md cursor-pointer whitespace-nowrap";
             badgeA.className = "bg-white/20 text-white px-2.5 py-0.5 rounded-lg text-[11px] font-black";
 
             tabB.className = "grade-tab-btn flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2.5 transition-all duration-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100/80 cursor-pointer whitespace-nowrap";
