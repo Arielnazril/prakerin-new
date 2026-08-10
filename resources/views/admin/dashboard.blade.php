@@ -55,20 +55,30 @@
     {{-- GRID KARTU STATISTIK (TERANG & CERAH) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5 sm:gap-6">
 
-        {{-- Total Siswa --}}
+        {{-- Total Siswa (Hanya Siswa Aktif / Terverifikasi) --}}
+        @php
+            $countSiswaAktif = isset($siswaAktif) ? $siswaAktif->count() : ($totalSiswa ?? 0);
+            $countSiswaPending = isset($siswaPending) ? $siswaPending->count() : 0;
+        @endphp
         <div class="stat-card relative overflow-hidden bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 transform hover:-translate-y-1.5 border-t-4 border-t-[#234F35] group cursor-pointer flex flex-col justify-between h-48">
             <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-50/80 rounded-full group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
             <div class="relative z-10 flex items-start justify-between gap-3">
                 <div class="space-y-1.5">
-                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-[#234F35] transition-colors">Total Siswa</p>
-                    <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $totalSiswa }}">0</h3>
+                    <p class="text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:text-[#234F35] transition-colors">Total Siswa Aktif</p>
+                    <h3 class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight font-mono counter-val" data-target="{{ $countSiswaAktif }}">0</h3>
                 </div>
                 <div class="p-3.5 bg-emerald-50 text-[#234F35] rounded-2xl border border-emerald-100 transition-all duration-300 group-hover:bg-gradient-to-tr group-hover:from-[#234F35] group-hover:to-emerald-800 group-hover:text-white group-hover:shadow-lg group-hover:shadow-emerald-900/30 group-hover:rotate-6 shrink-0">
                     <i class="fas fa-user-graduate text-xl"></i>
                 </div>
             </div>
             <div class="relative z-10 pt-3 border-t border-slate-100 flex items-center text-xs text-slate-400 font-bold justify-between mt-auto">
-                <span>Terdaftar Sistem</span>
+                <span class="flex items-center gap-1">
+                    @if($countSiswaPending > 0)
+                        <span class="bg-amber-100 text-amber-800 text-[10px] px-2 py-0.5 rounded-full font-extrabold">+{{ $countSiswaPending }} Pending</span>
+                    @else
+                        <span>Terdaftar Sistem</span>
+                    @endif
+                </span>
                 <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-[#234F35]"></i>
             </div>
         </div>
@@ -204,9 +214,9 @@
                 <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
                     <div class="flex items-center gap-3">
                         <span class="w-3.5 h-3.5 rounded-full bg-[#234F35] ring-4 ring-emerald-100 shrink-0 group-hover:scale-110 transition-transform"></span>
-                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-[#234F35] transition-colors">Total Siswa</span>
+                        <span class="text-xs font-extrabold text-slate-700 group-hover:text-[#234F35] transition-colors">Total Siswa Aktif</span>
                     </div>
-                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $totalSiswa }}</span>
+                    <span class="text-xs font-black text-slate-800 font-mono bg-white px-3 py-1 rounded-xl border border-slate-200/80 shadow-2xs">{{ $countSiswaAktif }}</span>
                 </div>
                 <div class="p-4 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-100 transition-all duration-200 flex items-center justify-between group">
                     <div class="flex items-center gap-3">
@@ -533,10 +543,10 @@
             new Chart(donutCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Total Siswa', 'Guru Pembimbing', 'Mitra Industri', 'Mentor Industri', 'Sedang Magang'],
+                    labels: ['Total Siswa Aktif', 'Guru Pembimbing', 'Mitra Industri', 'Mentor Industri', 'Sedang Magang'],
                     datasets: [{
                         data: [
-                            {{ $totalSiswa ?? 0 }}, 
+                            {{ $countSiswaAktif }}, 
                             {{ $totalGuru ?? 0 }}, 
                             {{ $totalIndustri ?? 0 }}, 
                             {{ $totalMentor ?? 0 }}, 

@@ -1,5 +1,10 @@
 @extends('layouts.admin_layout')
 
+@push('styles')
+    {{-- Favicon Logo Sekolah pada Tab Browser --}}
+    <link rel="icon" type="image/png" href="{{ asset('img/logo_smk.png') }}">
+@endpush
+
 @section('page_title', 'Data Penempatan Magang')
 
 @section('content')
@@ -17,7 +22,7 @@
                     Manajemen Prakerin
                 </span>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">Plotting Siswa Prakerin</h2>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white"> Hasil Plotting Siswa Prakerin</h2>
             <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 max-w-xl leading-relaxed">
                 Kelola penempatan siswa, alokasi guru pembimbing, dan pendaftaran mentor industri secara terpusat.
             </p>
@@ -95,13 +100,24 @@
 
         </div>
         
-        <!-- Input Pencarian -->
-        <div class="relative w-full lg:w-80 group flex-shrink-0">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors duration-200">
-                <i class="fas fa-search text-sm"></i>
-            </span>
-            <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, atau guru..." 
-                class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
+        <!-- Input Pencarian & Filter Status Fitur Tambahan -->
+        <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto flex-shrink-0">
+            <div class="relative w-full sm:w-44">
+                <select id="statusFilterSelect" onchange="applyTableFilters()" class="w-full pl-3 pr-8 py-3 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200/80 rounded-2xl text-xs font-bold text-slate-700 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all cursor-pointer shadow-xs">
+                    <option value="all">Semua Status</option>
+                    <option value="aktif">Sedang Magang</option>
+                    <option value="selesai">Selesai</option>
+                    <option value="batal">Batal</option>
+                </select>
+            </div>
+            
+            <div class="relative w-full sm:w-72 group">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors duration-200">
+                    <i class="fas fa-search text-sm"></i>
+                </span>
+                <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, guru, mentor..." 
+                    class="w-full pl-11 pr-4 py-3 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
+            </div>
         </div>
     </div>
 
@@ -190,8 +206,8 @@
         <div class="w-full overflow-x-auto">
             <table class="w-full text-left border-collapse table-auto border border-slate-200/80 rounded-2xl overflow-hidden shadow-2xs">
                 <thead>
-                    <tr class="bg-slate-100/80 text-slate-600 uppercase text-[10px] font-black tracking-wider border-b border-slate-200/80 divide-x divide-slate-200/80">
-                        <th class="px-2 py-3.5 w-10 text-center">No</th>
+                    <tr class="bg-slate-100/90 text-slate-600 uppercase text-[10px] font-black tracking-wider border-b border-slate-200/80 divide-x divide-slate-200/80">
+                        <th class="px-2 py-3.5 w-10 text-center bg-slate-200/50">No</th>
                         <th class="px-3 py-3.5">Siswa</th>
                         <th class="px-3 py-3.5">Lokasi Magang (Instansi)</th>
                         <th class="px-3 py-3.5">Guru Pembimbing</th>
@@ -206,59 +222,96 @@
 
                     {{-- LOOPING DATA GRADE A --}}
                     @foreach($placementsGradeA as $placement)
-                    <tr class="placement-row grade-a-row hover:bg-emerald-50/20 transition-colors duration-150 divide-x divide-slate-200/80">
-                        <td class="px-2 py-3 text-slate-400 font-extrabold text-center text-xs index-cell">{{ $rowNumber++ }}</td>
-                        <td class="px-3 py-3">
+                    <tr class="placement-row grade-a-row align-top hover:bg-emerald-50/30 transition-all duration-150 divide-x divide-slate-200/80" data-status="{{ strtolower($placement->status) }}">
+                        <td class="px-2 py-4 text-slate-400 font-extrabold text-center text-xs index-cell bg-slate-50/30">{{ $rowNumber++ }}</td>
+                        <td class="px-3 py-4">
                             <div class="flex items-center space-x-2.5">
                                 <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-sm shadow-emerald-500/20">
                                     {{ substr($placement->siswa->name, 0, 1) }}
                                 </div>
                                 <div class="min-w-0">
-                                    <div class="font-bold text-slate-800 name-cell leading-snug" title="{{ $placement->siswa->name }}">{{ $placement->siswa->name }}</div>
+                                    <div class="font-bold text-slate-800 name-cell leading-snug truncate" title="{{ $placement->siswa->name }}">{{ $placement->siswa->name }}</div>
                                     <div class="flex items-center gap-1 mt-0.5 group/copy">
                                         <span class="text-[10px] text-slate-400 font-semibold tracking-wide">{{ $placement->siswa->nomor_identitas }}</span>
                                         <button type="button" onclick="copyToClipboard('{{ $placement->siswa->nomor_identitas }}', this)" 
-                                            class="inline-flex items-center justify-center w-3.5 h-3.5 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer" 
                                             title="Salin NISN / ID">
-                                            <i class="far fa-copy text-[8px]"></i>
+                                            <i class="far fa-copy text-[9px]"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </td>
 
-                        <td class="px-3 py-3">
-                            <div class="flex flex-col items-start gap-1">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 border border-emerald-200/80 shadow-2xs">
+                        {{-- KOLOM LOKASI MAGANG --}}
+                        <td class="px-3 py-4">
+                            <div class="flex flex-col items-start gap-1 max-w-[220px] sm:max-w-xs">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 border border-emerald-200/80 shadow-2xs whitespace-nowrap">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span> Grade A
                                 </span>
-                                <div>
-                                    <div class="font-bold text-slate-800 instansi-cell leading-tight">{{ $placement->instansi->nama_perusahaan }}</div>
-                                    <div class="text-[10.5px] text-slate-500 font-normal leading-snug break-words mt-0.5">
-                                        <i class="fas fa-map-marker-alt text-slate-400 mr-1 text-[9px]"></i>{{ $placement->instansi->alamat }}
+                                <div class="w-full">
+                                    <div class="font-bold text-slate-800 instansi-cell leading-snug truncate" title="{{ $placement->instansi->nama_perusahaan }}">
+                                        {{ $placement->instansi->nama_perusahaan }}
+                                    </div>
+                                    <div class="text-[10.5px] text-slate-500 font-normal leading-relaxed mt-0.5 line-clamp-2" title="{{ $placement->instansi->alamat }}">
+                                        <i class="fas fa-map-marker-alt text-slate-400 mr-1 text-[9px] flex-shrink-0"></i>{{ $placement->instansi->alamat }}
                                     </div>
                                 </div>
                             </div>
                         </td>
 
-                        {{-- Kolom Guru Pembimbing --}}
-                        <td class="px-3 py-3">
-                            <div class="flex items-center text-slate-700 text-xs font-semibold" title="Guru Sekolah">
-                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-emerald-100">
+                        {{-- KOLOM GURU PEMBIMBING (DENGAN NIP DAN ICON SALIN) --}}
+                        @php
+                            $guruNip = $placement->guru->nip ?? $placement->guru->nomor_identitas ?? '-';
+                        @endphp
+                        <td class="px-3 py-4">
+                            <div class="flex items-start space-x-2">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
-                                <span class="leading-snug guru-cell text-slate-800 font-bold" title="{{ $placement->guru->name }}">{{ $placement->guru->name }}</span>
+                                <div class="min-w-0 flex-1">
+                                    <div class="leading-snug guru-cell text-slate-800 font-bold truncate" title="{{ $placement->guru->name }}">
+                                        {{ $placement->guru->name }}
+                                    </div>
+                                    <div class="flex items-center gap-1 mt-0.5">
+                                        <span class="text-[10px] text-slate-400 font-medium">NIP: <span class="font-bold text-slate-600">{{ $guruNip }}</span></span>
+                                        @if($guruNip !== '-')
+                                        <button type="button" onclick="copyToClipboard('{{ $guruNip }}', this)" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                            title="Salin NIP Guru">
+                                            <i class="far fa-copy text-[9px]"></i>
+                                        </button>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </td>
 
-                        {{-- Kolom Mentor Industri --}}
-                        <td class="px-3 py-3">
-                            @if($placement->mentor_id)
-                                <div class="flex items-center text-slate-700 text-xs font-semibold" title="Mentor Industri">
-                                    <span class="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-purple-100">
+                        {{-- KOLOM MENTOR INDUSTRI (DENGAN USERNAME DAN ICON SALIN) --}}
+                        <td class="px-3 py-4">
+                            @if($placement->mentor_id && $placement->mentor)
+                                @php
+                                    $mentorUsername = $placement->mentor->username ?? '-';
+                                @endphp
+                                <div class="flex items-start space-x-2">
+                                    <span class="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-purple-100">
                                         <i class="fas fa-user-tie text-[9px]"></i>
                                     </span>
-                                    <span class="leading-snug text-slate-800 font-bold" title="{{ $placement->mentor->name }}">{{ $placement->mentor->name }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <div class="leading-snug mentor-cell text-slate-800 font-bold truncate" title="{{ $placement->mentor->name }}">
+                                            {{ $placement->mentor->name }}
+                                        </div>
+                                        <div class="flex items-center gap-1 mt-0.5">
+                                            <span class="text-[10px] text-slate-400 font-medium">User: <span class="font-bold text-slate-600">{{ $mentorUsername }}</span></span>
+                                            @if($mentorUsername !== '-')
+                                            <button type="button" onclick="copyToClipboard('{{ $mentorUsername }}', this)" 
+                                                class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-purple-600 hover:bg-purple-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                                title="Salin Username Mentor">
+                                                <i class="far fa-copy text-[9px]"></i>
+                                            </button>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             @else
                                 <span class="inline-flex items-center text-amber-700 bg-amber-50 border border-amber-200/60 px-2 py-0.5 rounded-lg text-[10px] font-extrabold w-fit animate-pulse">
@@ -267,15 +320,15 @@
                             @endif
                         </td>
 
-                        <td class="px-2 py-3 text-center">
-                            <div class="inline-flex flex-col bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg text-center whitespace-nowrap">
+                        <td class="px-2 py-4 text-center">
+                            <div class="inline-flex flex-col bg-slate-50 border border-slate-200/60 px-2.5 py-1 rounded-xl text-center whitespace-nowrap shadow-2xs">
                                 <span class="font-bold text-slate-700 text-[10px]">{{ $placement->tanggal_mulai->format('d M Y') }}</span>
                                 <span class="text-slate-400 text-[7.5px] uppercase font-black tracking-wider leading-none my-0.5">s/d</span>
                                 <span class="font-bold text-slate-700 text-[10px]">{{ $placement->tanggal_selesai->format('d M Y') }}</span>
                             </div>
                         </td>
 
-                        <td class="px-2 py-3 text-center">
+                        <td class="px-2 py-4 text-center">
                             @if($placement->status == 'aktif')
                                 <span class="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span>
@@ -292,7 +345,7 @@
                             @endif
                         </td>
 
-                        <td class="px-2 py-3 text-center">
+                        <td class="px-2 py-4 text-center">
                             <div class="flex justify-center items-center gap-1">
                                 <a href="{{ route('admin.placement.edit', $placement->id) }}" class="text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/60 w-7 h-7 rounded-lg flex items-center justify-center transition-all shadow-2xs hover:shadow-md" title="Update Guru/Mentor">
                                     <i class="fas fa-user-edit text-[10px]"></i>
@@ -311,59 +364,96 @@
 
                     {{-- LOOPING DATA GRADE B --}}
                     @foreach($placementsGradeB as $placement)
-                    <tr class="placement-row grade-b-row hover:bg-amber-50/20 transition-colors duration-150 divide-x divide-slate-200/80">
-                        <td class="px-2 py-3 text-slate-400 font-extrabold text-center text-xs index-cell">{{ $rowNumber++ }}</td>
-                        <td class="px-3 py-3">
+                    <tr class="placement-row grade-b-row align-top hover:bg-amber-50/30 transition-all duration-150 divide-x divide-slate-200/80" data-status="{{ strtolower($placement->status) }}">
+                        <td class="px-2 py-4 text-slate-400 font-extrabold text-center text-xs index-cell bg-slate-50/30">{{ $rowNumber++ }}</td>
+                        <td class="px-3 py-4">
                             <div class="flex items-center space-x-2.5">
                                 <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-sm shadow-amber-500/20">
                                     {{ substr($placement->siswa->name, 0, 1) }}
                                 </div>
                                 <div class="min-w-0">
-                                    <div class="font-bold text-slate-800 name-cell leading-snug" title="{{ $placement->siswa->name }}">{{ $placement->siswa->name }}</div>
+                                    <div class="font-bold text-slate-800 name-cell leading-snug truncate" title="{{ $placement->siswa->name }}">{{ $placement->siswa->name }}</div>
                                     <div class="flex items-center gap-1 mt-0.5 group/copy">
                                         <span class="text-[10px] text-slate-400 font-semibold tracking-wide">{{ $placement->siswa->nomor_identitas }}</span>
                                         <button type="button" onclick="copyToClipboard('{{ $placement->siswa->nomor_identitas }}', this)" 
-                                            class="inline-flex items-center justify-center w-3.5 h-3.5 rounded text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-all duration-200 cursor-pointer" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-amber-600 hover:bg-amber-50 transition-all duration-200 cursor-pointer" 
                                             title="Salin NISN / ID">
-                                            <i class="far fa-copy text-[8px]"></i>
+                                            <i class="far fa-copy text-[9px]"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </td>
 
-                        <td class="px-3 py-3">
-                            <div class="flex flex-col items-start gap-1">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-amber-100 text-amber-800 border border-amber-200/80 shadow-2xs">
+                        {{-- KOLOM LOKASI MAGANG --}}
+                        <td class="px-3 py-4">
+                            <div class="flex flex-col items-start gap-1 max-w-[220px] sm:max-w-xs">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-amber-100 text-amber-800 border border-amber-200/80 shadow-2xs whitespace-nowrap">
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1"></span> Grade B
                                 </span>
-                                <div>
-                                    <div class="font-bold text-slate-800 instansi-cell leading-tight">{{ $placement->instansi->nama_perusahaan }}</div>
-                                    <div class="text-[10.5px] text-slate-500 font-normal leading-snug break-words mt-0.5">
-                                        <i class="fas fa-map-marker-alt text-slate-400 mr-1 text-[9px]"></i>{{ $placement->instansi->alamat }}
+                                <div class="w-full">
+                                    <div class="font-bold text-slate-800 instansi-cell leading-snug truncate" title="{{ $placement->instansi->nama_perusahaan }}">
+                                        {{ $placement->instansi->nama_perusahaan }}
+                                    </div>
+                                    <div class="text-[10.5px] text-slate-500 font-normal leading-relaxed mt-0.5 line-clamp-2" title="{{ $placement->instansi->alamat }}">
+                                        <i class="fas fa-map-marker-alt text-slate-400 mr-1 text-[9px] flex-shrink-0"></i>{{ $placement->instansi->alamat }}
                                     </div>
                                 </div>
                             </div>
                         </td>
 
-                        {{-- Kolom Guru Pembimbing --}}
-                        <td class="px-3 py-3">
-                            <div class="flex items-center text-slate-700 text-xs font-semibold" title="Guru Sekolah">
-                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-emerald-100">
+                        {{-- KOLOM GURU PEMBIMBING (DENGAN NIP DAN ICON SALIN) --}}
+                        @php
+                            $guruNip = $placement->guru->nip ?? $placement->guru->nomor_identitas ?? '-';
+                        @endphp
+                        <td class="px-3 py-4">
+                            <div class="flex items-start space-x-2">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
-                                <span class="leading-snug guru-cell text-slate-800 font-bold" title="{{ $placement->guru->name }}">{{ $placement->guru->name }}</span>
+                                <div class="min-w-0 flex-1">
+                                    <div class="leading-snug guru-cell text-slate-800 font-bold truncate" title="{{ $placement->guru->name }}">
+                                        {{ $placement->guru->name }}
+                                    </div>
+                                    <div class="flex items-center gap-1 mt-0.5">
+                                        <span class="text-[10px] text-slate-400 font-medium">NIP: <span class="font-bold text-slate-600">{{ $guruNip }}</span></span>
+                                        @if($guruNip !== '-')
+                                        <button type="button" onclick="copyToClipboard('{{ $guruNip }}', this)" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                            title="Salin NIP Guru">
+                                            <i class="far fa-copy text-[9px]"></i>
+                                        </button>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </td>
 
-                        {{-- Kolom Mentor Industri --}}
-                        <td class="px-3 py-3">
-                            @if($placement->mentor_id)
-                                <div class="flex items-center text-slate-700 text-xs font-semibold" title="Mentor Industri">
-                                    <span class="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center mr-1.5 flex-shrink-0 border border-purple-100">
+                        {{-- KOLOM MENTOR INDUSTRI (DENGAN USERNAME DAN ICON SALIN) --}}
+                        <td class="px-3 py-4">
+                            @if($placement->mentor_id && $placement->mentor)
+                                @php
+                                    $mentorUsername = $placement->mentor->username ?? '-';
+                                @endphp
+                                <div class="flex items-start space-x-2">
+                                    <span class="w-5 h-5 rounded-md bg-purple-50 text-purple-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-purple-100">
                                         <i class="fas fa-user-tie text-[9px]"></i>
                                     </span>
-                                    <span class="leading-snug text-slate-800 font-bold" title="{{ $placement->mentor->name }}">{{ $placement->mentor->name }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <div class="leading-snug mentor-cell text-slate-800 font-bold truncate" title="{{ $placement->mentor->name }}">
+                                            {{ $placement->mentor->name }}
+                                        </div>
+                                        <div class="flex items-center gap-1 mt-0.5">
+                                            <span class="text-[10px] text-slate-400 font-medium">User: <span class="font-bold text-slate-600">{{ $mentorUsername }}</span></span>
+                                            @if($mentorUsername !== '-')
+                                            <button type="button" onclick="copyToClipboard('{{ $mentorUsername }}', this)" 
+                                                class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-purple-600 hover:bg-purple-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                                title="Salin Username Mentor">
+                                                <i class="far fa-copy text-[9px]"></i>
+                                            </button>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             @else
                                 <span class="inline-flex items-center text-amber-700 bg-amber-50 border border-amber-200/60 px-2 py-0.5 rounded-lg text-[10px] font-extrabold w-fit animate-pulse">
@@ -372,15 +462,15 @@
                             @endif
                         </td>
 
-                        <td class="px-2 py-3 text-center">
-                            <div class="inline-flex flex-col bg-slate-50 border border-slate-200/60 px-2 py-0.5 rounded-lg text-center whitespace-nowrap">
+                        <td class="px-2 py-4 text-center">
+                            <div class="inline-flex flex-col bg-slate-50 border border-slate-200/60 px-2.5 py-1 rounded-xl text-center whitespace-nowrap shadow-2xs">
                                 <span class="font-bold text-slate-700 text-[10px]">{{ $placement->tanggal_mulai->format('d M Y') }}</span>
                                 <span class="text-slate-400 text-[7.5px] uppercase font-black tracking-wider leading-none my-0.5">s/d</span>
                                 <span class="font-bold text-slate-700 text-[10px]">{{ $placement->tanggal_selesai->format('d M Y') }}</span>
                             </div>
                         </td>
 
-                        <td class="px-2 py-3 text-center">
+                        <td class="px-2 py-4 text-center">
                             @if($placement->status == 'aktif')
                                 <span class="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span>
@@ -397,7 +487,7 @@
                             @endif
                         </td>
 
-                        <td class="px-2 py-3 text-center">
+                        <td class="px-2 py-4 text-center">
                             <div class="flex justify-center items-center gap-1">
                                 <a href="{{ route('admin.placement.edit', $placement->id) }}" class="text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200/60 w-7 h-7 rounded-lg flex items-center justify-center transition-all shadow-2xs hover:shadow-md" title="Update Guru/Mentor">
                                     <i class="fas fa-user-edit text-[10px]"></i>
@@ -435,7 +525,7 @@
                     <tr id="noResultRow" class="hidden">
                         <td colspan="8" class="px-6 py-10 text-center text-slate-400 bg-slate-50/50 italic text-xs font-medium">
                             <i class="fas fa-search-minus mr-2 text-slate-300 text-base"></i>
-                            Tidak ditemukan data penempatan magang yang cocok pada tab ini.
+                            Tidak ditemukan data penempatan magang yang cocok pada filter ini.
                         </td>
                     </tr>
                 </tbody>
@@ -719,10 +809,13 @@
         applyTableFilters();
     }
 
-    // --- FUNGSI FILTER INTEGRASI TAB + PENCARIAN ---
+    // --- FUNGSI FILTER INTEGRASI TAB + PENCARIAN + STATUS MAGANG ---
     function applyTableFilters() {
         const searchInput = document.getElementById('placementSearchInput');
         const filter = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        const statusSelect = document.getElementById('statusFilterSelect');
+        const selectedStatus = statusSelect ? statusSelect.value : 'all';
         
         const rows = document.getElementsByClassName('placement-row');
         const noResultRow = document.getElementById('noResultRow');
@@ -736,6 +829,7 @@
             const row = rows[i];
             const isGradeA = row.classList.contains('grade-a-row');
             const isGradeB = row.classList.contains('grade-b-row');
+            const rowStatus = row.getAttribute('data-status') || '';
 
             // Cek filter Tab
             let tabMatched = false;
@@ -743,23 +837,31 @@
             else if (activeTab === 'grade_a' && isGradeA) tabMatched = true;
             else if (activeTab === 'grade_b' && isGradeB) tabMatched = true;
 
+            // Cek filter Dropdown Status
+            let statusMatched = false;
+            if (selectedStatus === 'all' || rowStatus === selectedStatus) {
+                statusMatched = true;
+            }
+
             // Cek filter Pencarian
             const nameCell = row.getElementsByClassName('name-cell')[0];
             const instansiCell = row.getElementsByClassName('instansi-cell')[0];
             const guruCell = row.getElementsByClassName('guru-cell')[0];
+            const mentorCell = row.getElementsByClassName('mentor-cell')[0];
 
             let searchMatched = false;
-            if (nameCell || instansiCell || guruCell) {
-                const nameText = (nameCell.textContent || nameCell.innerText).toLowerCase();
-                const instansiText = (instansiCell.textContent || instansiCell.innerText).toLowerCase();
-                const guruText = (guruCell.textContent || guruCell.innerText).toLowerCase();
+            if (nameCell || instansiCell || guruCell || mentorCell) {
+                const nameText = nameCell ? (nameCell.textContent || nameCell.innerText).toLowerCase() : '';
+                const instansiText = instansiCell ? (instansiCell.textContent || instansiCell.innerText).toLowerCase() : '';
+                const guruText = guruCell ? (guruCell.textContent || guruCell.innerText).toLowerCase() : '';
+                const mentorText = mentorCell ? (mentorCell.textContent || mentorCell.innerText).toLowerCase() : '';
 
-                if (filter === '' || nameText.includes(filter) || instansiText.includes(filter) || guruText.includes(filter)) {
+                if (filter === '' || nameText.includes(filter) || instansiText.includes(filter) || guruText.includes(filter) || mentorText.includes(filter)) {
                     searchMatched = true;
                 }
             }
 
-            if (tabMatched && searchMatched) {
+            if (tabMatched && statusMatched && searchMatched) {
                 row.classList.remove('hidden');
                 visibleCount++;
                 const indexCell = row.getElementsByClassName('index-cell')[0];
@@ -775,8 +877,10 @@
         }
     }
 
-    // --- FUNGSI SALIN NISN / ID KE CLIPBOARD ---
+    // --- FUNGSI SALIN TEKS (NISN, NIP, USERNAME, DLL) KE CLIPBOARD ---
     function copyToClipboard(text, buttonElement) {
+        if (!text || text.trim() === '' || text === '-') return;
+
         if (!navigator.clipboard) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -796,10 +900,12 @@
 
     function showCopyFeedback(btn) {
         const icon = btn.querySelector('i');
+        if (!icon) return;
+        
         const originalClass = icon.className;
         
         // Ubah ikon ke Centang Hijau
-        icon.className = 'fas fa-check text-emerald-500 text-[8px]';
+        icon.className = 'fas fa-check text-emerald-500 text-[9px]';
         btn.classList.add('bg-emerald-50');
         
         setTimeout(() => {

@@ -11,6 +11,23 @@
         display: none !important;
     }
 
+    /* Enhancement Tampilan Card Manajemen Kuota Industri */
+    .kuota-card-item {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 1.125rem;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .kuota-card-item:hover {
+        background-color: #ffffff;
+        border-color: #cbd5e1;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        transform: translateY(-2px);
+    }
+
     @media print {
         /* Set Kertas Portrait A4 dengan Margin Presisi */
         @page {
@@ -1036,7 +1053,7 @@
                 <div class="bg-emerald-50/60 p-3.5 rounded-2xl border border-emerald-200/80 space-y-2">
                     <p class="font-medium">Rule Aktif Terpenuhi: <strong id="m_sugeno_rule" class="text-[#234F35] font-bold">Rule -</strong></p>
                     <div class="flex justify-between items-center bg-white p-2.5 rounded-xl border border-emerald-100">
-                        <span class="font-extrabold text-slate-600">Output Defuzzifikasi ($z$):</span>
+                        <span class="font-extrabold text-slate-600">Output Defuzzifikasi (Z):</span>
                         <span id="m_sugeno_score" class="font-black text-[#234F35] text-sm"></span>
                     </div>
                 </div>
@@ -1367,7 +1384,7 @@
         eksporAtauCetakLaporanSPK();
     }
 
-    // UPDATE CARD KUOTA MONITORING (TANPA TOMBOL RODA GIGI DI CARD GRADE A & B)
+    // UPDATE CARD KUOTA MONITORING (DESAIN DIJADIKAN LEBIH CLEAR, MODERN DAN SEIMBANG)
     function updateCardKuotaMonitoring() {
         const containerA = document.getElementById('containerKuotaGradeA');
         const containerB = document.getElementById('containerKuotaGradeB');
@@ -1464,7 +1481,7 @@
             }).join('');
         }
 
-        // Render Card khusus Manajemen Kuota Interaktif (Tempat Pengaturan Utama)
+        // Render Card khusus Manajemen Kuota Interaktif (Tempat Pengaturan Utama dengan Desain Presisi)
         if (gridKontrol) {
             let listAll = [];
             if (activeFilterKuotaGrade === 'ALL' || activeFilterKuotaGrade === 'GRADE_A') {
@@ -1482,32 +1499,41 @@
                 const isGradeA = item.grade === 'A';
                 const safeInstansiNama = item.nama.replace(/'/g, "\\'");
 
+                let progressBarColor = 'bg-[#234F35]';
+                if (isFull) {
+                    progressBarColor = 'bg-rose-500';
+                } else if (percent >= 70) {
+                    progressBarColor = 'bg-amber-500';
+                }
+
                 return `
-                    <div class="bg-slate-50/70 hover:bg-white border ${isFull ? 'border-rose-200 bg-rose-50/20' : 'border-slate-200/80'} rounded-2xl p-4 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col justify-between space-y-3 relative overflow-hidden group">
+                    <div class="kuota-card-item flex flex-col justify-between gap-3 relative group ${isFull ? '!border-rose-200 !bg-rose-50/20' : ''}">
                         <div class="flex items-start justify-between gap-2">
                             <div class="flex items-center space-x-3 min-w-0">
-                                <div class="w-9 h-9 rounded-xl ${isGradeA ? 'bg-emerald-100 text-[#234F35]' : 'bg-amber-100 text-amber-700'} flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                <div class="w-10 h-10 rounded-xl ${isGradeA ? 'bg-emerald-100/70 text-[#234F35]' : 'bg-amber-100/70 text-amber-800'} flex items-center justify-center font-bold text-sm flex-shrink-0">
                                     <i class="${item.icon}"></i>
                                 </div>
                                 <div class="min-w-0 flex-1">
-                                    <h4 class="font-extrabold text-slate-800 text-xs truncate leading-snug" title="${item.nama}">${item.nama}</h4>
-                                    <span class="inline-flex items-center text-[9px] font-black px-1.5 py-0.2 rounded mt-0.5 ${isGradeA ? 'bg-emerald-50 text-[#234F35] border border-emerald-200/60' : 'bg-amber-50 text-amber-700 border border-amber-200/60'}">
-                                        Grade ${item.grade}
-                                    </span>
+                                    <h4 class="font-extrabold text-slate-800 text-xs sm:text-sm truncate leading-tight" title="${item.nama}">${item.nama}</h4>
+                                    <div class="mt-1">
+                                        <span class="inline-flex items-center text-[9.5px] font-black px-2 py-0.5 rounded-md ${isGradeA ? 'bg-emerald-100/80 text-[#234F35]' : 'bg-amber-100/80 text-amber-900'}">
+                                            Grade ${item.grade}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <button type="button" onclick="openKuotaModal('${safeInstansiNama}')" class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-500 hover:text-[#234F35] hover:border-emerald-200 transition-colors shadow-2xs cursor-pointer flex-shrink-0" title="Ubah Kuota">
+                            <button type="button" onclick="openKuotaModal('${safeInstansiNama}')" class="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-[#234F35] hover:border-emerald-300 transition-colors shadow-2xs cursor-pointer flex-shrink-0" title="Ubah Kuota">
                                 <i class="fas fa-edit text-xs"></i>
                             </button>
                         </div>
 
-                        <div class="space-y-1.5">
-                            <div class="flex justify-between items-center text-[10px] font-extrabold">
-                                <span class="text-slate-400">Terisi: <strong class="text-slate-700">${item.terisi}</strong> / Max: <strong class="text-slate-900">${maxK}</strong></span>
-                                <span class="${isFull ? 'text-rose-600 font-black' : 'text-slate-500'}">Sisa ${sisa} Slot</span>
+                        <div class="space-y-1.5 pt-1">
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="font-medium text-slate-500">Terisi: <strong class="text-slate-800 font-extrabold">${item.terisi}</strong> / Max: <strong class="text-slate-800 font-extrabold">${maxK}</strong></span>
+                                <span class="${isFull ? 'text-rose-600 font-black' : 'text-slate-500 font-semibold'}">Sisa ${sisa} Slot</span>
                             </div>
-                            <div class="w-full h-2 bg-slate-200/70 rounded-full overflow-hidden">
-                                <div class="h-full transition-all duration-500 rounded-full ${isFull ? 'bg-rose-500' : (percent > 70 ? 'bg-amber-500' : 'bg-[#234F35]')}" style="width: ${percent}%;"></div>
+                            <div class="w-full h-2 bg-slate-200/80 rounded-full overflow-hidden">
+                                <div class="h-full transition-all duration-500 rounded-full ${progressBarColor}" style="width: ${percent}%;"></div>
                             </div>
                         </div>
                     </div>
