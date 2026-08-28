@@ -1068,19 +1068,19 @@
                 <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 space-y-3">
                     <div class="grid grid-cols-2 gap-2 text-center">
                         <div class="bg-white p-2 rounded-xl border border-slate-200">
-                            <span class="text-[10px] font-bold text-slate-400 block">Norm $r_1$ (Akademik)</span>
+                            <span class="text-[10px] font-bold text-slate-400 block">Norm r1 (Akademik)</span>
                             <span id="m_r1_val" class="font-extrabold text-slate-800 text-xs"></span>
                         </div>
                         <div class="bg-white p-2 rounded-xl border border-slate-200">
-                            <span class="text-[10px] font-bold text-slate-400 block">Norm $r_2$ (Kehadiran)</span>
+                            <span class="text-[10px] font-bold text-slate-400 block">Norm r2 (Kehadiran)</span>
                             <span id="m_r2_val" class="font-extrabold text-slate-800 text-xs"></span>
                         </div>
                     </div>
                     <div class="p-3 bg-emerald-50/80 rounded-xl border border-emerald-100 space-y-1">
-                        <span class="font-extrabold text-[#234F35]">Rumus Nilai Preferensi ($V_i$):</span>
-                        <p class="font-mono text-[11px] text-[#234F35]" id="m_saw_formula">$V_i = (W_1 \times r_1) + (W_2 \times r_2)$</p>
+                        <span class="font-extrabold text-[#234F35]">Rumus Nilai Preferensi (Vi):</span>
+                        <p class="font-mono text-[11px] text-[#234F35]" id="m_saw_formula">Vi = (W1 x r1) + (W2 x r2)</p>
                         <div class="pt-1 flex justify-between items-center">
-                            <span class="font-extrabold text-slate-700">Skor Akhir Preferensi ($V$):</span>
+                            <span class="font-extrabold text-slate-700">Skor Akhir Preferensi (V):</span>
                             <span id="m_v_final" class="font-black text-[#234F35] text-sm"></span>
                         </div>
                     </div>
@@ -2060,7 +2060,7 @@
         document.getElementById('m_r1_val').textContent = `${c1} / 100 = ${r1}`;
         document.getElementById('m_r2_val').textContent = `${c2} / 100 = ${r2}`;
 
-        document.getElementById('m_saw_formula').textContent = `V = (0.6 × ${r1}) + (0.4 × ${r2})`;
+        document.getElementById('m_saw_formula').textContent = `V = (0.6 x ${r1}) + (0.4 x ${r2})`;
         document.getElementById('m_v_final').textContent = finalVal;
 
         document.getElementById('modalMathBreakdown').classList.remove('hidden');

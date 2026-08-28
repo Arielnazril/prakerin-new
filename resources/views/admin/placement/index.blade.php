@@ -8,102 +8,100 @@
 @section('page_title', 'Data Penempatan Magang')
 
 @section('content')
-<div class="space-y-8 animate-fade-in">
+<div class="space-y-8 animate-fade-in font-sans antialiased selection:bg-[#234F35] selection:text-white">
 
     <!-- HEADER SECTION -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-slate-900 p-6 sm:p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden border border-slate-800">
         <!-- Accent Glow Effects -->
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-10 -top-10 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-12 -bottom-12 w-56 h-56 bg-gradient-to-br from-[#89C74A]/20 to-emerald-600/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-12 -top-12 w-56 h-56 bg-gradient-to-tr from-[#234F35]/30 to-teal-500/0 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-        <div class="relative z-10">
-            <div class="flex items-center space-x-3 mb-2">
-                <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-400/20 uppercase tracking-widest">
-                    Manajemen Prakerin
+        <div class="relative z-10 space-y-2">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center gap-1.5 bg-[#89C74A]/10 text-[#89C74A] text-[10px] sm:text-xs font-black px-3.5 py-1 rounded-full border border-[#89C74A]/20 tracking-widest uppercase backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#89C74A] animate-pulse"></span>
+                    <i class="fas fa-briefcase text-[#89C74A]"></i> Manajemen Prakerin
                 </span>
             </div>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white"> Hasil Plotting Siswa Prakerin</h2>
-            <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 max-w-xl leading-relaxed">
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight flex items-center gap-3">
+                <span class="p-2.5 bg-gradient-to-br from-[#234F35]/40 to-emerald-800/40 text-[#89C74A] rounded-2xl border border-[#89C74A]/30 backdrop-blur-xl shadow-inner flex items-center justify-center">
+                    <i class="fas fa-map-marked-alt text-base"></i>
+                </span>
+                Hasil Plotting <span class="text-[#89C74A]">Siswa Prakerin</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 font-medium max-w-xl leading-relaxed">
                 Kelola penempatan siswa, alokasi guru pembimbing, dan pendaftaran mentor industri secara terpusat.
             </p>
         </div>
 
         <div class="relative z-10 flex-shrink-0">
-            <a href="{{ route('admin.placement.calculate') }}" class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-emerald-600/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs sm:text-sm uppercase tracking-wider group cursor-pointer whitespace-nowrap">
+            <a href="{{ route('admin.placement.calculate') }}" class="inline-flex items-center justify-center bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white font-extrabold py-3.5 px-6 rounded-2xl shadow-md shadow-[#234F35]/20 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 text-xs sm:text-sm uppercase tracking-wider group cursor-pointer whitespace-nowrap border border-emerald-400/20">
                 <i class="fas fa-plus-circle mr-2 text-base transition-transform group-hover:rotate-90 duration-300"></i> Plotting Baru
             </a>
         </div>
     </div>
 
     {{-- KOTAK PENCARIAN & STATISTIK RINGKASAN --}}
-    <div class="bg-white/90 backdrop-blur-md p-5 sm:p-6 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100/80 flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-6">
+    <div class="bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
         
-        <!-- Grid Ringkasan Statistik -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full lg:w-auto flex-1">
+        <!-- Grid Ringkasan Statistik & Filter Dropdown/Input (Layout Grid Rapi) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 items-center">
             
             {{-- Statistik Total Semua Siswa --}}
-            <div class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/60 hover:from-slate-100 hover:to-slate-200/50 transition-all duration-300 p-4 rounded-2xl border border-slate-200/70 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
-                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-slate-400/10 rounded-full blur-xl group-hover:bg-slate-500/15 transition-all"></div>
-                
-                <div class="flex items-center space-x-3.5 relative z-10">
-                    <div class="w-11 h-11 rounded-xl bg-white text-slate-700 flex items-center justify-center font-bold shadow-sm border border-slate-200/60 group-hover:scale-105 transition-transform duration-300">
+            <div class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100/80 hover:from-slate-100 transition-all duration-300 p-4 rounded-2xl border border-slate-200/80 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[80px]">
+                <div class="flex items-center space-x-3 relative z-10 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-white text-slate-700 flex items-center justify-center font-bold shadow-xs border border-slate-200/70 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
                         <i class="fas fa-users text-sm text-slate-600"></i>
                     </div>
-                    <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Total Siswa</p>
-                        <p class="text-xs font-bold text-slate-700 mt-0.5">Terdaftar</p>
+                    <div class="min-w-0">
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 truncate">Total Siswa</p>
+                        <p class="text-xs font-bold text-slate-800 mt-0.5 truncate">Terdaftar</p>
                     </div>
                 </div>
                 
-                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-slate-800 px-3.5 py-1.5 rounded-xl border border-slate-200 shadow-xs whitespace-nowrap">
+                <span class="relative z-10 text-xs font-black bg-white text-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 shadow-2xs whitespace-nowrap ml-2">
                     {{ $placements->count() }} Siswa
                 </span>
             </div>
 
             {{-- Statistik Siswa Aktif --}}
-            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50/80 to-teal-50/40 hover:from-emerald-100/70 hover:to-teal-100/50 transition-all duration-300 p-4 rounded-2xl border border-emerald-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
-                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
-                
-                <div class="flex items-center space-x-3.5 relative z-10">
-                    <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold shadow-xs border border-emerald-200/50 group-hover:scale-105 transition-transform duration-300">
-                        <i class="fas fa-running text-sm text-emerald-600"></i>
+            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50/90 via-emerald-50/40 to-teal-50/30 hover:from-emerald-100/80 transition-all duration-300 p-4 rounded-2xl border border-emerald-200/80 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[80px]">
+                <div class="flex items-center space-x-3 relative z-10 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-[#234F35]/10 text-[#234F35] flex items-center justify-center font-bold shadow-xs border border-emerald-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                        <i class="fas fa-running text-sm text-[#234F35]"></i>
                     </div>
-                    <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-600/80">Aktif Magang</p>
-                        <p class="text-xs font-bold text-emerald-900 mt-0.5">Sedang Jalan</p>
+                    <div class="min-w-0">
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-[#234F35] truncate">Aktif Magang</p>
+                        <p class="text-xs font-bold text-slate-900 mt-0.5 truncate">Sedang Jalan</p>
                     </div>
                 </div>
                 
-                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-emerald-700 px-3.5 py-1.5 rounded-xl border border-emerald-200/80 shadow-xs whitespace-nowrap">
+                <span class="relative z-10 text-xs font-black bg-white text-[#234F35] px-3 py-1.5 rounded-xl border border-emerald-200/80 shadow-2xs whitespace-nowrap ml-2">
                     {{ $placements->where('status', 'aktif')->count() }} Siswa
                 </span>
             </div>
 
             {{-- Statistik Siswa Selesai --}}
-            <div class="relative overflow-hidden bg-gradient-to-br from-teal-50/80 to-emerald-50/40 hover:from-teal-100/70 hover:to-emerald-100/50 transition-all duration-300 p-4 rounded-2xl border border-teal-200/60 flex items-center justify-between group shadow-xs hover:shadow-md hover:-translate-y-0.5">
-                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-teal-500/10 rounded-full blur-xl group-hover:bg-teal-500/20 transition-all"></div>
-                
-                <div class="flex items-center space-x-3.5 relative z-10">
-                    <div class="w-11 h-11 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center font-bold shadow-xs border border-teal-200/50 group-hover:scale-105 transition-transform duration-300">
-                        <i class="fas fa-check-circle text-sm text-teal-600"></i>
+            <div class="relative overflow-hidden bg-gradient-to-br from-teal-50/80 to-emerald-50/40 hover:from-teal-100/70 transition-all duration-300 p-4 rounded-2xl border border-teal-200/80 flex items-center justify-between group shadow-2xs hover:shadow-md min-h-[80px]">
+                <div class="flex items-center space-x-3 relative z-10 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-700 flex items-center justify-center font-bold shadow-xs border border-teal-200/60 group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                        <i class="fas fa-check-circle text-sm text-teal-700"></i>
                     </div>
-                    <div>
-                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-teal-600/80">Lulus / Selesai</p>
-                        <p class="text-xs font-bold text-teal-900 mt-0.5">Selesai Prakerin</p>
+                    <div class="min-w-0">
+                        <p class="text-[10px] font-extrabold uppercase tracking-wider text-teal-700 truncate">Lulus / Selesai</p>
+                        <p class="text-xs font-bold text-slate-900 mt-0.5 truncate">Selesai Prakerin</p>
                     </div>
                 </div>
                 
-                <span class="relative z-10 text-xs sm:text-sm font-black bg-white text-teal-700 px-3.5 py-1.5 rounded-xl border border-teal-200/80 shadow-xs whitespace-nowrap">
+                <span class="relative z-10 text-xs font-black bg-white text-teal-800 px-3 py-1.5 rounded-xl border border-teal-200/80 shadow-2xs whitespace-nowrap ml-2">
                     {{ $placements->where('status', 'selesai')->count() }} Siswa
                 </span>
             </div>
 
-        </div>
-        
-        <!-- Input Pencarian & Filter Status Fitur Tambahan -->
-        <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto flex-shrink-0">
-            <div class="relative w-full sm:w-44">
-                <select id="statusFilterSelect" onchange="applyTableFilters()" class="w-full pl-3 pr-8 py-3 bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200/80 rounded-2xl text-xs font-bold text-slate-700 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all cursor-pointer shadow-xs">
+            <!-- Select Status Filter -->
+            <div class="relative w-full">
+                <select id="statusFilterSelect" onchange="applyTableFilters()" class="w-full h-12 pl-4 pr-9 bg-slate-50/80 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-2xl text-xs font-extrabold text-slate-700 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all cursor-pointer shadow-2xs">
                     <option value="all">Semua Status</option>
                     <option value="aktif">Sedang Magang</option>
                     <option value="selesai">Selesai</option>
@@ -111,13 +109,15 @@
                 </select>
             </div>
             
-            <div class="relative w-full sm:w-72 group">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors duration-200">
+            <!-- Input Search -->
+            <div class="relative w-full group">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400 group-focus-within:text-[#234F35] transition-colors duration-200">
                     <i class="fas fa-search text-sm"></i>
                 </span>
-                <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, guru, mentor..." 
-                    class="w-full pl-11 pr-4 py-3 bg-slate-50/80 hover:bg-slate-100/50 focus:bg-white border border-slate-200/80 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all duration-200 shadow-xs hover:shadow-sm">
+                <input type="text" id="placementSearchInput" placeholder="Cari siswa, instansi, guru..." 
+                    class="w-full h-12 pl-11 pr-4 bg-slate-50/80 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 placeholder-slate-400 focus:ring-4 focus:ring-[#234F35]/10 focus:border-[#234F35] outline-none transition-all duration-200 shadow-2xs">
             </div>
+
         </div>
     </div>
 
@@ -155,7 +155,7 @@
     <!-- TAB NAVIGASI KATEGORI GRADE INSTANSI -->
     <div class="flex items-center space-x-2 bg-slate-200/60 p-1.5 rounded-2xl w-fit border border-slate-200/80 shadow-inner">
         <button type="button" onclick="switchGradeTab('all')" id="tab_btn_all" 
-            class="tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-emerald-600 shadow-sm cursor-pointer">
+            class="tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-[#234F35] shadow-xs cursor-pointer">
             <i class="fas fa-layer-group text-xs"></i>
             <span>Semua Penempatan</span>
             <span class="px-2 py-0.5 rounded-lg text-[10px] bg-slate-100 text-slate-600 ml-1">{{ $placements->count() }}</span>
@@ -165,7 +165,7 @@
             class="tab-btn px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 text-slate-600 hover:text-slate-900 hover:bg-white/50 cursor-pointer">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span>Instansi Grade A</span>
-            <span class="px-2 py-0.5 rounded-lg text-[10px] bg-emerald-100 text-emerald-800 ml-1">{{ $placementsGradeA->count() }}</span>
+            <span class="px-2 py-0.5 rounded-lg text-[10px] bg-emerald-100 text-[#234F35] ml-1">{{ $placementsGradeA->count() }}</span>
         </button>
 
         <button type="button" onclick="switchGradeTab('grade_b')" id="tab_btn_grade_b" 
@@ -180,7 +180,7 @@
     <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100 p-4 sm:p-6">
         
         <!-- HEADER TABEL & TOMBOL AKSI -->
-        <div class="p-5 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50 rounded-t-2xl">
+        <div class="p-5 sm:p-6 border-b border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50 rounded-t-2xl mb-4">
             <div>
                 <h3 class="text-base font-bold text-slate-800" id="tableHeaderTitle">Daftar Penempatan Magang</h3>
                 <p class="text-xs text-slate-400 font-medium" id="tableHeaderSubtitle">Seluruh data plotting siswa berdasarkan kategori instansi.</p>
@@ -188,7 +188,7 @@
             <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
                 {{-- TOMBOL EKSPOR PDF --}}
                 <button type="button" onclick="triggerExportPdf()" @if($placements->isEmpty()) disabled @endif 
-                    class="inline-flex items-center justify-center bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-600/80 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap">
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#234F35] to-emerald-800 hover:from-emerald-900 hover:to-[#234F35] text-white border border-emerald-400/20 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md shadow-[#234F35]/20 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap">
                     <i class="fas fa-file-pdf mr-2 text-xs text-emerald-100"></i> Cetak PDF / Laporan
                 </button>
 
@@ -196,7 +196,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="button" id="btnTriggerDeleteAll" @if($placements->isEmpty()) disabled @endif 
-                        class="inline-flex items-center justify-center bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200/80 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-xs hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap">
+                        class="inline-flex items-center justify-center bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200/80 px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-2xs hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap">
                         <i class="fas fa-trash-alt mr-2 text-xs text-rose-500"></i> Hapus Semua Data
                     </button>
                 </form>
@@ -226,7 +226,7 @@
                         <td class="px-2 py-4 text-slate-400 font-extrabold text-center text-xs index-cell bg-slate-50/30">{{ $rowNumber++ }}</td>
                         <td class="px-3 py-4">
                             <div class="flex items-center space-x-2.5">
-                                <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-sm shadow-emerald-500/20">
+                                <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-[#234F35] to-emerald-800 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-2xs">
                                     {{ substr($placement->siswa->name, 0, 1) }}
                                 </div>
                                 <div class="min-w-0">
@@ -234,7 +234,7 @@
                                     <div class="flex items-center gap-1 mt-0.5 group/copy">
                                         <span class="text-[10px] text-slate-400 font-semibold tracking-wide">{{ $placement->siswa->nomor_identitas }}</span>
                                         <button type="button" onclick="copyToClipboard('{{ $placement->siswa->nomor_identitas }}', this)" 
-                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-[#234F35] hover:bg-emerald-50 transition-all duration-200 cursor-pointer" 
                                             title="Salin NISN / ID">
                                             <i class="far fa-copy text-[9px]"></i>
                                         </button>
@@ -246,8 +246,8 @@
                         {{-- KOLOM LOKASI MAGANG --}}
                         <td class="px-3 py-4">
                             <div class="flex flex-col items-start gap-1 max-w-[220px] sm:max-w-xs">
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 border border-emerald-200/80 shadow-2xs whitespace-nowrap">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1"></span> Grade A
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-[#234F35] border border-emerald-200/80 shadow-2xs whitespace-nowrap">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#234F35] mr-1"></span> Grade A
                                 </span>
                                 <div class="w-full">
                                     <div class="font-bold text-slate-800 instansi-cell leading-snug truncate" title="{{ $placement->instansi->nama_perusahaan }}">
@@ -266,7 +266,7 @@
                         @endphp
                         <td class="px-3 py-4">
                             <div class="flex items-start space-x-2">
-                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-[#234F35] flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
                                 <div class="min-w-0 flex-1">
@@ -277,7 +277,7 @@
                                         <span class="text-[10px] text-slate-400 font-medium">NIP: <span class="font-bold text-slate-600">{{ $guruNip }}</span></span>
                                         @if($guruNip !== '-')
                                         <button type="button" onclick="copyToClipboard('{{ $guruNip }}', this)" 
-                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-[#234F35] hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
                                             title="Salin NIP Guru">
                                             <i class="far fa-copy text-[9px]"></i>
                                         </button>
@@ -330,8 +330,8 @@
 
                         <td class="px-2 py-4 text-center">
                             @if($placement->status == 'aktif')
-                                <span class="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span>
+                                <span class="inline-flex items-center justify-center bg-emerald-50 text-[#234F35] px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#234F35] mr-1 animate-ping"></span>
                                     Sedang Magang
                                 </span>
                             @elseif($placement->status == 'selesai')
@@ -368,7 +368,7 @@
                         <td class="px-2 py-4 text-slate-400 font-extrabold text-center text-xs index-cell bg-slate-50/30">{{ $rowNumber++ }}</td>
                         <td class="px-3 py-4">
                             <div class="flex items-center space-x-2.5">
-                                <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-sm shadow-amber-500/20">
+                                <div class="h-8 w-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0 shadow-2xs">
                                     {{ substr($placement->siswa->name, 0, 1) }}
                                 </div>
                                 <div class="min-w-0">
@@ -408,7 +408,7 @@
                         @endphp
                         <td class="px-3 py-4">
                             <div class="flex items-start space-x-2">
-                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
+                                <span class="w-5 h-5 rounded-md bg-emerald-50 text-[#234F35] flex items-center justify-center mt-0.5 flex-shrink-0 border border-emerald-100">
                                     <i class="fas fa-chalkboard-teacher text-[9px]"></i>
                                 </span>
                                 <div class="min-w-0 flex-1">
@@ -419,7 +419,7 @@
                                         <span class="text-[10px] text-slate-400 font-medium">NIP: <span class="font-bold text-slate-600">{{ $guruNip }}</span></span>
                                         @if($guruNip !== '-')
                                         <button type="button" onclick="copyToClipboard('{{ $guruNip }}', this)" 
-                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
+                                            class="inline-flex items-center justify-center w-4 h-4 rounded text-slate-400 hover:text-[#234F35] hover:bg-emerald-50 transition-all duration-200 cursor-pointer flex-shrink-0" 
                                             title="Salin NIP Guru">
                                             <i class="far fa-copy text-[9px]"></i>
                                         </button>
@@ -472,8 +472,8 @@
 
                         <td class="px-2 py-4 text-center">
                             @if($placement->status == 'aktif')
-                                <span class="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-ping"></span>
+                                <span class="inline-flex items-center justify-center bg-emerald-50 text-[#234F35] px-2.5 py-1 rounded-full text-[10px] font-bold border border-emerald-200/80 whitespace-nowrap shadow-2xs">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#234F35] mr-1 animate-ping"></span>
                                     Sedang Magang
                                 </span>
                             @elseif($placement->status == 'selesai')
@@ -513,7 +513,7 @@
                                 </div>
                                 <p class="font-bold text-slate-700 text-base">Belum Ada Plotting</p>
                                 <p class="text-xs text-slate-400 mt-1 mb-4">Belum ada data siswa yang ditempatkan ke instansi magang.</p>
-                                <a href="{{ route('admin.placement.create') }}" class="inline-flex items-center text-xs font-black text-emerald-600 bg-emerald-50 border border-emerald-200/80 px-4 py-2.5 rounded-xl hover:bg-emerald-100 transition shadow-2xs">
+                                <a href="{{ route('admin.placement.create') }}" class="inline-flex items-center text-xs font-black text-[#234F35] bg-emerald-50 border border-emerald-200/80 px-4 py-2.5 rounded-xl hover:bg-emerald-100 transition shadow-2xs">
                                     <i class="fas fa-plus mr-2"></i> Mulai Plotting Sekarang
                                 </a>
                             </div>
@@ -665,7 +665,7 @@
                 </td>
                 <td class="p-1.5 border border-slate-300 text-center font-bold capitalize">
                     @if($placement->status == 'aktif')
-                        <span class="text-emerald-700">Aktif</span>
+                        <span class="text-[#234F35]">Aktif</span>
                     @elseif($placement->status == 'selesai')
                         <span class="text-teal-700">Selesai</span>
                     @else
@@ -793,15 +793,15 @@
 
         // Set style tab aktif & header
         if (tabName === 'all') {
-            btnAll.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-emerald-600 shadow-sm cursor-pointer";
+            btnAll.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-[#234F35] shadow-xs cursor-pointer";
             if (title) title.textContent = "Daftar Penempatan Magang (Semua)";
             if (subtitle) subtitle.textContent = "Menampilkan seluruh data plotting siswa dari semua kategori instansi.";
         } else if (tabName === 'grade_a') {
-            btnGradeA.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-emerald-700 shadow-sm cursor-pointer";
+            btnGradeA.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-[#234F35] shadow-xs cursor-pointer";
             if (title) title.textContent = "Daftar Penempatan Magang - Instansi Grade A";
             if (subtitle) subtitle.textContent = "Menampilkan siswa yang ditempatkan pada instansi Pemerintah / BUMN / Perusahaan Besar.";
         } else if (tabName === 'grade_b') {
-            btnGradeB.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-amber-700 shadow-sm cursor-pointer";
+            btnGradeB.className = "tab-btn active px-5 py-2.5 rounded-xl text-xs font-black transition-all duration-200 flex items-center space-x-2 bg-white text-amber-700 shadow-xs cursor-pointer";
             if (title) title.textContent = "Daftar Penempatan Magang - Instansi Grade B";
             if (subtitle) subtitle.textContent = "Menampilkan siswa yang ditempatkan pada perusahaan Swasta / UMKM / Lokal.";
         }
